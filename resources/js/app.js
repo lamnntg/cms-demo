@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import vuetify from '@/plugins/vuetify';
+require('./bootstrap');
 
-new Vue({
-  vuetify
-}).$mount('#app');
+import Alpine from 'alpinejs';
 
+window.Alpine = Alpine;
+
+Alpine.start();

@@ -10,6 +10,9 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@tailwindcss/forms": "^0.4.0",
+        "alpinejs": "^3.4.2",
+        "autoprefixer": "^9.8.8",
         "axios": "^0.21",
         "cross-env": "^7.0",
         "deepmerge": "^4.2.2",
@@ -20,14 +23,14 @@
         "eslint-plugin-vue": "^6.2.2",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
+        "postcss": "^7.0.39",
         "prettier": "^2.0.5",
         "sass": "^1.34.0",
         "sass-loader": "^8.0.2",
+        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
         "vue-template-compiler": "^2.7.10"
     },
     "dependencies": {
-        "autoprefixer": "10.4.5",
         "vue": "^2.6.14",
         "vuetify": "^2.6.10"
     }
