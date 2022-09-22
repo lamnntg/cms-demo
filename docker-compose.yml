@@ -16,6 +16,7 @@ services:
     volumes:
       - ./mysql-data:/var/lib/mysql
       - ./docker/mysql/my-custom.cnf:/etc/mysql/conf.d/my-custom.cnf
+
   app:
     build:
       context: ./docker/php-fpm
