@@ -39,12 +39,12 @@ mix.webpackConfig({
 });
 
 // mix
-//   .js('resources/js/app.js', 'public/js')
-//   .postCss('resources/css/app.css', 'public/css')
-//   .version();
+mix.js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css')
+    .version();
 
-// tailwind
-mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
-    require('tailwindcss'),
-    require('autoprefixer'),
-]);
+// // tailwind
+// mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
+//     require('tailwindcss'),
+//     require('autoprefixer'),
+// ]);

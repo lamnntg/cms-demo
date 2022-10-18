@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +23,18 @@ Route::get('/', function () {
         die("Could not connect to the database.  Please check your configuration. error:" . $e);
     }
     return view('welcome');
-});
+})->name('landing');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
+
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::put('/profile',  [ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 require __DIR__ . '/auth.php';
