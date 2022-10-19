@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gallery extends Model
+class LandingPageConfig extends Model
 {
     use HasFactory;
 
@@ -16,8 +16,9 @@ class Gallery extends Model
      */
     protected $fillable = [
         'id',
-        'club_id',
-        'title'
+        'banner_1',
+        'banner_2',
+        'banner_3'
     ];
 
     protected $dates = [
