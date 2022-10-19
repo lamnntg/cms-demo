@@ -49,7 +49,7 @@
                                     </div>
 
                                     <hr>
-
+                                    {{--
                                     <div class="form-group">
                                         <button type="button" class="btn btn-github btn-user btn-block">
                                             <i class="fab fa-github fa-fw"></i> {{ __('Login with GitHub') }}
@@ -60,7 +60,7 @@
                                         <button type="button" class="btn btn-twitter btn-user btn-block">
                                             <i class="fab fa-twitter fa-fw"></i> {{ __('Login with Twitter') }}
                                         </button>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group">
                                         <button type="button" class="btn btn-facebook btn-user btn-block">
