@@ -16,9 +16,8 @@ class LandingPageConfig extends Model
      */
     protected $fillable = [
         'id',
-        'banner_1',
-        'banner_2',
-        'banner_3'
+        'key',
+        'value',
     ];
 
     protected $dates = [

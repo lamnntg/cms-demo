@@ -21,6 +21,8 @@
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
+
 </head>
 <body id="page-top">
 
@@ -30,7 +32,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href={{ route('landing') }}>
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href={{ route('home') }}>
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -60,6 +62,14 @@
             <a class="nav-link" href="{{ route('profile') }}">
                 <i class="fas fa-fw fa-user"></i>
                 <span>{{ __('Profile') }}</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Profile -->
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('landing') }}">
+                <i class="fas fa-fw fa-image"></i>
+                <span>{{ __('Landing Page') }}</span>
             </a>
         </li>
 

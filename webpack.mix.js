@@ -39,8 +39,10 @@ mix.webpackConfig({
 });
 
 // mix
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
+mix.sass('resources/scss/sb-admin-2.scss', 'public/css')
+    .copy('resources/vendor', 'public/vendor')
+    .copy('resources/js/sb-admin-2.min.js', 'public/js')
+    .copyDirectory('resources/img', 'public/img')
     .version();
 
 // // tailwind

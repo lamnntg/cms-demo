@@ -12,7 +12,7 @@ class ClubTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    static public function run()
     {
         $data = [
             [
@@ -63,7 +63,7 @@ class ClubTableSeeder extends Seeder
                 'operating_hours' => '6:30pm - 2:00am',
                 'address' => '46 Phố Mã Mây, Hàng Buồm, Hoàn Kiếm, Hà Nội',
                 'phone' => '091.777.7420',
-                'email' => 'sniff@gmail.com',
+                'email' => 'igger_downtown@gmail.com',
             ],
         ];
 

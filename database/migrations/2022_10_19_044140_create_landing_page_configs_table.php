@@ -15,9 +15,8 @@ class CreateLandingPageConfigsTable extends Migration
     {
         Schema::create('landing_page_configs', function (Blueprint $table) {
             $table->id();
-            $table->string('banner_1');
-            $table->string('banner_2');
-            $table->string('banner_3');
+            $table->string('key');
+            $table->string('value');
             $table->timestamps();
         });
     }
