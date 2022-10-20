@@ -20,12 +20,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('/landing')->group(function () {
     Route::get('/', [LandingController::class, 'index'])->name('landing');
-    Route::post('/change-banner', [LandingController::class, 'changeBanner'])->name('landing.change-banner');
+    Route::post('/change-banner', [LandingController::class, 'changeBanner'])->name('landing.update-banner');
 });
 
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile',  [ProfileController::class, 'update'])->name('profile.update');
+
 
 Route::get('/about', function () {
     return view('about');

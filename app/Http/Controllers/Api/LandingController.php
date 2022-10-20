@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Article;
+use App\Models\Club;
+use App\Models\Event;
+use App\Models\LandingPageConfig;
+
 class LandingController extends ApiController
 {
     /**
@@ -10,6 +15,11 @@ class LandingController extends ApiController
      * @return void
      */
     public function index() {
-        $this->response([], 200);
+        $data['banners'] = LandingPageConfig::select('id', 'key', 'value')->get();
+        $data['events'] = Event::all();
+        $data['clubs'] = Club::all();
+        $data['articles'] = Article::all();
+
+        return $this->response($data, 200);
     }
 }
