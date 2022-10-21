@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\LandingPageConfig;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,6 @@ class LandingController extends Controller
 
     public function changeBanner(Request $request)
     {
-
         DB::beginTransaction();
 
         try {
@@ -27,8 +27,7 @@ class LandingController extends Controller
             if (!isset($params['file'])) {
                 return redirect()->back();
             }
-
-            
+            $params['url'] = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
 
             switch ($params['banner'] ?? null) {
                 case 1:
@@ -47,15 +46,19 @@ class LandingController extends Controller
 
                     break;
             }
-            LandingPageConfig::where('value', $updateValues['key'])->first()->update([
+
+            LandingPageConfig::where('key', $updateValues['key'])->first()->update([
                 'value' => $updateValues['value'],
             ]);
 
             DB::commit();
             // all good
+
         } catch (\Exception $e) {
             DB::rollback();
             // something went wrong
         }
+
+        return redirect()->route('landing');
     }
 }
