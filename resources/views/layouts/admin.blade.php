@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Laravel SB Admin 2">
-    <meta name="author" content="Alejandro RH">
+    <meta name="author" content="Lâm Nguyễn Team">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -54,7 +54,7 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            {{ __('Settings') }}
+            {{ __('Quản lý') }}
         </div>
 
         <!-- Nav Item - Profile -->
@@ -70,6 +70,38 @@
             <a class="nav-link" href="{{ route('landing') }}">
                 <i class="fas fa-fw fa-image"></i>
                 <span>{{ __('Landing Page') }}</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Profile -->
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('landing') }}">
+                <i class="fas fa-fw fa-image"></i>
+                <span>{{ __('Sự kiện') }}</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Profile -->
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('landing') }}">
+                <i class="fas fa-fw fa-image"></i>
+                <span>{{ __('Bài viết') }}</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Profile -->
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('landing') }}">
+                <i class="fas fa-fw fa-image"></i>
+                <span>{{ __('Nghệ sĩ') }}</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Profile -->
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('landing') }}">
+                <i class="fas fa-fw fa-image"></i>
+                <span>{{ __('Club') }}</span>
             </a>
         </li>
 
