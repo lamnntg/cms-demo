@@ -22,7 +22,8 @@
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
     <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
-
+    <!-- Custom styles for this page -->
+    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 </head>
 <body id="page-top">
 
@@ -75,7 +76,7 @@
 
         <!-- Nav Item - Profile -->
         <li class="nav-item ">
-            <a class="nav-link" href="{{ route('landing') }}">
+            <a class="nav-link" href="{{ route('event') }}">
                 <i class="fas fa-fw fa-image"></i>
                 <span>{{ __('Sự kiện') }}</span>
             </a>
@@ -328,7 +329,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Alejandro RH {{ now()->year }}</span>
+                    <span>Copyright &copy; Lâm Nguyễn Team {{ now()->year }}</span>
                 </div>
             </div>
         </footer>
@@ -371,5 +372,9 @@
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+
+
+@yield('scripts')
+
 </body>
 </html>

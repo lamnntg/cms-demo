@@ -24,6 +24,8 @@ mix
   .sass('resources/scss/sb-admin-2.scss', 'public/css')
   .copy('resources/vendor', 'public/vendor')
   .copy('resources/js/sb-admin-2.min.js', 'public/js')
+  .copy('resources/js/demo/datatables-demo.js', 'public/js/demo')
+
   .copyDirectory('resources/img', 'public/img')
   .version();
 

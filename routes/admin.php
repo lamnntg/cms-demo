@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\LandingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -27,6 +28,7 @@ Route::prefix('/landing')->group(function () {
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile',  [ProfileController::class, 'update'])->name('profile.update');
 
+Route::get('event', [EventController::class, 'index'])->name('event');
 
 Route::get('/about', function () {
     return view('about');
