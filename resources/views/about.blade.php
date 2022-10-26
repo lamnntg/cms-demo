@@ -26,13 +26,13 @@
 
                     <div class="row">
                         <div class="col-md-4 mb-1 text-center">
-                            <a href="https://facebook.com/aleckrh" target="_blank" class="btn btn-facebook btn-circle btn-lg"><i class="fab fa-facebook-f fa-fw"></i></a>
+                            <a href="https://facebook.com/" target="_blank" class="btn btn-facebook btn-circle btn-lg"><i class="fab fa-facebook-f fa-fw"></i></a>
                         </div>
                         <div class="col-md-4 mb-1 text-center">
-                            <a href="https://github.com/aleckrh" target="_blank" class="btn btn-github btn-circle btn-lg"><i class="fab fa-github fa-fw"></i></a>
+                            <a href="https://github.com/" target="_blank" class="btn btn-github btn-circle btn-lg"><i class="fab fa-github fa-fw"></i></a>
                         </div>
                         <div class="col-md-4 mb-1 text-center">
-                            <a href="https://twitter.com/aleckrh" target="_blank" class="btn btn-twitter btn-circle btn-lg"><i class="fab fa-twitter fa-fw"></i></a>
+                            <a href="https://twitter.com/" target="_blank" class="btn btn-twitter btn-circle btn-lg"><i class="fab fa-twitter fa-fw"></i></a>
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                     </div>
 
                     <hr>
-
+{{--
                     <div class="row">
                         <div class="col-lg-12">
                             <h5 class="font-weight-bold">Credits</h5>
@@ -61,7 +61,7 @@
                                 <li><a href="https://startbootstrap.com/themes/sb-admin-2" target="_blank">SB Admin 2</a> - Thanks to Start Bootstrap.</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

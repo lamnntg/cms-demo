@@ -35,9 +35,9 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href={{ route('home') }}>
             <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+                {{-- <i class="fas fa-laugh-wink"></i> --}}
             </div>
-            <div class="sidebar-brand-text mx-3">Club Admin <sup></sup></div>
+            <div class="sidebar-brand-text mx-3">ProjectQ Admin <sup></sup></div>
         </a>
 
         <!-- Divider -->
@@ -84,27 +84,27 @@
 
         <!-- Nav Item - Profile -->
         <li class="nav-item ">
-            <a class="nav-link" href="{{ route('landing') }}">
+            <a class="nav-link" href="{{ route('article') }}">
                 <i class="fas fa-fw fa-image"></i>
                 <span>{{ __('Bài viết') }}</span>
             </a>
         </li>
 
-        <!-- Nav Item - Profile -->
+        {{-- <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('landing') }}">
                 <i class="fas fa-fw fa-image"></i>
                 <span>{{ __('Nghệ sĩ') }}</span>
             </a>
-        </li>
+        </li> --}}
 
-        <!-- Nav Item - Profile -->
+        {{-- <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('landing') }}">
                 <i class="fas fa-fw fa-image"></i>
                 <span>{{ __('Club') }}</span>
             </a>
-        </li>
+        </li> --}}
 
         <!-- Nav Item - About -->
         <li class="nav-item ">

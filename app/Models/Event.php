@@ -19,8 +19,9 @@ class Event extends Model
         'name',
         'club_id',
         'description',
-        'time_open',
+        'time_start',
         'time_end',
+        'thumnail'
     ];
 
     protected $dates = [

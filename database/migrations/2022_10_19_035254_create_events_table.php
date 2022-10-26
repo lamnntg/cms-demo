@@ -17,9 +17,10 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('club_id');
-            $table->string('description');
-            $table->dateTime('time_open')->nullable();
+            $table->string('description')->nullable();
+            $table->dateTime('time_start')->nullable();
             $table->dateTime('time_end')->nullable();
+            $table->string('thumnail')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
