@@ -114,7 +114,11 @@
     <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
     <script>
         ClassicEditor
-                .create( document.querySelector( '#editor' ))
+                .create( document.querySelector( '#editor' ), {
+                    ckfinder: {
+                        uploadUrl: '{{route('image.upload').'?_token='.csrf_token()}}',
+                    }
+                })
                 .then( editor => {
 
                         console.log( editor );

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,5 +33,16 @@ class HomeController extends Controller
         ];
 
         return view('home', compact('widget'));
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if (isset($params['upload'])) {
+            $url = Cloudinary::upload($request->file('upload')->getRealPath())->getSecurePath();
+
+            return response()->json(['fileName' => $request->file('upload')->getClientOriginalName(), 'uploaded'=> 1, 'url' => $url]);
+        }
+
+        return null;
     }
 }

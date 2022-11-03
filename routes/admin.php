@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/store', [EventController::class, 'store'])->name('article.store');
     });
 
+    Route::post('/image-upload', [HomeController::class, 'uploadImage'])->name('image.upload');
+
     Route::get('/about', function () {
         return view('about');
     })->name('about');
