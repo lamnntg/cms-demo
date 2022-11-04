@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -37,12 +38,19 @@ class HomeController extends Controller
 
     public function uploadImage(Request $request)
     {
-        if (isset($params['upload'])) {
-            $url = Cloudinary::upload($request->file('upload')->getRealPath())->getSecurePath();
+        $params = $request->all();
+        try {
+            if (isset($params['upload'])) {
+                $url = Cloudinary::upload($request->file('upload')->getRealPath())->getSecurePath();
 
-            return response()->json(['fileName' => $request->file('upload')->getClientOriginalName(), 'uploaded'=> 1, 'url' => $url]);
+                return response()->json(['fileName' => $request->file('upload')->getClientOriginalName(), 'uploaded'=> 1, 'url' => $url]);
+            }
+
+        } catch (\Throwable $th) {
+            //throw $th;
         }
 
-        return null;
+        return response()->json(['fileName' => '', 'uploaded'=> 1, 'url' => '']);
+
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\LandingController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/landing', [LandingController::class, 'index']);
+Route::post('/order', [OrderController::class, 'store']);

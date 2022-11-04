@@ -11,7 +11,7 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- DataTales Example -->
-        <button type="button" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-primary btn-icon-split mb-2">
+        <button type="button" data-toggle="modal" data-target=".bd-example-modal-xl" class="btn btn-primary btn-icon-split mb-2">
             <span class="icon text-white-50">
                 <i class="fas fa-flag"></i>
             </span>
@@ -27,10 +27,8 @@
                         <thead>
                             <tr>
                                 <th>Tên bài viết</th>
-                                <th>Club</th>
-                                <th>Thời gian bắt đầu</th>
-                                <th>Thời gian kết thúc</th>
-                                <th>Thumnail</th>
+                                <th>Nội dung</th>
+                                <th>Thời gian tạo</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
@@ -48,10 +46,13 @@
                         <tbody>
                             @foreach ($articles as $article)
                                 <tr>
-                                    <td>{{ $article->name }}</td>
-                                    <td>{{ $article->description }}</td>
-                                    <td>{{ $article->time_start }}</td>
-                                    <td>{{ $article->time_end }}</td>
+                                    <td>{{ $article->title }}</td>
+                                    <td>
+                                        <div class="badge badge-primary text-wrap" style="width: 6rem;">
+                                            This text should wrap.
+                                        </div>
+                                    </td>
+                                    <td>{{ $article->created_at }}</td>
                                     <td><img src="{{  $article->thumnail }}" class="col" alt="" style="width: 5vw; max-width: 100px;"></td>
                                     <td>
 
@@ -71,8 +72,8 @@
     <!-- Large modal -->
 
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <form method="POST" action="{{ route('article.store') }}" enctype="multipart/form-data">
                 @csrf
@@ -84,13 +85,13 @@
                     </div>
                     <div class="modal-body">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Tên bài viết: </label>
-                                <input type="text" class="form-control" id="name" name="name">
+                                <label for="title" class="form-label">Tên bài viết: </label>
+                                <input type="text" class="form-control" id="title" name="title">
                                 <div id="nameHelp" class="form-text">We'll never share your name with anyone else.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Mô tả: </label>
-                                <textarea class="form-control" aria-label="With textarea" id="editor" name="description" row="50"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="editor" name="html" row="50"></textarea>
 
                             </div>
 

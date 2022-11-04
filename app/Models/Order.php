@@ -21,7 +21,6 @@ class Order extends Model
         'phone',
         'email',
         'message',
-
     ];
 
     protected $dates = [

@@ -15,4 +15,25 @@ class ArticleController extends Controller
 
         return view('article', compact('articles', 'clubs'));
     }
+
+    /**
+     * store function
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function store(Request $request) {
+        $params = $request->all();
+
+        try {
+            Article::create([
+                'title' => $params['title'],
+                'html' => $params['html'],
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        return redirect()->route('article')->with('');
+    }
 }
