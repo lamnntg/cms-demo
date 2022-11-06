@@ -54,7 +54,9 @@
                                     <td>{{ $event->time_end }}</td>
                                     <td><img src="{{  $event->thumnail }}" class="col" alt="" style="width: 5vw; max-width: 100px;"></td>
                                     <td>
-                                        
+                                        <button>
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
                                     </td>
 
                                 </tr>

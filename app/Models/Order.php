@@ -28,4 +28,14 @@ class Order extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    /**
+     * get club
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function club()
+    {
+        return $this->belongsTo(Club::class, 'club_id', 'id');
+    }
 }

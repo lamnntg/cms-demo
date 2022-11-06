@@ -58,18 +58,18 @@
             {{ __('Quản lý') }}
         </div>
 
-        <!-- Nav Item - Profile -->
+        {{-- <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('profile') }}">
                 <i class="fas fa-fw fa-user"></i>
                 <span>{{ __('Profile') }}</span>
             </a>
-        </li>
+        </li> --}}
 
         <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('landing') }}">
-                <i class="fas fa-fw fa-image"></i>
+                <i class="fa fa-camera" aria-hidden="true"></i>
                 <span>{{ __('Landing Page') }}</span>
             </a>
         </li>
@@ -77,7 +77,7 @@
         <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('event') }}">
-                <i class="fas fa-fw fa-image"></i>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
                 <span>{{ __('Sự kiện') }}</span>
             </a>
         </li>
@@ -85,26 +85,34 @@
         <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('article') }}">
-                <i class="fas fa-fw fa-image"></i>
+                <i class="fa fa-file" aria-hidden="true"></i>
                 <span>{{ __('Bài viết') }}</span>
             </a>
         </li>
-
-        {{-- <!-- Nav Item - Profile -->
+{{--
+        <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('landing') }}">
                 <i class="fas fa-fw fa-image"></i>
                 <span>{{ __('Nghệ sĩ') }}</span>
             </a>
-        </li> --}}
+        </li>
 
-        {{-- <!-- Nav Item - Profile -->
+        <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('landing') }}">
                 <i class="fas fa-fw fa-image"></i>
                 <span>{{ __('Club') }}</span>
             </a>
         </li> --}}
+
+        <!-- Nav Item - Profile -->
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('order') }}">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+                <span>{{ __('Orders') }}</span>
+            </a>
+        </li>
 
         <!-- Nav Item - About -->
         <li class="nav-item ">
@@ -372,7 +380,6 @@
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-
 
 @yield('scripts')
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Club;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends ApiController
@@ -16,6 +18,17 @@ class OrderController extends ApiController
      */
     public function store(Request $request) {
         $params = $request->all();
+        $validator = Validator::make($params, [
+            'club_id' => 'required|in:' . Club::pluck('id')->implode(','),
+            'name' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'nullable|string|email',
+            'message' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->response($validator->errors(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
         try {
             Order::create([

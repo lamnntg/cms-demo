@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\LandingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProfileController;
 
 /*
@@ -40,8 +41,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('/order')->group(function () {
-        Route::get('/', [ArticleController::class, 'index'])->name('article');
-        Route::post('/store', [ArticleController::class, 'store'])->name('article.store');
+        Route::get('/', [OrderController::class, 'index'])->name('order');
     });
 
     Route::post('/image-upload', [HomeController::class, 'uploadImage'])->name('image.upload');

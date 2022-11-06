@@ -31,4 +31,14 @@ class Club extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    /**
+     * Get order
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

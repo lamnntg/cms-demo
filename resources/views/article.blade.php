@@ -53,11 +53,11 @@
                                         </div>
                                     </td>
                                     <td>{{ $article->created_at }}</td>
-                                    <td><img src="{{  $article->thumnail }}" class="col" alt="" style="width: 5vw; max-width: 100px;"></td>
                                     <td>
-
+                                        <button>
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
                                     </td>
-
                                 </tr>
                             @endforeach
 
@@ -91,7 +91,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Mô tả: </label>
-                                <textarea class="form-control" aria-label="With textarea" id="editor" name="html" row="50"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="editor" name="html" rows="50"></textarea>
 
                             </div>
 
