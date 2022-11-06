@@ -32,21 +32,18 @@ class LandingController extends Controller
             switch ($params['banner'] ?? null) {
                 case 1:
                     $updateValues['key'] = 'banner_1';
-                    $updateValues['value'] = $params['url'];
 
                     break;
                 case 2:
                     $updateValues['key'] = 'banner_2';
-                    $updateValues['value'] = $params['url'];
 
                     break;
                 default:
                     $updateValues['key'] = 'banner_3';
-                    $updateValues['value'] = $params['url'];
 
                     break;
             }
-
+            $updateValues['value'] = $params['url'];
             LandingPageConfig::where('key', $updateValues['key'])->first()->update([
                 'value' => $updateValues['value'],
             ]);
