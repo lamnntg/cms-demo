@@ -88,23 +88,23 @@
                 <form method="POST" action="{{ route('event.store') }}" enctype="multipart/form-data">
                 @csrf
                     <div class="modal-header">
-                    <h5 class="modal-title">Tạo sự kiện mới: </h5>
+                    <h5 class="modal-title font-weight-bold">Tạo sự kiện mới: </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
                     <div class="modal-body">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Tên sự kiện: </label>
+                                <label for="name" class="form-label font-weight-bold">Tên sự kiện: </label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                                 <div id="nameHelp" class="form-text">We'll never share your name with anyone else.</div>
                             </div>
                             <div class="mb-3">
-                                <label for="description" class="form-label">Mô tả: </label>
+                                <label for="description" class="form-label font-weight-bold">Mô tả: </label>
                                 <textarea class="form-control" aria-label="With textarea" id="description" name="description"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="clubId">Club: </label>
+                                <label class="form-label font-weight-bold" for="clubId">Club: </label>
                                 <select class="custom-select" id='clubId' name='clubId' required>
                                     <option value="" selected>Chọn club tổ chức sự kiện</option>
                                     @foreach ($clubs as $club)
@@ -113,19 +113,19 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="time_start">Thời gian bắt đầu: </label>
+                                <label class="form-label font-weight-bold" for="time_start">Thời gian bắt đầu: </label>
                                 <div>
                                     <input type="datetime-local" id="time_start" name="time_start" required>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="time_start">Thời gian kết thúc: </label>
+                                <label class="form-label font-weight-bold" for="time_start">Thời gian kết thúc: </label>
                                 <div>
                                     <input type="datetime-local" id="time_start" name="time_end" required>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="thumnail">Ảnh Thumnail: </label>
+                                <label class="form-label font-weight-bold" for="thumnail">Ảnh Thumnail: </label>
                                 <div>
                                     <input type="file" id="thumnail" name="thumnail" required>
                                 </div>

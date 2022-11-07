@@ -28,6 +28,7 @@
                             <tr>
                                 <th>Tên bài viết</th>
                                 <th>Nội dung</th>
+                                <th>Thumnail</th>
                                 <th>Thời gian tạo</th>
                                 <th>Hành động</th>
                             </tr>
@@ -52,6 +53,8 @@
                                             This text should wrap.
                                         </div>
                                     </td>
+                                    <td><img src="{{  $article->thumnail }}" class="col" alt="" style="width: 5vw; max-width: 100px;"></td>
+
                                     <td>{{ $article->created_at }}</td>
                                     <td>
                                         <!-- Call to action buttons -->
@@ -87,21 +90,24 @@
                 <form method="POST" action="{{ route('article.store') }}" enctype="multipart/form-data">
                 @csrf
                     <div class="modal-header">
-                    <h5 class="modal-title">Tạo bài viết mới: </h5>
+                    <h5 class="modal-title font-weight-bold">Tạo bài viết mới: </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
                     <div class="modal-body">
                             <div class="mb-3">
-                                <label for="title" class="form-label">Tên bài viết: </label>
-                                <input type="text" class="form-control" id="title" name="title">
+                                <label for="title" class="form-control-label font-weight-bold">Tên bài viết: </label>
+                                <input type="text" class="form-control" id="title" name="title" required>
                                 <div id="nameHelp" class="form-text">We'll never share your name with anyone else.</div>
                             </div>
                             <div class="mb-3">
-                                <label for="description" class="form-label">Mô tả: </label>
+                                <label for="title" class="form-control-label font-weight-bold">Ảnh Thumnail: </label>
+                                <input type="file" id="thumnail" name="thumnail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-control-label font-weight-bold">Nội dung bài viết: </label>
                                 <textarea class="form-control" aria-label="With textarea" id="editor" name="html" rows="50"></textarea>
-
                             </div>
 
                     </div>

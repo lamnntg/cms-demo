@@ -23,7 +23,7 @@
         <div class="col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <h6 class="heading-small text-muted mb-4">Chỉnh sửa text Banner</h6>
+                    <h6 class="heading-small text-muted mb-4 font-weight-bold">Chỉnh sửa text Banner</h6>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
@@ -54,7 +54,7 @@
             </div>
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <h6 class="heading-small text-muted mb-4">Chỉnh sửa ảnh Banner</h6>
+                    <h6 class="heading-small text-muted mb-4 font-weight-bold">Chỉnh sửa ảnh Banner</h6>
                     <form method="POST" class="col" action="{{ route('landing.update-banner') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
