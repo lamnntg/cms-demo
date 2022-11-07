@@ -54,9 +54,18 @@
                                     </td>
                                     <td>{{ $article->created_at }}</td>
                                     <td>
-                                        <button>
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </button>
+                                        <!-- Call to action buttons -->
+                                        <ul class="list-inline m-0">
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                            </li>
+                                        </ul>
                                     </td>
                                 </tr>
                             @endforeach

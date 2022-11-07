@@ -54,9 +54,18 @@
                                     <td>{{ $event->time_end }}</td>
                                     <td><img src="{{  $event->thumnail }}" class="col" alt="" style="width: 5vw; max-width: 100px;"></td>
                                     <td>
-                                        <button>
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </button>
+                                        <!-- Call to action buttons -->
+                                        <ul class="list-inline m-0">
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                            </li>
+                                        </ul>
                                     </td>
 
                                 </tr>
@@ -87,7 +96,7 @@
                     <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Tên sự kiện: </label>
-                                <input type="text" class="form-control" id="name" name="name">
+                                <input type="text" class="form-control" id="name" name="name" required>
                                 <div id="nameHelp" class="form-text">We'll never share your name with anyone else.</div>
                             </div>
                             <div class="mb-3">
@@ -96,8 +105,8 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="clubId">Club: </label>
-                                <select class="custom-select" id='clubId' name='clubId'>
-                                    <option selected>Chọn club tổ chức sự kiện</option>
+                                <select class="custom-select" id='clubId' name='clubId' required>
+                                    <option value="" selected>Chọn club tổ chức sự kiện</option>
                                     @foreach ($clubs as $club)
                                         <option value="{{ $club->id }}">{{ $club->name }}</option>
                                     @endforeach
@@ -106,19 +115,19 @@
                             <div class="mb-3">
                                 <label class="form-label" for="time_start">Thời gian bắt đầu: </label>
                                 <div>
-                                    <input type="datetime-local" id="time_start" name="time_start">
+                                    <input type="datetime-local" id="time_start" name="time_start" required>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="time_start">Thời gian kết thúc: </label>
                                 <div>
-                                    <input type="datetime-local" id="time_start" name="time_end">
+                                    <input type="datetime-local" id="time_start" name="time_end" required>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="thumnail">Ảnh Thumnail: </label>
                                 <div>
-                                    <input type="file" id="thumnail" name="thumnail">
+                                    <input type="file" id="thumnail" name="thumnail" required>
                                 </div>
                             </div>
                     </div>
