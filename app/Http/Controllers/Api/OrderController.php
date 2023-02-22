@@ -19,11 +19,13 @@ class OrderController extends ApiController
     public function store(Request $request) {
         $params = $request->all();
         $validator = Validator::make($params, [
-            'club_id' => 'required|in:' . Club::pluck('id')->implode(','),
+            'time' => 'required|string',
             'name' => 'required|string',
             'phone' => 'required|string',
             'email' => 'nullable|string|email',
             'message' => 'nullable|string',
+            'address' => 'required|string',
+            'type' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -32,11 +34,13 @@ class OrderController extends ApiController
 
         try {
             Order::create([
-                'club_id' => $params['club_id'],
+                'time' => $params['time'],
+                'type' => $params['type'],
+                'address' => $params['address'],
                 'name' => $params['name'],
                 'phone' => $params['phone'],
-                'email' => $params['email'],
-                'message' => $params['message'],
+                'email' => $params['email'] ?? null,
+                'message' => $params['message'] ?? null,
             ]);
         } catch (\Throwable $th) {
             return $this->response($th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);

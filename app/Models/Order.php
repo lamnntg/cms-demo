@@ -16,11 +16,13 @@ class Order extends Model
      */
     protected $fillable = [
         'id',
-        'club_id',
         'name',
         'phone',
         'email',
         'message',
+        'address',
+        'type',
+        'time'
     ];
 
     protected $dates = [
