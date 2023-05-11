@@ -24,7 +24,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
+        \Illuminate\Support\Facades\Auth::provider('firebaseprovider', function ($app, array $config) {
+            return new FirebaseServiceProvider($app['hash'], $config['model']);
+        });
     }
 }

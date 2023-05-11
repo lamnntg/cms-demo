@@ -26,3 +26,5 @@ Route::post('/order', [OrderController::class, 'store']);
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{article_id}', [NewsController::class, 'articleDetail']);
 
+
+

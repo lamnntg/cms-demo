@@ -43,6 +43,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace . '\Api')
                 ->group(base_path('routes/api.php'));
 
+            Route::prefix('api/v1')
+                ->middleware('api')
+                ->namespace($this->namespace . '\Firebase')
+                ->group(base_path('routes/firebase.php'));
+
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));

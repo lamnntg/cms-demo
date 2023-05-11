@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'firebase_users',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -65,10 +71,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'firebase_users' => [
+            'driver' => 'firebaseprovider',
+            'table' => 'users',
+        ],
     ],
 
     /*
