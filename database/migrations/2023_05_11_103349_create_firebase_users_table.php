@@ -14,7 +14,13 @@ class CreateFirebaseUsersTable extends Migration
     public function up()
     {
         Schema::create('firebase_users', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->uuid('uid');
+            $table->string('email')->unique();
+            $table->string('display_name')->nullable();
+            $table->string('photo_url')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('local_id')->nullable();
             $table->timestamps();
         });
     }

@@ -7,6 +7,8 @@ use Kreait\Firebase\ServiceAccount;
 
 class Firebase
 {
+
+    // TODO: If using SDK
     /**
      * @var Factory
      */

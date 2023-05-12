@@ -17,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 
 // Authenticate by Firebase Authentication
-Route::post('/login', [AuthController::class, 'index']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::middleware(['auth.firebase'])->group(function () {
+    Route::get('test', function () {
+        return 123;
+    });
+});

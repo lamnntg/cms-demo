@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class FirebaseUser extends Model
+class FirebaseUser extends Authenticatable
 {
     use HasFactory;
 
@@ -19,7 +20,8 @@ class FirebaseUser extends Model
         'email',
         'local_id',
         'phone_number',
-        'uid'
+        'uid',
+        'photo_url'
     ];
 
     public function getAuthIdentifierName() {

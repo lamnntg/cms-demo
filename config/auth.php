@@ -72,8 +72,8 @@ return [
         ],
 
         'firebase_users' => [
-            'driver' => 'firebaseprovider',
-            'table' => 'users',
+            'driver' => 'eloquent',
+            'model' => App\Models\FirebaseUser::class,
         ],
     ],
 
