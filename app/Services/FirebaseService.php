@@ -92,6 +92,6 @@ class FirebaseService implements FirebaseServiceInterface
      * @return void
      */
     public function uploadFile($file) {
-        $this->storage
+        $this->storage;
     }
 }
