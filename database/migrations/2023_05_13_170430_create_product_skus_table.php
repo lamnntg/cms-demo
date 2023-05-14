@@ -17,7 +17,7 @@ class CreateProductSkusTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('product_id');
             $table->string('sku_code');
-            $table->string('price');
+            $table->double('price');
             $table->integer('quantity')->default(0);
             $table->text('image_sku')->nullable();
             $table->integer('quantity_size_s')->default(0);

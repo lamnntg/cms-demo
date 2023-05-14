@@ -31,10 +31,11 @@ Route::get('/news/{article_id}', [NewsController::class, 'articleDetail']);
 
 Route::prefix('/product')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{id}', [ProductController::class, 'show']);
 });
 
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {
     Route::get('/cart', [CartController::class, 'index']);
-    Route::post('/cart/add', [CartController::class, 'store']);
+    Route::post('/cart/add', [CartController::class, 'addToCart']);
 });

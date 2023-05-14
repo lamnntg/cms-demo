@@ -20,7 +20,8 @@ class CartItem extends Model
         'product_id',
         'product_sku_id',
         'quantity',
-        'price'
+        'price',
+        'size'
     ];
 
     protected $dates = [
@@ -28,4 +29,12 @@ class CartItem extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function productSku() {
+        return $this->belongsTo(ProductSku::class);
+    }
 }

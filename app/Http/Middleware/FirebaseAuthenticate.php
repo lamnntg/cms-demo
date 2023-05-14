@@ -22,6 +22,14 @@ class FirebaseAuthenticate
     public function handle(Request $request, Closure $next)
     {
         $accessToken = $request->bearerToken();
+        if (!$accessToken) {
+            return response()->json(
+                [
+                    'error' => 'Invalid credentials'
+                ],
+                Response::HTTP_FORBIDDEN
+            );
+        }
 
         try {
             $result = Firebase::auth()->verifyIdToken($accessToken)->claims()->all();

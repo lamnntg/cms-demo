@@ -22,6 +22,7 @@ class Product extends Model
         'description',
         'instructions_for_preservation',
         'images',
+        'price'
     ];
 
     protected $dates = [

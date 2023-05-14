@@ -20,6 +20,7 @@ class CreateCartItemsTable extends Migration
             $table->bigInteger('product_sku_id');
             $table->mediumInteger('quantity')->default(1);
             $table->integer('price');
+            $table->string('size')->default('s');
             $table->string('sku')->nullable();
             $table->timestamps();
         });
