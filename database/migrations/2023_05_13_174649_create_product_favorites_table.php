@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreateProductFavoritesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,11 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('product_favorites', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('product_id');
             $table->bigInteger('firebase_user_id');
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email')->nullable();
-            $table->string('type');
-            $table->dateTime('time');
-            $table->string('address');
-            $table->text('message')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -35,6 +28,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('product_favorites');
     }
 }

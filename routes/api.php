@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\LandingController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +29,12 @@ Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{article_id}', [NewsController::class, 'articleDetail']);
 
 
+Route::prefix('/product')->group(function () {
+    Route::get('/', [ProductController::class, 'index']);
+});
 
+// authenticate API by Firebase
+Route::middleware(['auth.firebase'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart/add', [CartController::class, 'store']);
+});

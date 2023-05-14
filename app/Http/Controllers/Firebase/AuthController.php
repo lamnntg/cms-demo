@@ -51,11 +51,18 @@ class AuthController extends ApiController
     {
         $request->validate([
             'refresh_token' => 'nullable|string',
-            'email' => 'required|email',
-            'password' => 'required|min:6',
+            'method' => 'nullable|string|in:fresh_token,username_password' ,
+            'email' => 'nullable|email',
+            'password' => 'nullable|min:6'
         ]);
 
-        [$status, $data] = $this->firebaseService->login(FirebaseService::METHOD_USERNAME_PASSWORD, $request->all());
+        $method = FirebaseService::METHOD_USERNAME_PASSWORD;
+
+        if ($request->has('method')) {
+            $method = $request->get('method');
+        }
+
+        [$status, $data] = $this->firebaseService->login($method, $request->all());
 
         return $this->response($data, $status);
     }

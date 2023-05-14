@@ -20,8 +20,3 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::middleware(['auth.firebase'])->group(function () {
-    Route::get('test', function () {
-        return 123;
-    });
-});
