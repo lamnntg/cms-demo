@@ -16,6 +16,9 @@ class CartController extends ApiController
     {
         $user = request()->user();
         $cart = Cart::with(['cartItems', 'cartItems.product', 'cartItems.productSku'])->where('firebase_user_id', $user->id)->first();
+        if (!$cart) {
+            return $this->response([]);
+        }
 
         return $this->response($cart);
     }
