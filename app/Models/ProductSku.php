@@ -29,4 +29,9 @@ class ProductSku extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function getImageSkuAttribute($value)
+    {
+        return $this->attributes['image_sku'] = explode(';', $value);
+    }
 }
