@@ -9,8 +9,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends ApiController
 {
-    public function index() {
-        return $this->response(Product::with(['productSkus'])->get());
+    public function index(Request $request) {
+        $page = $request->get('page') ?? null;
+
+        return $this->response(Product::with(['productSkus'])->paginate(
+            4, ['*'], 'products', $page
+        ));
     }
 
     public function show(int $id) {

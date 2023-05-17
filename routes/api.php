@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\LandingController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProductFavoriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,5 @@ Route::middleware(['auth.firebase'])->group(function () {
 
     Route::get('/order', [OrderController::class, 'index']);
     Route::post('/order', [OrderController::class, 'store']);
+    Route::get('/product-favorites', [ProductFavoriteController::class, 'index']);
 });
