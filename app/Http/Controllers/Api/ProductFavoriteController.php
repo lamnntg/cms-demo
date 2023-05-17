@@ -30,7 +30,7 @@ class ProductFavoriteController extends ApiController
 
         $product = ProductFavorite::create([
             'product_id' => $request->get('product_id'),
-            'firebase_user_id' => request()->user()->firebase_user_id
+            'firebase_user_id' => request()->user()->id
         ]);
 
         return $this->response($product);
@@ -43,7 +43,7 @@ class ProductFavoriteController extends ApiController
 
         $result = ProductFavorite::where([
             'product_id' => $request->get('product_id'),
-            'firebase_user_id' => request()->user()->firebase_user_id
+            'firebase_user_id' => request()->user()->id
         ])->delete();
 
         return $this->response($result);

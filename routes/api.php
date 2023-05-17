@@ -42,4 +42,6 @@ Route::middleware(['auth.firebase'])->group(function () {
     Route::get('/order', [OrderController::class, 'index']);
     Route::post('/order', [OrderController::class, 'store']);
     Route::get('/product-favorites', [ProductFavoriteController::class, 'index']);
+    Route::post('/product-favorites/add', [ProductFavoriteController::class, 'store']);
+    Route::delete('/product-favorites/delete', [ProductFavoriteController::class, 'delete']);
 });
