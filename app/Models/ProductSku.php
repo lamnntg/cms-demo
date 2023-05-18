@@ -32,6 +32,10 @@ class ProductSku extends Model
 
     public function getImageSkuAttribute($value)
     {
+        if (is_array($value)) {
+            return $this->attributes['image_sku'] = $value;
+        }
+
         return $this->attributes['image_sku'] = explode(';', $value);
     }
 }

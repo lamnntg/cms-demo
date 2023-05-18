@@ -17,10 +17,12 @@ class ProductFavoriteController extends ApiController
 
         $data = [];
         foreach ($products as $key => $product) {
-            $data[] = $product->product;
+            if ($product->product) {
+                $data[] = $product->product;
+            }
         }
 
-        return $this->response($data);
+        return $this->response($data, Response::HTTP_OK);
     }
 
     public function store(Request $request) {
