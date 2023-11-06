@@ -22,7 +22,8 @@ class Order extends Model
         'message',
         'address',
         'type',
-        'time'
+        'time',
+        'firebase_user_id'
     ];
 
     protected $dates = [
@@ -39,5 +40,9 @@ class Order extends Model
     public function club()
     {
         return $this->belongsTo(Club::class, 'club_id', 'id');
+    }
+
+    public function orderItems() {
+        return $this->hasMany(OrderItem::class);
     }
 }

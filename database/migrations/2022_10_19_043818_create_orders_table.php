@@ -15,11 +15,12 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('firebase_user_id');
             $table->string('name');
             $table->string('phone');
             $table->string('email')->nullable();
             $table->string('type');
-            $table->string('time');
+            $table->dateTime('time');
             $table->string('address');
             $table->text('message')->nullable();
             $table->timestamps();
