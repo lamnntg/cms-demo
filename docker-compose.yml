@@ -20,14 +20,14 @@ services:
   app:
     build:
       context: ./docker/php-fpm
-      args:
-        UID: ${UID}
-        GID: ${GID}
+    #   args:
+    #     UID: ${UID}
+    #     GID: ${GID}
     container_name: cms-app
     volumes:
       - ./:/var/www/html
     working_dir: /var/www/html
-    user: ${UID}:${GID}
+    user: root:root
 
   webserver:
     image: nginx
