@@ -53,14 +53,28 @@
             hidden
             type="file"
             accept="image/png, image/gif, image/jpeg"
+            @change="onChangeThumbnail"
           />
           <button
+            v-if="!thumbnail.url"
             type="button"
             class="btn btn-primary btn-icon-split mb-0"
             @click="clickThumbnailFile"
           >
             <span class="text">Chọn ảnh</span>
           </button>
+          <div v-else class="d-flex align-items-center">
+            <div class="mr-3">
+              <img
+                class="thumbnail-product"
+                :src="thumbnail.url"
+                alt=""
+              /><br />
+            </div>
+            <button class="btn btn-danger" @click="thumbnail.url = ''">
+              Xóa thumbnail
+            </button>
+          </div>
         </div>
       </div>
       <div class="mb-3">
@@ -146,33 +160,44 @@
               hidden
               multiple
               accept="image/png, image/gif, image/jpeg"
-              @change="onChangeFile"
+              @change="e => onChangeFile(e, sku.id)"
             />
             <div
               :class="['images', active ? 'drag-active' : '']"
               @dragover="dragover"
               @dragleave="dragleave"
               @drop="drop"
+              @click.stop="clickFile"
             >
-              <!-- <div v-for="image in sku.image_sku" :key="image.url" class="detail">
-                <div class="d-flex align-items-center p-2 thumbnail">
-                  <img
-                    class="file-image"
-                    :src="image.url"
-                    alt=""
-                  />
+              <div
+                v-if="sku.image_sku.length > 0"
+                class="d-flex flex-wrap"
+                style="gap: 1rem"
+              >
+                <div
+                  v-for="image in sku.image_sku"
+                  :key="image.url"
+                  class="detail"
+                >
+                  <div class="d-flex align-items-center p-2 thumbnail">
+                    <img class="file-image" :src="image.url" alt="" />
+                  </div>
+                  <span class="file-name text-start px-2">{{
+                    image.name
+                  }}</span>
+                  <span class="file-size text-start px-2">{{
+                    image.size
+                  }}</span>
+                  <div class="btn-remove-file">Xóa ảnh</div>
                 </div>
-                <span class="file-name text-start px-2">{{ image.name}}</span>
-                <span class="file-size text-start px-2">{{ image.size }}</span>
-                <div class="btn-remove-file">Xóa ảnh</div>
-              </div> -->
-              <div class="py-5" style="text-align: center">
+              </div>
+              <div v-else class="py-5" style="text-align: center">
                 <div>Kéo thả hình ảnh vào đây</div>
                 <div>hoặc</div>
                 <button
                   type="button"
                   class="btn btn-primary btn-icon-split mb-2 mt-3"
-                  @click="clickFile"
+                  @click.stop="clickFile"
                 >
                   <span class="text">Chọn hình ảnh</span>
                 </button>
@@ -276,14 +301,7 @@ export default {
           id: new Date().getTime(),
           sku_code: '',
           color: '',
-          image_sku: [
-            {
-              url: '',
-              loading: true,
-              name: '',
-              size: ''
-            }
-          ],
+          image_sku: [],
           price: 0,
           quantity_size_s: 0,
           quantity_size_m: 0,
@@ -292,7 +310,11 @@ export default {
           quantity_size_2xl: 0
         }
       ],
-      files: []
+      files: [],
+      thumbnail: {
+        url: '',
+        loading: false
+      }
     };
   },
   methods: {
@@ -314,9 +336,8 @@ export default {
       event.preventDefault();
       this.$refs.file.files = event.dataTransfer.files;
       this.files = event.dataTransfer.files;
-      console.warn('this', this.files);
     },
-    clickFile() {
+    clickFile(e) {
       if (this.$refs.file) {
         this.$refs.file[0].click();
       }
@@ -326,16 +347,21 @@ export default {
         this.$refs.thumbnail.click();
       }
     },
-    onChangeFile(event) {
-      console.warn('e', event.target.files);
+    onChangeThumbnail(e) {
+      this.thumbnail.url = URL.createObjectURL(e.target.files[0]);
     },
-    handleChangeImages(files) {
-      files.map(file => {
-        return {
+    onChangeFile(event, id) {
+      this.handleChangeImages(event.target.files, id);
+    },
+    handleChangeImages(files, id) {
+      const product = this.product_sku.find(item => item.id === id);
+      product.image_sku.push();
+      Array.from(files).forEach(file => {
+        product.image_sku.push({
           url: URL.createObjectURL(file),
           size: file.size,
           name: file.name
-        };
+        });
       });
     },
     addProductSku() {
@@ -343,14 +369,7 @@ export default {
         id: new Date().getTime(),
         sku_code: '',
         color: '',
-        image_sku: [
-          {
-            url: '',
-            loading: true,
-            name: '',
-            size: ''
-          }
-        ],
+        image_sku: [],
         price: 0,
         quantity_size_s: 0,
         quantity_size_m: 0,
@@ -419,6 +438,7 @@ export default {
     border: 2px dashed #e7e7e8;
     border-radius: 0.375rem;
     padding: 1rem;
+    cursor: pointer;
   }
 }
 .drag-active {
@@ -465,5 +485,10 @@ export default {
   height: 1px;
   background: #e7e7e8;
   margin: 1rem 0;
+}
+.thumbnail-product {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
 }
 </style>
