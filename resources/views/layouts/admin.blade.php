@@ -114,6 +114,13 @@
             </a>
         </li>
 
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('product') }}">
+                <i class="fa fa-tshirt"></i>
+                <span>{{ __('Sản phẩm') }}</span>
+            </a>
+        </li>
+
         <!-- Nav Item - About -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('about') }}">

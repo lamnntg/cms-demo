@@ -50,9 +50,13 @@ Route::middleware(['auth'])->group(function () {
         return view('about');
     })->name('about');
 
-    Route::get('/demo', function () {
-        return view('demo');
-    })->name('demo');
+    Route::get('/product', function () {
+        return view('product');
+    })->name('product');
+
+    Route::get('/create-product', function () {
+        return view('create-product');
+    })->name('create-product');
 });
 
 require __DIR__ . '/auth.php';
