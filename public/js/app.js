@@ -13919,8 +13919,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/resources/scss/sb-admin-2.scss */"./resources/scss/sb-admin-2.scss");
+__webpack_require__(/*! D:\workspace\cms_base\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\workspace\cms_base\resources\scss\sb-admin-2.scss */"./resources/scss/sb-admin-2.scss");
 
 
 /***/ })
