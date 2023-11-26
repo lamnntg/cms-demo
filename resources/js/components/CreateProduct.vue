@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="modal-body">
+      <div class="spinner-border"></div>
       <div class="mb-3">
         <label for="title" class="form-control-label font-weight-bold"
           >Tên sản phẩm:
@@ -17,9 +18,7 @@
 
       <div class="d-flex">
         <div class="mb-3 mr-3">
-          <label for="title" class="form-control-label font-weight-bold"
-            >Giá:
-          </label>
+          <label class="form-control-label font-weight-bold">Giá: </label>
           <input
             type="number"
             v-model="price"
@@ -29,7 +28,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="title" class="form-control-label font-weight-bold"
+          <label class="form-control-label font-weight-bold"
             >Thể loại sản phẩm:
           </label>
           <select
@@ -37,18 +36,32 @@
             class="custom-select"
             name="category"
             required
-            style="height: 40px;"
+            style="height: 40px"
           >
             <option value="" selected>Chọn thể loại sản phẩm</option>
             <option>Test club</option>
           </select>
         </div>
       </div>
-      <div class="mb-3">
-        <label for="title" class="form-control-label font-weight-bold"
+      <div class="mb-3 d-flex align-items-center">
+        <label class="form-control-label mb-0 font-weight-bold mr-3"
           >Thumnail:
         </label>
-        <input type="file" id="thumnail" name="thumnail" required />
+        <div>
+          <input
+            ref="thumbnail"
+            hidden
+            type="file"
+            accept="image/png, image/gif, image/jpeg"
+          />
+          <button
+            type="button"
+            class="btn btn-primary btn-icon-split mb-0"
+            @click="clickThumbnailFile"
+          >
+            <span class="text">Chọn ảnh</span>
+          </button>
+        </div>
       </div>
       <div class="mb-3">
         <label for="description" class="form-control-label font-weight-bold"
@@ -77,21 +90,30 @@
             </div>
             <div class="field-color">
               <label>Màu sắc</label>
-              <div class="colors d-flex align-items-center">
-                <div class="mr-2">
-                  <div
-                    class="color"
-                    :style="{ background: background }"
-                    @click="handleShowBoxColor"
-                  ></div>
-                </div>
-                <span>{{ background }}</span>
-              </div>
-              <transition name="fade">
-                <div v-if="showBoxColor" class="box-color">
+              <popper
+                trigger="clickToOpen"
+                :options="{
+                  placement: 'top',
+                  modifiers: { offset: { offset: '0,10px' } }
+                }"
+              >
+                <div class="popper">
                   <sketch-picker :value="colors" @input="updateColor" />
                 </div>
-              </transition>
+
+                <div slot="reference">
+                  <div class="colors d-flex align-items-center">
+                    <div class="mr-2">
+                      <div
+                        class="color"
+                        :style="{ background: background }"
+                        @click="handleShowBoxColor"
+                      ></div>
+                    </div>
+                    <span>{{ background }}</span>
+                  </div>
+                </div>
+              </popper>
             </div>
           </div>
           <div class="mt-2">Kích thước / Số lượng</div>
@@ -118,7 +140,14 @@
 
           <div class="mt-2">Hình ảnh</div>
           <div class="box-image">
-            <input ref="file" type="file" hidden multiple accept="image/png, image/gif, image/jpeg" @change="onChangeFile" />
+            <input
+              ref="file"
+              type="file"
+              hidden
+              multiple
+              accept="image/png, image/gif, image/jpeg"
+              @change="onChangeFile"
+            />
             <div
               :class="['images', active ? 'drag-active' : '']"
               @dragover="dragover"
@@ -154,6 +183,7 @@
             <button
               type="button"
               class="btn btn-danger btn-icon-split mb-2 mt-3"
+              @click="removeProductSku(sku.id)"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-trash"></i>
@@ -161,15 +191,21 @@
               <span class="text">Xóa loại sản phẩm</span>
             </button>
           </div>
-          <button
-            type="button"
-            class="btn btn-primary btn-icon-split mb-2 mt-3"
-          >
-            <span class="icon text-white-50">
-              <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Thêm loại sản phẩm</span>
-          </button>
+          <div>
+            <button
+              type="button"
+              :class="['btn btn-primary btn-icon-split mb-2 mt-3']"
+              @click="addProductSku"
+            >
+              <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+              </span>
+              <span class="text">Thêm loại sản phẩm</span>
+            </button>
+          </div>
+          <div
+            :class="[index === product_sku.length - 1 ? '' : 'border-bottom']"
+          ></div>
         </div>
       </div>
       <div class="mb-3">
@@ -208,8 +244,14 @@
 </template>
 
 <script>
+import Popper from 'vue-popperjs';
+import 'vue-popperjs/dist/vue-popper.css';
+
 export default {
   name: 'CreateProduct',
+  components: {
+    popper: Popper
+  },
   data: () => {
     return {
       showBoxColor: false,
@@ -231,7 +273,7 @@ export default {
       description: '',
       product_sku: [
         {
-          id: new Date(),
+          id: new Date().getTime(),
           sku_code: '',
           color: '',
           image_sku: [
@@ -271,25 +313,55 @@ export default {
     drop(event) {
       event.preventDefault();
       this.$refs.file.files = event.dataTransfer.files;
-      this.files = event.dataTransfer.files
-      console.warn('this',this.files)
+      this.files = event.dataTransfer.files;
+      console.warn('this', this.files);
     },
     clickFile() {
       if (this.$refs.file) {
         this.$refs.file[0].click();
       }
     },
-    onChangeFile(event){
-      console.warn('e',event.target.files)
+    clickThumbnailFile() {
+      if (this.$refs.thumbnail) {
+        this.$refs.thumbnail.click();
+      }
     },
-    handleChangeImages(files){
-      files.map(file=>{
+    onChangeFile(event) {
+      console.warn('e', event.target.files);
+    },
+    handleChangeImages(files) {
+      files.map(file => {
         return {
-          url:URL.createObjectURL(file),
+          url: URL.createObjectURL(file),
           size: file.size,
           name: file.name
-        }
-      })
+        };
+      });
+    },
+    addProductSku() {
+      this.product_sku.push({
+        id: new Date().getTime(),
+        sku_code: '',
+        color: '',
+        image_sku: [
+          {
+            url: '',
+            loading: true,
+            name: '',
+            size: ''
+          }
+        ],
+        price: 0,
+        quantity_size_s: 0,
+        quantity_size_m: 0,
+        quantity_size_l: 0,
+        quantity_size_xl: 0,
+        quantity_size_2xl: 0
+      });
+    },
+    removeProductSku(id) {
+      const index = this.product_sku.findIndex(item => item.id === id);
+      this.product_sku.splice(index, 1);
     }
   }
 };
@@ -325,7 +397,7 @@ export default {
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  .colors {
+  span {
     display: flex;
     flex: 1;
     align-items: center;
@@ -387,5 +459,11 @@ export default {
       background: rgba(58, 53, 65, 0.06);
     }
   }
+}
+.border-bottom {
+  width: 100%;
+  height: 1px;
+  background: #e7e7e8;
+  margin: 1rem 0;
 }
 </style>
