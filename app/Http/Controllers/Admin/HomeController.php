@@ -30,7 +30,6 @@ class HomeController extends Controller
 
         $widget = [
             'users' => $users,
-            //...
         ];
 
         return view('home', compact('widget'));
@@ -45,12 +44,10 @@ class HomeController extends Controller
 
                 return response()->json(['fileName' => $request->file('upload')->getClientOriginalName(), 'uploaded'=> 1, 'url' => $url]);
             }
-
         } catch (\Throwable $th) {
             //throw $th;
         }
 
         return response()->json(['fileName' => '', 'uploaded'=> 1, 'url' => '']);
-
     }
 }

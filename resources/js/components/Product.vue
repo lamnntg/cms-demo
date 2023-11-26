@@ -20,7 +20,7 @@ export default {
   name: 'Product',
   methods:{
     redirectToCreate(){
-        window.location.href = '/admin/create-product'
+        window.location.href = '/admin/product/create'
     }
   }
 };

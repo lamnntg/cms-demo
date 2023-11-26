@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Admin Club') }}</title>
+    <title>{{ config('app.name', 'Prism Admin') }}</title>
 
     <!-- Fonts -->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 {{-- <i class="fas fa-laugh-wink"></i> --}}
             </div>
-            <div class="sidebar-brand-text mx-3">ProjectQ Admin <sup></sup></div>
+            <div class="sidebar-brand-text mx-3">Prism Admin<sup></sup></div>
         </a>
 
         <!-- Divider -->
@@ -74,15 +74,20 @@
             </a>
         </li>
 
-        <!-- Nav Item - Profile -->
-        <li class="nav-item ">
+        {{-- <li class="nav-item ">
             <a class="nav-link" href="{{ route('event') }}">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
                 <span>{{ __('Sự kiện') }}</span>
             </a>
+        </li> --}}
+
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('article') }}">
+                <i class="fa fa-file" aria-hidden="true"></i>
+                <span>{{ __('Sản phẩm') }}</span>
+            </a>
         </li>
 
-        <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('article') }}">
                 <i class="fa fa-file" aria-hidden="true"></i>
@@ -90,7 +95,6 @@
             </a>
         </li>
 {{--
-        <!-- Nav Item - Profile -->
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('landing') }}">
                 <i class="fas fa-fw fa-image"></i>

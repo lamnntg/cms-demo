@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\LandingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 
 /*
@@ -35,6 +36,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/store', [EventController::class, 'store'])->name('event.store');
     });
 
+    Route::prefix('/product')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('product');
+        Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+    });
+
     Route::prefix('/article')->group(function () {
         Route::get('/', [ArticleController::class, 'index'])->name('article');
         Route::post('/store', [ArticleController::class, 'store'])->name('article.store');
@@ -49,14 +55,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/about', function () {
         return view('about');
     })->name('about');
-
-    Route::get('/product', function () {
-        return view('product');
-    })->name('product');
-
-    Route::get('/create-product', function () {
-        return view('create-product');
-    })->name('create-product');
 });
 
 require __DIR__ . '/auth.php';
