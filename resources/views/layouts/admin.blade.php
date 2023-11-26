@@ -84,13 +84,6 @@
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('article') }}">
                 <i class="fa fa-file" aria-hidden="true"></i>
-                <span>{{ __('Sản phẩm') }}</span>
-            </a>
-        </li>
-
-        <li class="nav-item ">
-            <a class="nav-link" href="{{ route('article') }}">
-                <i class="fa fa-file" aria-hidden="true"></i>
                 <span>{{ __('Bài viết') }}</span>
             </a>
         </li>

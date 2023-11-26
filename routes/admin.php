@@ -50,8 +50,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('order');
     });
 
-    Route::post('/image-upload', [HomeController::class, 'uploadImage'])->name('image.upload');
-
     Route::get('/about', function () {
         return view('about');
     })->name('about');

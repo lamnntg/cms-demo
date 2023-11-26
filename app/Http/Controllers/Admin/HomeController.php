@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -48,9 +48,9 @@ class HomeController extends Controller
             if (isset($params['uploads'])) {
                 $uploads = [];
                 foreach ($params['uploads'] as $upload) {
-                    $url = Cloudinary::upload($request->file('upload')->getRealPath())->getSecurePath();
+                    $url = Cloudinary::upload($upload->getRealPath())->getSecurePath();
                     $uploads[] = [
-                        'fileName' => $request->file('upload')->getClientOriginalName(),
+                        'fileName' => $upload->getClientOriginalName(),
                         'uploaded' => 1,
                         'url' => $url
                     ];

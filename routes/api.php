@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\LandingController;
 use App\Http\Controllers\Api\OrderController;
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/', function (Request $request) {
+    return response()->json('Health Check');
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -37,6 +41,8 @@ Route::prefix('/product')->group(function () {
 Route::prefix('/categories')->group(function () {
     Route::get('/', [ProductController::class, 'getCategories']);
 });
+
+Route::middleware('auth.token')->post('/image-upload', [AdminHomeController::class, 'uploadImage'])->name('image.upload');
 
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {
