@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Firebase;
 
 use App\Http\Controllers\ApiController;
-use App\Models\FirebaseUser;
 use App\Services\FirebaseService;
 use App\Services\FirebaseServiceInterface;
-use Kreait\Firebase\Exception\Auth\UserNotFound;
 use Illuminate\Http\Request;
-use Kreait\Firebase\Exception\Auth\InvalidCustomToken;
-use Lcobucci\JWT\Token\Parser;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AuthController extends ApiController
 {
@@ -23,7 +20,7 @@ class AuthController extends ApiController
 
     /**
      * @param \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function register(Request $request)
     {

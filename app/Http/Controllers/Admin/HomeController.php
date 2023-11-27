@@ -6,6 +6,7 @@ use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\FirebaseUser;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::count();
+        $users = FirebaseUser::count();
 
         $widget = [
             'users' => $users,

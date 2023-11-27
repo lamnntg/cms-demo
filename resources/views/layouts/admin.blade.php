@@ -87,6 +87,7 @@
                 <span>{{ __('Bài viết') }}</span>
             </a>
         </li>
+
 {{--
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('landing') }}">
@@ -115,6 +116,13 @@
             <a class="nav-link" href="{{ route('product') }}">
                 <i class="fa fa-tshirt"></i>
                 <span>{{ __('Sản phẩm') }}</span>
+            </a>
+        </li>
+
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('user') }}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>{{ __('Người dùng') }}</span>
             </a>
         </li>
 
@@ -152,7 +160,7 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                {{-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
@@ -161,7 +169,7 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </form> --}}
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -338,13 +346,13 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer class="sticky-footer bg-white">
+        {{-- <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>Copyright &copy; Lâm Nguyễn Team {{ now()->year }}</span>
                 </div>
             </div>
-        </footer>
+        </footer> --}}
         <!-- End of Footer -->
 
     </div>

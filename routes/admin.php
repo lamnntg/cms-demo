@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,11 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/article')->group(function () {
         Route::get('/', [ArticleController::class, 'index'])->name('article');
         Route::post('/store', [ArticleController::class, 'store'])->name('article.store');
+    });
+
+    Route::prefix('/user')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('user');
+        Route::post('/store', [UserController::class, 'store'])->name('user.store');
     });
 
     Route::prefix('/order')->group(function () {

@@ -2,15 +2,14 @@
 
 namespace App\Services;
 
+use App\Firebase\Firebase;
 use App\Models\FirebaseUser;
-use Illuminate\Support\Facades\Auth;
 use Kreait\Firebase\Contract\Auth as FirebaseAuth;
 use Kreait\Firebase\Contract\Storage as FirebaseStorage;
 use Symfony\Component\HttpFoundation\Response;
 
 class FirebaseService implements FirebaseServiceInterface
 {
-
     const METHOD_FRESH_TOKEN = 'fresh_token';
     const METHOD_USERNAME_PASSWORD = 'username_password';
 
@@ -93,5 +92,35 @@ class FirebaseService implements FirebaseServiceInterface
      */
     public function uploadFile($file) {
         $this->storage;
+    }
+
+    /**
+     * getUsers function
+     * for admin users
+     *
+     * @return mixed
+     */
+    public function getUsers() {
+        $uids = FirebaseUser::all()->pluck('uid')->toArray();
+
+        $firebaseUsers = $this->auth->getUsers($uids);
+        $users = [];
+        $inactiveUsers = [];
+        foreach ($firebaseUsers as $uid => $user) {
+            if (!$user) {
+                $inactiveUsers[] = $uid;
+                continue;
+            }
+
+            $user = $user->jsonSerialize();
+            $user['metadata'] = $user['metadata']->jsonSerialize();
+            $users[] = $user;
+        }
+
+        if (!empty($inactiveUsers)) {
+            FirebaseUser::where('uid', $inactiveUsers)->delete();
+        }
+
+        return $users;
     }
 }

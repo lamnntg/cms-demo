@@ -3,14 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\FirebaseUser;
+use App\Services\FirebaseServiceInterface;
 
 class UserController extends Controller
 {
-    public function index() {
-        $users = User::all();
+    /** @var FirebaseServiceInterface */
+    private $firebaseService;
 
-        return $users;
+    public function __construct(FirebaseServiceInterface $firebaseService)
+    {
+        $this->firebaseService = $firebaseService;
+    }
+
+    public function index() {
+        $users = $this->firebaseService->getUsers();
+
+        return view('user', compact('users'));;
     }
 }
