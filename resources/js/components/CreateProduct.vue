@@ -16,7 +16,7 @@
       </div>
 
       <div class="d-flex">
-        <div class="mb-3 mr-3">
+        <div class="mb-3 mr-3" style="flex: 1">
           <label class="form-control-label font-weight-bold">Giá: </label>
           <input
             type="number"
@@ -26,7 +26,7 @@
             required
           />
         </div>
-        <div class="mb-3">
+        <div class="mb-3" style="flex: 1">
           <label class="form-control-label font-weight-bold"
             >Thể loại sản phẩm:
           </label>
@@ -87,7 +87,7 @@
         <label for="description" class="form-control-label font-weight-bold"
           >Các loại sản phẩm:
         </label>
-        <div v-for="(sku, index) in product_sku" :key="sku.id" class="ml-4">
+        <div v-for="sku in product_sku" :key="sku.id" class="ml-4 sku">
           <div class="d-flex" style="gap: 1rem">
             <div>
               <label>Mã sản phẩm</label>
@@ -239,22 +239,19 @@
               <span class="text">Xóa loại sản phẩm</span>
             </button>
           </div>
-          <div>
-            <button
-              type="button"
-              :class="['btn btn-primary btn-icon-split mb-2 mt-3']"
-              @click="addProductSku"
-            >
-              <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
-              </span>
-              <span class="text">Thêm loại sản phẩm</span>
-            </button>
-          </div>
-          <div
-            :class="[index === product_sku.length - 1 ? '' : 'border-bottom']"
-          ></div>
         </div>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary btn-icon-split mb-2"
+          @click="addProductSku"
+        >
+          <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span class="text">Thêm loại sản phẩm</span>
+        </button>
       </div>
       <div class="mb-3">
         <label for="description" class="form-control-label font-weight-bold"
@@ -370,7 +367,6 @@ export default {
           'image/webp',
           'image/jpg'
         ];
-        console.warn('file.type', file.type);
         if (!allowedTypes.includes(file.type) || file.size > 1024 * 1024 * 10) {
           isValid = false;
           vm.$toast.error(
@@ -515,6 +511,15 @@ export default {
         product_sku,
         thumbnail
       } = this;
+      const inValidSku = product_sku.some(
+        sku => !sku.price || !sku.sku_code || sku.loading
+      );
+      const isInValidSubmit =
+        !name || !price || !category || !material || !description || !thumbnail.loading || inValidSku;
+      if (isInValidSubmit) {
+        this.$toast.warning('Hãy điền đầy đủ thông tin trước khi tạo');
+        return;
+      }
       const product_skus = product_sku.map(sku => {
         const {
           sku_code,
@@ -678,5 +683,15 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.sku {
+  background: #f0f0f0;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.custom-select:disabled {
+  font-weight: bold;
+  color: #000 !important;
+  background: white !important;
+}
 </style>
-

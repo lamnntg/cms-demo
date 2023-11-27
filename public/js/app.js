@@ -2171,10 +2171,10 @@ module.exports = {
 /*!*****************************************!*\
   !*** ./node_modules/axios/package.json ***!
   \*****************************************/
-/*! exports provided: _args, _development, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, browser, bugs, bundlesize, dependencies, description, devDependencies, homepage, jsdelivr, keywords, license, main, name, repository, scripts, typings, unpkg, version, default */
+/*! exports provided: name, version, description, main, scripts, repository, keywords, author, license, bugs, homepage, devDependencies, browser, jsdelivr, unpkg, typings, dependencies, bundlesize, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_args\":[[\"axios@0.21.4\",\"/var/www/html\"]],\"_development\":true,\"_from\":\"axios@0.21.4\",\"_id\":\"axios@0.21.4\",\"_inBundle\":false,\"_integrity\":\"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==\",\"_location\":\"/axios\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"axios@0.21.4\",\"name\":\"axios\",\"escapedName\":\"axios\",\"rawSpec\":\"0.21.4\",\"saveSpec\":null,\"fetchSpec\":\"0.21.4\"},\"_requiredBy\":[\"#DEV:/\"],\"_resolved\":\"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz\",\"_spec\":\"0.21.4\",\"_where\":\"/var/www/html\",\"author\":{\"name\":\"Matt Zabriskie\"},\"browser\":{\"./lib/adapters/http.js\":\"./lib/adapters/xhr.js\"},\"bugs\":{\"url\":\"https://github.com/axios/axios/issues\"},\"bundlesize\":[{\"path\":\"./dist/axios.min.js\",\"threshold\":\"5kB\"}],\"dependencies\":{\"follow-redirects\":\"^1.14.0\"},\"description\":\"Promise based HTTP client for the browser and node.js\",\"devDependencies\":{\"coveralls\":\"^3.0.0\",\"es6-promise\":\"^4.2.4\",\"grunt\":\"^1.3.0\",\"grunt-banner\":\"^0.6.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-clean\":\"^1.1.0\",\"grunt-contrib-watch\":\"^1.0.0\",\"grunt-eslint\":\"^23.0.0\",\"grunt-karma\":\"^4.0.0\",\"grunt-mocha-test\":\"^0.13.3\",\"grunt-ts\":\"^6.0.0-beta.19\",\"grunt-webpack\":\"^4.0.2\",\"istanbul-instrumenter-loader\":\"^1.0.0\",\"jasmine-core\":\"^2.4.1\",\"karma\":\"^6.3.2\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^2.1.0\",\"karma-jasmine\":\"^1.1.1\",\"karma-jasmine-ajax\":\"^0.1.13\",\"karma-safari-launcher\":\"^1.0.0\",\"karma-sauce-launcher\":\"^4.3.6\",\"karma-sinon\":\"^1.0.5\",\"karma-sourcemap-loader\":\"^0.3.8\",\"karma-webpack\":\"^4.0.2\",\"load-grunt-tasks\":\"^3.5.2\",\"minimist\":\"^1.2.0\",\"mocha\":\"^8.2.1\",\"sinon\":\"^4.5.0\",\"terser-webpack-plugin\":\"^4.2.3\",\"typescript\":\"^4.0.5\",\"url-search-params\":\"^0.10.0\",\"webpack\":\"^4.44.2\",\"webpack-dev-server\":\"^3.11.0\"},\"homepage\":\"https://axios-http.com\",\"jsdelivr\":\"dist/axios.min.js\",\"keywords\":[\"xhr\",\"http\",\"ajax\",\"promise\",\"node\"],\"license\":\"MIT\",\"main\":\"index.js\",\"name\":\"axios\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/axios/axios.git\"},\"scripts\":{\"build\":\"NODE_ENV=production grunt build\",\"coveralls\":\"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"examples\":\"node ./examples/server.js\",\"fix\":\"eslint --fix lib/**/*.js\",\"postversion\":\"git push && git push --tags\",\"preversion\":\"npm test\",\"start\":\"node ./sandbox/server.js\",\"test\":\"grunt test\",\"version\":\"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json\"},\"typings\":\"./index.d.ts\",\"unpkg\":\"dist/axios.min.js\",\"version\":\"0.21.4\"}");
+module.exports = JSON.parse("{\"name\":\"axios\",\"version\":\"0.21.4\",\"description\":\"Promise based HTTP client for the browser and node.js\",\"main\":\"index.js\",\"scripts\":{\"test\":\"grunt test\",\"start\":\"node ./sandbox/server.js\",\"build\":\"NODE_ENV=production grunt build\",\"preversion\":\"npm test\",\"version\":\"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json\",\"postversion\":\"git push && git push --tags\",\"examples\":\"node ./examples/server.js\",\"coveralls\":\"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"fix\":\"eslint --fix lib/**/*.js\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/axios/axios.git\"},\"keywords\":[\"xhr\",\"http\",\"ajax\",\"promise\",\"node\"],\"author\":\"Matt Zabriskie\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/axios/axios/issues\"},\"homepage\":\"https://axios-http.com\",\"devDependencies\":{\"coveralls\":\"^3.0.0\",\"es6-promise\":\"^4.2.4\",\"grunt\":\"^1.3.0\",\"grunt-banner\":\"^0.6.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-clean\":\"^1.1.0\",\"grunt-contrib-watch\":\"^1.0.0\",\"grunt-eslint\":\"^23.0.0\",\"grunt-karma\":\"^4.0.0\",\"grunt-mocha-test\":\"^0.13.3\",\"grunt-ts\":\"^6.0.0-beta.19\",\"grunt-webpack\":\"^4.0.2\",\"istanbul-instrumenter-loader\":\"^1.0.0\",\"jasmine-core\":\"^2.4.1\",\"karma\":\"^6.3.2\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^2.1.0\",\"karma-jasmine\":\"^1.1.1\",\"karma-jasmine-ajax\":\"^0.1.13\",\"karma-safari-launcher\":\"^1.0.0\",\"karma-sauce-launcher\":\"^4.3.6\",\"karma-sinon\":\"^1.0.5\",\"karma-sourcemap-loader\":\"^0.3.8\",\"karma-webpack\":\"^4.0.2\",\"load-grunt-tasks\":\"^3.5.2\",\"minimist\":\"^1.2.0\",\"mocha\":\"^8.2.1\",\"sinon\":\"^4.5.0\",\"terser-webpack-plugin\":\"^4.2.3\",\"typescript\":\"^4.0.5\",\"url-search-params\":\"^0.10.0\",\"webpack\":\"^4.44.2\",\"webpack-dev-server\":\"^3.11.0\"},\"browser\":{\"./lib/adapters/http.js\":\"./lib/adapters/xhr.js\"},\"jsdelivr\":\"dist/axios.min.js\",\"unpkg\":\"dist/axios.min.js\",\"typings\":\"./index.d.ts\",\"dependencies\":{\"follow-redirects\":\"^1.14.0\"},\"bundlesize\":[{\"path\":\"./dist/axios.min.js\",\"threshold\":\"5kB\"}]}");
 
 /***/ }),
 
@@ -2291,7 +2291,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var vm = this;
       Array.from(files).forEach(function (file) {
         var allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/jpg'];
-        console.warn('file.type', file.type);
 
         if (!allowedTypes.includes(file.type) || file.size > 1024 * 1024 * 10) {
           isValid = false;
@@ -2522,6 +2521,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           description = this.description,
           product_sku = this.product_sku,
           thumbnail = this.thumbnail;
+      var inValidSku = product_sku.some(function (sku) {
+        return !sku.price || !sku.sku_code || sku.loading;
+      });
+      var isInValidSubmit = !name || !price || !category || !material || !description || !thumbnail.loading || inValidSku;
+
+      if (isInValidSubmit) {
+        this.$toast.warning('Hãy điền đầy đủ thông tin trước khi tạo');
+        return;
+      }
+
       var product_skus = product_sku.map(function (sku) {
         var sku_code = sku.sku_code,
             quantity_size_m = sku.quantity_size_m,
@@ -2632,7 +2641,10 @@ var render = function render() {
   })]), _vm._v(" "), _c("div", {
     staticClass: "d-flex"
   }, [_c("div", {
-    staticClass: "mb-3 mr-3"
+    staticClass: "mb-3 mr-3",
+    staticStyle: {
+      flex: "1"
+    }
   }, [_c("label", {
     staticClass: "form-control-label font-weight-bold"
   }, [_vm._v("Giá: ")]), _vm._v(" "), _c("input", {
@@ -2658,7 +2670,10 @@ var render = function render() {
       }
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "mb-3"
+    staticClass: "mb-3",
+    staticStyle: {
+      flex: "1"
+    }
   }, [_c("label", {
     staticClass: "form-control-label font-weight-bold"
   }, [_vm._v("Thể loại sản phẩm:\n        ")]), _vm._v(" "), _c("select", {
@@ -2747,10 +2762,10 @@ var render = function render() {
     attrs: {
       "for": "description"
     }
-  }, [_vm._v("Các loại sản phẩm:\n      ")]), _vm._v(" "), _vm._l(_vm.product_sku, function (sku, index) {
+  }, [_vm._v("Các loại sản phẩm:\n      ")]), _vm._v(" "), _vm._l(_vm.product_sku, function (sku) {
     return _c("div", {
       key: sku.id,
-      staticClass: "ml-4"
+      staticClass: "ml-4 sku"
     }, [_c("div", {
       staticClass: "d-flex",
       staticStyle: {
@@ -2998,20 +3013,18 @@ var render = function render() {
       }
     }, [_vm._m(0, true), _vm._v(" "), _c("span", {
       staticClass: "text"
-    }, [_vm._v("Xóa loại sản phẩm")])])]), _vm._v(" "), _c("div", [_c("button", {
-      "class": ["btn btn-primary btn-icon-split mb-2 mt-3"],
-      attrs: {
-        type: "button"
-      },
-      on: {
-        click: _vm.addProductSku
-      }
-    }, [_vm._m(1, true), _vm._v(" "), _c("span", {
-      staticClass: "text"
-    }, [_vm._v("Thêm loại sản phẩm")])])]), _vm._v(" "), _c("div", {
-      "class": [index === _vm.product_sku.length - 1 ? "" : "border-bottom"]
-    })], 2);
-  })], 2), _vm._v(" "), _c("div", {
+    }, [_vm._v("Xóa loại sản phẩm")])])])], 2);
+  })], 2), _vm._v(" "), _c("div", [_c("button", {
+    staticClass: "btn btn-primary btn-icon-split mb-2",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.addProductSku
+    }
+  }, [_vm._m(1), _vm._v(" "), _c("span", {
+    staticClass: "text"
+  }, [_vm._v("Thêm loại sản phẩm")])])]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-control-label font-weight-bold",
@@ -3170,7 +3183,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".form-product {\n  height: 95vh;\n  overflow: auto;\n}\n.modal-product {\n  max-width: 90%;\n}\n.color {\n  width: 40px;\n  height: 40px;\n  border-radius: 4px;\n}\n.box-color {\n  position: absolute;\n  top: 100%;\n  left: 0;\n}\n.fade-enter-active,\n.fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\n.field-color {\n  position: relative;\n  cursor: pointer;\n  display: flex;\n  flex-direction: column;\n}\n.field-color span {\n  display: flex;\n  flex: 1;\n  align-items: center;\n}\n.icon-remove {\n  margin-left: 1rem;\n  font-size: 22px;\n  cursor: pointer;\n  color: #e63946;\n}\n.box-image {\n  background: #fff;\n  border-radius: 8px;\n  padding: 1rem;\n  border-radius: 0.375rem;\n}\n.box-image .images {\n  text-align: center;\n  border: 2px dashed #e7e7e8;\n  border-radius: 0.375rem;\n  padding: 1rem;\n  cursor: pointer;\n}\n.drag-active {\n  border: 2px dashed #4e73df !important;\n}\n.detail {\n  display: flex;\n  flex-direction: column;\n  width: 10rem;\n  box-shadow: 0 0.375rem 1rem 0 rgba(58, 53, 65, 0.12);\n  border-radius: 0.3125rem;\n}\n.detail .thumbnail {\n  border-bottom: 1px solid #e7e7e8;\n}\n.detail .thumbnail .file-image {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  margin: auto;\n}\n.detail .file-name {\n  color: #b4b2b7;\n  text-align: start;\n}\n.detail .file-size {\n  color: #b4b2b7;\n  text-align: start;\n  font-style: italic;\n  font-size: 12px;\n  border-bottom: 1px solid #e7e7e8;\n  font-weight: bold;\n}\n.detail .btn-remove-file {\n  padding: 8px;\n  cursor: pointer;\n  color: #89868d;\n}\n.detail .btn-remove-file:hover {\n  background: rgba(58, 53, 65, 0.06);\n}\n.border-bottom {\n  width: 100%;\n  height: 1px;\n  background: #e7e7e8;\n  margin: 1rem 0;\n}\n.thumbnail-product {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.relative {\n  position: relative;\n}\n.loading {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.loading .spinner-border {\n  border: 0.25em solid #4e73df !important;\n  border-right-color: transparent !important;\n}\n.name-truncate {\n  width: 160px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}", ""]);
+exports.push([module.i, ".form-product {\n  height: 95vh;\n  overflow: auto;\n}\n.modal-product {\n  max-width: 90%;\n}\n.color {\n  width: 40px;\n  height: 40px;\n  border-radius: 4px;\n}\n.box-color {\n  position: absolute;\n  top: 100%;\n  left: 0;\n}\n.fade-enter-active,\n.fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\n.field-color {\n  position: relative;\n  cursor: pointer;\n  display: flex;\n  flex-direction: column;\n}\n.field-color span {\n  display: flex;\n  flex: 1;\n  align-items: center;\n}\n.icon-remove {\n  margin-left: 1rem;\n  font-size: 22px;\n  cursor: pointer;\n  color: #e63946;\n}\n.box-image {\n  background: #fff;\n  border-radius: 8px;\n  padding: 1rem;\n  border-radius: 0.375rem;\n}\n.box-image .images {\n  text-align: center;\n  border: 2px dashed #e7e7e8;\n  border-radius: 0.375rem;\n  padding: 1rem;\n  cursor: pointer;\n}\n.drag-active {\n  border: 2px dashed #4e73df !important;\n}\n.detail {\n  display: flex;\n  flex-direction: column;\n  width: 10rem;\n  box-shadow: 0 0.375rem 1rem 0 rgba(58, 53, 65, 0.12);\n  border-radius: 0.3125rem;\n}\n.detail .thumbnail {\n  border-bottom: 1px solid #e7e7e8;\n}\n.detail .thumbnail .file-image {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  margin: auto;\n}\n.detail .file-name {\n  color: #b4b2b7;\n  text-align: start;\n}\n.detail .file-size {\n  color: #b4b2b7;\n  text-align: start;\n  font-style: italic;\n  font-size: 12px;\n  border-bottom: 1px solid #e7e7e8;\n  font-weight: bold;\n}\n.detail .btn-remove-file {\n  padding: 8px;\n  cursor: pointer;\n  color: #89868d;\n}\n.detail .btn-remove-file:hover {\n  background: rgba(58, 53, 65, 0.06);\n}\n.border-bottom {\n  width: 100%;\n  height: 1px;\n  background: #e7e7e8;\n  margin: 1rem 0;\n}\n.thumbnail-product {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.relative {\n  position: relative;\n}\n.loading {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.loading .spinner-border {\n  border: 0.25em solid #4e73df !important;\n  border-right-color: transparent !important;\n}\n.name-truncate {\n  width: 160px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.sku {\n  background: #f0f0f0;\n  padding: 1rem;\n  border-radius: 8px;\n  margin-bottom: 1rem;\n}\n.custom-select:disabled {\n  font-weight: bold;\n  color: #000 !important;\n  background: white !important;\n}", ""]);
 
 // exports
 
@@ -21618,8 +21631,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/resources/scss/sb-admin-2.scss */"./resources/scss/sb-admin-2.scss");
+__webpack_require__(/*! D:\workspace\cms_base\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\workspace\cms_base\resources\scss\sb-admin-2.scss */"./resources/scss/sb-admin-2.scss");
 
 
 /***/ })
