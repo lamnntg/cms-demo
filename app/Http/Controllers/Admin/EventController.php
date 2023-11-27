@@ -7,7 +7,6 @@ use App\Models\Club;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-use Illuminate\Support\Facades\Redirect;
 
 class EventController extends Controller
 {
@@ -41,9 +40,9 @@ class EventController extends Controller
             ]);
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect()->route('event')->with('');
+            return redirect()->route('event');
         }
 
-        return redirect()->route('event')->with('');
+        return redirect()->route('event');
     }
 }

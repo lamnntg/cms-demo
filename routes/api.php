@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\LandingController;
 use App\Http\Controllers\Api\OrderController;
@@ -42,7 +43,6 @@ Route::prefix('/categories')->group(function () {
     Route::get('/', [ProductController::class, 'getCategories']);
 });
 
-Route::middleware('auth.token')->post('/image-upload', [AdminHomeController::class, 'uploadImage'])->name('image.upload');
 
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {
@@ -54,4 +54,10 @@ Route::middleware(['auth.firebase'])->group(function () {
     Route::get('/product-favorites', [ProductFavoriteController::class, 'index']);
     Route::post('/product-favorites/add', [ProductFavoriteController::class, 'store']);
     Route::delete('/product-favorites/delete', [ProductFavoriteController::class, 'delete']);
+});
+
+// Api for admin
+Route::middleware('auth.token')->group(function () {
+    Route::post('/image-upload', [AdminHomeController::class, 'uploadImage'])->name('image.upload');
+    Route::post('/product/store', [AdminProductController::class, 'store'])->name('product.store');
 });

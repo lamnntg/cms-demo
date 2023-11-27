@@ -17,6 +17,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Services\FirebaseServiceInterface::class,
             \App\Services\FirebaseService::class
         );
+
+        $this->app->singleton(
+            \App\Services\ProductServiceInterface::class,
+            \App\Services\ProductService::class
+        );
     }
 
     /**
