@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="modal-body">
-      <div class="spinner-border"></div>
       <div class="mb-3">
         <label for="title" class="form-control-label font-weight-bold"
           >Tên sản phẩm:
@@ -64,14 +63,21 @@
             <span class="text">Chọn ảnh</span>
           </button>
           <div v-else class="d-flex align-items-center">
-            <div class="mr-3">
+            <div class="mr-3 relative">
+              <div v-if="thumbnail.loading" class="loading">
+                <div class="spinner-border"></div>
+              </div>
               <img
                 class="thumbnail-product"
                 :src="thumbnail.url"
                 alt=""
               /><br />
             </div>
-            <button class="btn btn-danger" @click="thumbnail.url = ''">
+            <button
+              :disabled="thumbnail.loading"
+              class="btn btn-danger"
+              @click="thumbnail.url = ''"
+            >
               Xóa thumbnail
             </button>
           </div>
@@ -81,11 +87,7 @@
         <label for="description" class="form-control-label font-weight-bold"
           >Các loại sản phẩm:
         </label>
-        <div
-          v-for="(sku, index) in product_sku"
-          :key="sku.id + index"
-          class="ml-4"
-        >
+        <div v-for="(sku, index) in product_sku" :key="sku.id" class="ml-4">
           <div class="d-flex" style="gap: 1rem">
             <div>
               <label>Mã sản phẩm</label>
@@ -95,6 +97,7 @@
                 class="form-control"
                 type="text"
                 required
+                style="width: 189px"
               />
             </div>
             <div>
@@ -112,7 +115,10 @@
                 }"
               >
                 <div class="popper">
-                  <sketch-picker :value="colors" @input="updateColor" />
+                  <sketch-picker
+                    :value="sku.color"
+                    @input="color => updateColor(color, sku.id)"
+                  />
                 </div>
 
                 <div slot="reference">
@@ -120,19 +126,21 @@
                     <div class="mr-2">
                       <div
                         class="color"
-                        :style="{ background: background }"
+                        :style="{ background: sku.color.hex }"
                         @click="handleShowBoxColor"
                       ></div>
                     </div>
-                    <span>{{ background }}</span>
+                    <span>{{ sku.color.hex }}</span>
                   </div>
                 </div>
               </popper>
             </div>
           </div>
+
+          <!-- Size -->
           <div class="mt-2">Kích thước / Số lượng</div>
           <div
-            v-for="size in ['s', 'm', 'l', 'xl', 'xxl']"
+            v-for="size in ['s', 'm', 'l', 'xl', '2xl']"
             :key="size"
             class="d-flex align-items-center mt-2"
           >
@@ -148,14 +156,19 @@
               </select>
             </div>
             <div>
-              <input class="form-control" type="number" />
+              <input
+                v-model="sku[`quantity_size_${size}`]"
+                class="form-control"
+                type="number"
+              />
             </div>
           </div>
 
+          <!-- Image -->
           <div class="mt-2">Hình ảnh</div>
           <div class="box-image">
             <input
-              ref="file"
+              :ref="'file' + sku.id"
               type="file"
               hidden
               multiple
@@ -163,12 +176,15 @@
               @change="e => onChangeFile(e, sku.id)"
             />
             <div
-              :class="['images', active ? 'drag-active' : '']"
-              @dragover="dragover"
-              @dragleave="dragleave"
-              @drop="drop"
-              @click.stop="clickFile"
+              :class="['images relative', active ? 'drag-active' : '']"
+              @dragover="e => dragover(e, sku.id)"
+              @dragleave="dragleave(sku.id)"
+              @drop="e => drop(e, sku.id)"
+              @click.stop="clickFile(sku.id)"
             >
+              <div v-if="sku.loading" class="loading">
+                <div class="spinner-border"></div>
+              </div>
               <div
                 v-if="sku.image_sku.length > 0"
                 class="d-flex flex-wrap"
@@ -178,17 +194,23 @@
                   v-for="image in sku.image_sku"
                   :key="image.url"
                   class="detail"
+                  @click.stop=""
                 >
                   <div class="d-flex align-items-center p-2 thumbnail">
                     <img class="file-image" :src="image.url" alt="" />
                   </div>
-                  <span class="file-name text-start px-2">{{
+                  <span class="file-name text-start px-2 name-truncate">{{
                     image.name
                   }}</span>
                   <span class="file-size text-start px-2">{{
-                    image.size
+                    getFileSize(image.size)
                   }}</span>
-                  <div class="btn-remove-file">Xóa ảnh</div>
+                  <div
+                    class="btn-remove-file"
+                    @click.stop="removeImage(sku.id, image.url)"
+                  >
+                    Xóa ảnh
+                  </div>
                 </div>
               </div>
               <div v-else class="py-5" style="text-align: center">
@@ -197,7 +219,7 @@
                 <button
                   type="button"
                   class="btn btn-primary btn-icon-split mb-2 mt-3"
-                  @click.stop="clickFile"
+                  @click.stop="clickFile(sku.id)"
                 >
                   <span class="text">Chọn hình ảnh</span>
                 </button>
@@ -209,6 +231,7 @@
               type="button"
               class="btn btn-danger btn-icon-split mb-2 mt-3"
               @click="removeProductSku(sku.id)"
+              :disabled="product_sku.length < 2"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-trash"></i>
@@ -260,10 +283,10 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Tạo</button>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">
         Đóng
       </button>
+      <button type="submit" class="btn btn-primary" @click="submit">Tạo</button>
     </div>
   </div>
 </template>
@@ -271,6 +294,8 @@
 <script>
 import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
+import { uploadImages } from './../api/product.api';
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   name: 'CreateProduct',
@@ -281,39 +306,39 @@ export default {
     return {
       showBoxColor: false,
       active: false,
-      colors: {
-        hex: '#194d33',
-        hex8: '#194D33A8',
-        hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
-        hsv: { h: 150, s: 0.66, v: 0.3, a: 1 },
-        rgba: { r: 25, g: 77, b: 51, a: 1 },
-        a: 1
-      },
       background: '#000',
       name: '',
       category: '',
-      price: 0,
+      price: '',
       image: '',
       material: '',
       description: '',
       product_sku: [
         {
-          id: new Date().getTime(),
+          id: uuidv4(),
           sku_code: '',
-          color: '',
+          color: {
+            hex: '#194d33',
+            hex8: '#194D33A8',
+            hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
+            hsv: { h: 150, s: 0.66, v: 0.3, a: 1 },
+            rgba: { r: 25, g: 77, b: 51, a: 1 },
+            a: 1
+          },
           image_sku: [],
-          price: 0,
-          quantity_size_s: 0,
-          quantity_size_m: 0,
-          quantity_size_l: 0,
-          quantity_size_xl: 0,
-          quantity_size_2xl: 0
+          price: '',
+          quantity_size_s: '',
+          quantity_size_m: '',
+          quantity_size_l: '',
+          quantity_size_xl: '',
+          quantity_size_2xl: '',
+          loading: false,
+          active: false
         }
       ],
-      files: [],
       thumbnail: {
         url: '',
-        loading: false
+        loading: true
       }
     };
   },
@@ -321,25 +346,60 @@ export default {
     handleShowBoxColor() {
       this.showBoxColor = !this.showBoxColor;
     },
-    updateColor(color) {
-      this.$set(this, 'colors', color);
-      this.background = color.hex;
+    updateColor(color, id) {
+      const product = this.product_sku.find(item => item.id === id);
+      product.color = color;
     },
-    dragover(event) {
+    dragover(event, id) {
       event.preventDefault();
-      this.active = true;
+      const product = this.product_sku.find(item => item.id === id);
+      product.active = true;
     },
-    dragleave() {
-      this.active = false;
+    dragleave(id) {
+      const product = this.product_sku.find(item => item.id === id);
+      product.active = false;
     },
-    drop(event) {
+    validateFile(files) {
+      let isValid = true;
+      const vm = this;
+      Array.from(files).forEach(file => {
+        let allowedTypes = [
+          'image/jpeg',
+          'image/png',
+          'image/gif',
+          'image/webp',
+          'image/jpg'
+        ];
+        console.warn('file.type', file.type);
+        if (!allowedTypes.includes(file.type) || file.size > 1024 * 1024 * 10) {
+          isValid = false;
+          vm.$toast.error(
+            'Tệp tin phải có địng dạng là hình ảnh và không được lớn hơn 10MB'
+          );
+        }
+      });
+      return isValid;
+    },
+    drop(event, id) {
       event.preventDefault();
-      this.$refs.file.files = event.dataTransfer.files;
-      this.files = event.dataTransfer.files;
+      const product = this.product_sku.find(item => item.id === id);
+      if (product.loading) {
+        return;
+      }
+      const isValid = this.validateFile(event.dataTransfer.files);
+      if (!isValid) {
+        return;
+      }
+      this.$refs[`file${id}`].files = event.dataTransfer.files;
+      this.handleChangeImages(event.dataTransfer.files, id);
     },
-    clickFile(e) {
-      if (this.$refs.file) {
-        this.$refs.file[0].click();
+    clickFile(id) {
+      const product = this.product_sku.find(item => item.id === id);
+      if (product.loading) {
+        return;
+      }
+      if (this.$refs[`file${id}`]) {
+        this.$refs[`file${id}`][0].click();
       }
     },
     clickThumbnailFile() {
@@ -347,40 +407,148 @@ export default {
         this.$refs.thumbnail.click();
       }
     },
-    onChangeThumbnail(e) {
-      this.thumbnail.url = URL.createObjectURL(e.target.files[0]);
+    async onChangeThumbnail(e) {
+      const isValid = this.validateFile(e.target.files);
+      if (!isValid) {
+        return;
+      }
+      try {
+        this.thumbnail.loading = true;
+        this.thumbnail.url = URL.createObjectURL(e.target.files[0]);
+        const formData = new FormData();
+        formData.append('uploads[]', e.target.files[0]);
+        const result = await uploadImages(formData);
+        if (result.data && result.data[0]) {
+          this.thumbnail.url = result.data[0].url;
+        }
+      } catch (err) {
+        console.warn('e', err);
+      } finally {
+        this.thumbnail.loading = false;
+      }
     },
     onChangeFile(event, id) {
+      const product = this.product_sku.find(item => item.id === id);
+      if (product.loading) {
+        return;
+      }
+      const isValid = this.validateFile(event.target.files);
+      if (!isValid) {
+        return;
+      }
       this.handleChangeImages(event.target.files, id);
     },
-    handleChangeImages(files, id) {
+    async handleChangeImages(files, id) {
       const product = this.product_sku.find(item => item.id === id);
-      product.image_sku.push();
-      Array.from(files).forEach(file => {
-        product.image_sku.push({
-          url: URL.createObjectURL(file),
-          size: file.size,
-          name: file.name
+      const lengthImageSku = product.image_sku.length;
+      try {
+        product.loading = true;
+        const formData = new FormData();
+        Array.from(files).forEach(file => {
+          formData.append('uploads[]', file);
+          product.image_sku.push({
+            url: URL.createObjectURL(file),
+            size: file.size,
+            name: file.name
+          });
         });
-      });
+        // const result = await uploadImages(formData);
+        // for (
+        //   let index = lengthImageSku;
+        //   index < product.image_sku.length;
+        //   index++
+        // ) {
+        //   product.image_sku[index].url =
+        //     result.data[index - lengthImageSku].url;
+        // }
+      } catch {
+        console.warn('err');
+      } finally {
+        product.loading = false;
+      }
     },
     addProductSku() {
       this.product_sku.push({
-        id: new Date().getTime(),
+        id: uuidv4(),
         sku_code: '',
-        color: '',
+        color: {
+          hex: '#194d33',
+          hex8: '#194D33A8',
+          hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
+          hsv: { h: 150, s: 0.66, v: 0.3, a: 1 },
+          rgba: { r: 25, g: 77, b: 51, a: 1 },
+          a: 1
+        },
         image_sku: [],
-        price: 0,
-        quantity_size_s: 0,
-        quantity_size_m: 0,
-        quantity_size_l: 0,
-        quantity_size_xl: 0,
-        quantity_size_2xl: 0
+        price: '',
+        quantity_size_s: '',
+        quantity_size_m: '',
+        quantity_size_l: '',
+        quantity_size_xl: '',
+        quantity_size_2xl: '',
+        loading: false
       });
     },
     removeProductSku(id) {
       const index = this.product_sku.findIndex(item => item.id === id);
-      this.product_sku.splice(index, 1);
+      if (this.product_sku.length > 1) {
+        this.product_sku.splice(index, 1);
+      }
+    },
+    getFileSize(size) {
+      return size < 1024
+        ? size + 'kb'
+        : (size / (1024 * 1024)).toFixed(2) + 'MB';
+    },
+    removeImage(skuId, imageUrl) {
+      const product = this.product_sku.find(item => item.id === skuId);
+      const index = product.image_sku.findIndex(img => img.url === imageUrl);
+      product.image_sku.splice(index, 1);
+    },
+    submit() {
+      const {
+        name,
+        price,
+        category,
+        material,
+        description,
+        product_sku,
+        thumbnail
+      } = this;
+      const product_skus = product_sku.map(sku => {
+        const {
+          sku_code,
+          quantity_size_m,
+          quantity_size_2xl,
+          quantity_size_s,
+          quantity_size_l,
+          quantity_size_xl,
+          image_sku,
+          color,
+          price
+        } = sku;
+        return {
+          sku_code,
+          color: color.hex,
+          price,
+          quantity_size_s,
+          quantity_size_m,
+          quantity_size_l,
+          quantity_size_xl,
+          quantity_size_2xl,
+          image_sku: image_sku.map(image => image.url)
+        };
+      });
+      const data = {
+        name,
+        images: thumbnail.url,
+        price,
+        category,
+        material,
+        description,
+        product_skus
+      };
+      console.warn('product_sku', data);
     }
   }
 };
@@ -395,8 +563,8 @@ export default {
   max-width: 90%;
 }
 .color {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   border-radius: 4px;
 }
 .box-color {
@@ -491,4 +659,24 @@ export default {
   height: 120px;
   object-fit: cover;
 }
+.relative {
+  position: relative;
+}
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .spinner-border {
+    border: 0.25em solid #4e73df !important;
+    border-right-color: transparent !important;
+  }
+}
+.name-truncate {
+  width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>
+
