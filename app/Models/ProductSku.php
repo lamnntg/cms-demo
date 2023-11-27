@@ -30,6 +30,10 @@ class ProductSku extends Model
         'deleted_at',
     ];
 
+    protected $casts = [
+        'image_sku' => 'array',
+    ];
+
     public function getImageSkuAttribute($value)
     {
         if (is_array($value)) {
