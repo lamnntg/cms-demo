@@ -3,7 +3,7 @@
     <div class="modal-body">
       <div class="mb-3">
         <label for="title" class="form-control-label font-weight-bold"
-          >Tên sản phẩm:
+          >Tên sản phẩm ( <span class="text-danger">*</span> ):
         </label>
         <input
           v-model="name"
@@ -17,7 +17,9 @@
 
       <div class="d-flex">
         <div class="mb-3 mr-3" style="flex: 1">
-          <label class="form-control-label font-weight-bold">Giá: </label>
+          <label class="form-control-label font-weight-bold"
+            >Giá ( <span class="text-danger">*</span> ):
+          </label>
           <input
             type="number"
             v-model="price"
@@ -28,7 +30,7 @@
         </div>
         <div class="mb-3" style="flex: 1">
           <label class="form-control-label font-weight-bold"
-            >Thể loại sản phẩm:
+            >Thể loại sản phẩm ( <span class="text-danger">*</span> ):
           </label>
           <select
             v-model="category"
@@ -44,7 +46,7 @@
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label class="form-control-label mb-0 font-weight-bold mr-3"
-          >Thumnail:
+          >Thumnail ( <span class="text-danger">*</span> ):
         </label>
         <div>
           <input
@@ -85,12 +87,12 @@
       </div>
       <div class="mb-3">
         <label for="description" class="form-control-label font-weight-bold"
-          >Các loại sản phẩm:
+          >Các loại sản phẩm ( <span class="text-danger">*</span> ):
         </label>
         <div v-for="sku in product_sku" :key="sku.id" class="ml-4 sku">
           <div class="d-flex" style="gap: 1rem">
             <div>
-              <label>Mã sản phẩm</label>
+              <label>Mã sản phẩm ( <span class="text-danger">*</span> )</label>
               <br />
               <input
                 v-model="sku.sku_code"
@@ -101,7 +103,7 @@
               />
             </div>
             <div>
-              <label>Giá</label>
+              <label>Giá ( <span class="text-danger">*</span> )</label>
               <br />
               <input v-model="sku.price" class="form-control" type="number" />
             </div>
@@ -138,7 +140,9 @@
           </div>
 
           <!-- Size -->
-          <div class="mt-2">Kích thước / Số lượng</div>
+          <div class="mt-2">
+            Kích thước / Số lượng ( <span class="text-danger">*</span> )
+          </div>
           <div
             v-for="size in ['s', 'm', 'l', 'xl', '2xl']"
             :key="size"
@@ -165,7 +169,9 @@
           </div>
 
           <!-- Image -->
-          <div class="mt-2">Hình ảnh</div>
+          <div class="mt-2">
+            Hình ảnh ( <span class="text-danger">*</span> )
+          </div>
           <div class="box-image">
             <input
               :ref="'file' + sku.id"
@@ -255,7 +261,7 @@
       </div>
       <div class="mb-3">
         <label for="description" class="form-control-label font-weight-bold"
-          >Chất liệu:
+          >Chất liệu ( <span class="text-danger">*</span> ):
         </label>
         <textarea
           v-model="material"
@@ -267,7 +273,7 @@
       </div>
       <div class="mb-3">
         <label for="description" class="form-control-label font-weight-bold"
-          >Mô tả sản phẩm:
+          >Mô tả sản phẩm ( <span class="text-danger">*</span> ):
         </label>
         <textarea
           v-model="description"
@@ -283,7 +289,14 @@
       <button type="button" class="btn btn-secondary" data-dismiss="modal">
         Đóng
       </button>
-      <button type="submit" class="btn btn-primary" @click="submit">Tạo</button>
+      <button
+        :disabled="disabledSubmit || isSubmiting"
+        type="submit"
+        class="btn btn-primary"
+        @click="submit"
+      >
+        Tạo
+      </button>
     </div>
   </div>
 </template>
@@ -291,7 +304,7 @@
 <script>
 import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
-import { uploadImages } from './../api/product.api';
+import { createProduct, uploadImages } from './../api/product.api';
 import { v4 as uuidv4 } from 'uuid';
 
 export default {
@@ -315,12 +328,7 @@ export default {
           id: uuidv4(),
           sku_code: '',
           color: {
-            hex: '#194d33',
-            hex8: '#194D33A8',
-            hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
-            hsv: { h: 150, s: 0.66, v: 0.3, a: 1 },
-            rgba: { r: 25, g: 77, b: 51, a: 1 },
-            a: 1
+            hex: '#000000'
           },
           image_sku: [],
           price: '',
@@ -336,8 +344,34 @@ export default {
       thumbnail: {
         url: '',
         loading: true
-      }
+      },
+      isSubmiting: false
     };
+  },
+  computed: {
+    disabledSubmit() {
+      const {
+        name,
+        price,
+        category,
+        material,
+        description,
+        product_sku,
+        thumbnail
+      } = this;
+      const inValidSku = product_sku.some(
+        sku => !sku.price || !sku.sku_code || sku.loading
+      );
+      const isInValidSubmit =
+        !name ||
+        !price ||
+        !category ||
+        !material ||
+        !description ||
+        thumbnail.loading ||
+        inValidSku;
+      return isInValidSubmit;
+    }
   },
   methods: {
     handleShowBoxColor() {
@@ -448,15 +482,15 @@ export default {
             name: file.name
           });
         });
-        // const result = await uploadImages(formData);
-        // for (
-        //   let index = lengthImageSku;
-        //   index < product.image_sku.length;
-        //   index++
-        // ) {
-        //   product.image_sku[index].url =
-        //     result.data[index - lengthImageSku].url;
-        // }
+        const result = await uploadImages(formData);
+        for (
+          let index = lengthImageSku;
+          index < product.image_sku.length;
+          index++
+        ) {
+          product.image_sku[index].url =
+            result.data[index - lengthImageSku].url;
+        }
       } catch {
         console.warn('err');
       } finally {
@@ -515,7 +549,13 @@ export default {
         sku => !sku.price || !sku.sku_code || sku.loading
       );
       const isInValidSubmit =
-        !name || !price || !category || !material || !description || !thumbnail.loading || inValidSku;
+        !name ||
+        !price ||
+        !category ||
+        !material ||
+        !description ||
+        thumbnail.loading ||
+        inValidSku;
       if (isInValidSubmit) {
         this.$toast.warning('Hãy điền đầy đủ thông tin trước khi tạo');
         return;
@@ -553,7 +593,54 @@ export default {
         description,
         product_skus
       };
-      console.warn('product_sku', data);
+      const vm = this;
+      this.isSubmiting = true;
+      this.$toast.info('Đang tạo sản phẩm');
+      createProduct(data)
+        .then(() => {
+          vm.$toast.success('Tạo sản phẩm thành công');
+          vm.reset()
+        })
+        .catch(err => {
+          console.warn(err);
+        })
+        .finally(() => {
+          vm.isSubmiting = false;
+        });
+    },
+    reset() {
+      this.showBoxColor = false;
+      this.active = false;
+      this.background = '#000';
+      this.name = '';
+      this.category = '';
+      this.price = '';
+      this.image = '';
+      this.material = '';
+      this.description = '';
+      this.product_sku = [
+        {
+          id: uuidv4(),
+          sku_code: '',
+          color: {
+            hex: '#000000'
+          },
+          image_sku: [],
+          price: '',
+          quantity_size_s: '',
+          quantity_size_m: '',
+          quantity_size_l: '',
+          quantity_size_xl: '',
+          quantity_size_2xl: '',
+          loading: false,
+          active: false
+        }
+      ];
+      this.thumbnail = {
+        url: '',
+        loading: true
+      };
+      this.isSubmiting = false;
     }
   }
 };

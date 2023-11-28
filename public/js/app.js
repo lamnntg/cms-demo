@@ -2225,27 +2225,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: Object(uuid__WEBPACK_IMPORTED_MODULE_3__["v4"])(),
         sku_code: '',
         color: {
-          hex: '#194d33',
-          hex8: '#194D33A8',
-          hsl: {
-            h: 150,
-            s: 0.5,
-            l: 0.2,
-            a: 1
-          },
-          hsv: {
-            h: 150,
-            s: 0.66,
-            v: 0.3,
-            a: 1
-          },
-          rgba: {
-            r: 25,
-            g: 77,
-            b: 51,
-            a: 1
-          },
-          a: 1
+          hex: '#000000'
         },
         image_sku: [],
         price: '',
@@ -2260,8 +2240,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       thumbnail: {
         url: '',
         loading: true
-      }
+      },
+      isSubmiting: false
     };
+  },
+  computed: {
+    disabledSubmit: function disabledSubmit() {
+      var name = this.name,
+          price = this.price,
+          category = this.category,
+          material = this.material,
+          description = this.description,
+          product_sku = this.product_sku,
+          thumbnail = this.thumbnail;
+      var inValidSku = product_sku.some(function (sku) {
+        return !sku.price || !sku.sku_code || sku.loading;
+      });
+      var isInValidSubmit = !name || !price || !category || !material || !description || thumbnail.loading || inValidSku;
+      return isInValidSubmit;
+    }
   },
   methods: {
     handleShowBoxColor: function handleShowBoxColor() {
@@ -2412,7 +2409,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var product, lengthImageSku, formData;
+        var product, lengthImageSku, formData, result, index;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -2421,38 +2418,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   return item.id === id;
                 });
                 lengthImageSku = product.image_sku.length;
+                _context2.prev = 2;
+                product.loading = true;
+                formData = new FormData();
+                Array.from(files).forEach(function (file) {
+                  formData.append('uploads[]', file);
+                  product.image_sku.push({
+                    url: URL.createObjectURL(file),
+                    size: file.size,
+                    name: file.name
+                  });
+                });
+                _context2.next = 8;
+                return Object(_api_product_api__WEBPACK_IMPORTED_MODULE_2__["uploadImages"])(formData);
 
-                try {
-                  product.loading = true;
-                  formData = new FormData();
-                  Array.from(files).forEach(function (file) {
-                    formData.append('uploads[]', file);
-                    product.image_sku.push({
-                      url: URL.createObjectURL(file),
-                      size: file.size,
-                      name: file.name
-                    });
-                  }); // const result = await uploadImages(formData);
-                  // for (
-                  //   let index = lengthImageSku;
-                  //   index < product.image_sku.length;
-                  //   index++
-                  // ) {
-                  //   product.image_sku[index].url =
-                  //     result.data[index - lengthImageSku].url;
-                  // }
-                } catch (_unused) {
-                  console.warn('err');
-                } finally {
-                  product.loading = false;
+              case 8:
+                result = _context2.sent;
+
+                for (index = lengthImageSku; index < product.image_sku.length; index++) {
+                  product.image_sku[index].url = result.data[index - lengthImageSku].url;
                 }
 
-              case 3:
+                _context2.next = 15;
+                break;
+
+              case 12:
+                _context2.prev = 12;
+                _context2.t0 = _context2["catch"](2);
+                console.warn('err');
+
+              case 15:
+                _context2.prev = 15;
+                product.loading = false;
+                return _context2.finish(15);
+
+              case 18:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[2, 12, 15, 18]]);
       }))();
     },
     addProductSku: function addProductSku() {
@@ -2524,7 +2529,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var inValidSku = product_sku.some(function (sku) {
         return !sku.price || !sku.sku_code || sku.loading;
       });
-      var isInValidSubmit = !name || !price || !category || !material || !description || !thumbnail.loading || inValidSku;
+      var isInValidSubmit = !name || !price || !category || !material || !description || thumbnail.loading || inValidSku;
 
       if (isInValidSubmit) {
         this.$toast.warning('Hãy điền đầy đủ thông tin trước khi tạo');
@@ -2564,7 +2569,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         description: description,
         product_skus: product_skus
       };
-      console.warn('product_sku', data);
+      var vm = this;
+      this.isSubmiting = true;
+      this.$toast.info('Đang tạo sản phẩm');
+      Object(_api_product_api__WEBPACK_IMPORTED_MODULE_2__["createProduct"])(data).then(function () {
+        vm.$toast.success('Tạo sản phẩm thành công');
+        vm.reset();
+      })["catch"](function (err) {
+        console.warn(err);
+      })["finally"](function () {
+        vm.isSubmiting = false;
+      });
+    },
+    reset: function reset() {
+      this.showBoxColor = false;
+      this.active = false;
+      this.background = '#000';
+      this.name = '';
+      this.category = '';
+      this.price = '';
+      this.image = '';
+      this.material = '';
+      this.description = '';
+      this.product_sku = [{
+        id: Object(uuid__WEBPACK_IMPORTED_MODULE_3__["v4"])(),
+        sku_code: '',
+        color: {
+          hex: '#000000'
+        },
+        image_sku: [],
+        price: '',
+        quantity_size_s: '',
+        quantity_size_m: '',
+        quantity_size_l: '',
+        quantity_size_xl: '',
+        quantity_size_2xl: '',
+        loading: false,
+        active: false
+      }];
+      this.thumbnail = {
+        url: '',
+        loading: true
+      };
+      this.isSubmiting = false;
     }
   }
 });
@@ -2610,12 +2657,7 @@ var render = function render() {
     staticClass: "modal-body"
   }, [_c("div", {
     staticClass: "mb-3"
-  }, [_c("label", {
-    staticClass: "form-control-label font-weight-bold",
-    attrs: {
-      "for": "title"
-    }
-  }, [_vm._v("Tên sản phẩm:\n      ")]), _vm._v(" "), _c("input", {
+  }, [_vm._m(0), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2645,9 +2687,7 @@ var render = function render() {
     staticStyle: {
       flex: "1"
     }
-  }, [_c("label", {
-    staticClass: "form-control-label font-weight-bold"
-  }, [_vm._v("Giá: ")]), _vm._v(" "), _c("input", {
+  }, [_vm._m(1), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2674,9 +2714,7 @@ var render = function render() {
     staticStyle: {
       flex: "1"
     }
-  }, [_c("label", {
-    staticClass: "form-control-label font-weight-bold"
-  }, [_vm._v("Thể loại sản phẩm:\n        ")]), _vm._v(" "), _c("select", {
+  }, [_vm._m(2), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2709,9 +2747,7 @@ var render = function render() {
     }
   }, [_vm._v("Chọn thể loại sản phẩm")]), _vm._v(" "), _c("option", [_vm._v("Test club")])])])]), _vm._v(" "), _c("div", {
     staticClass: "mb-3 d-flex align-items-center"
-  }, [_c("label", {
-    staticClass: "form-control-label mb-0 font-weight-bold mr-3"
-  }, [_vm._v("Thumnail:\n      ")]), _vm._v(" "), _c("div", [_c("input", {
+  }, [_vm._m(3), _vm._v(" "), _c("div", [_c("input", {
     ref: "thumbnail",
     attrs: {
       hidden: "",
@@ -2757,12 +2793,7 @@ var render = function render() {
     }
   }, [_vm._v("\n            Xóa thumbnail\n          ")])])])]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
-  }, [_c("label", {
-    staticClass: "form-control-label font-weight-bold",
-    attrs: {
-      "for": "description"
-    }
-  }, [_vm._v("Các loại sản phẩm:\n      ")]), _vm._v(" "), _vm._l(_vm.product_sku, function (sku) {
+  }, [_vm._m(4), _vm._v(" "), _vm._l(_vm.product_sku, function (sku) {
     return _c("div", {
       key: sku.id,
       staticClass: "ml-4 sku"
@@ -2771,7 +2802,7 @@ var render = function render() {
       staticStyle: {
         gap: "1rem"
       }
-    }, [_c("div", [_c("label", [_vm._v("Mã sản phẩm")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("input", {
+    }, [_c("div", [_vm._m(5, true), _vm._v(" "), _c("br"), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -2796,7 +2827,7 @@ var render = function render() {
           _vm.$set(sku, "sku_code", $event.target.value);
         }
       }
-    })]), _vm._v(" "), _c("div", [_c("label", [_vm._v("Giá")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("input", {
+    })]), _vm._v(" "), _c("div", [_vm._m(6, true), _vm._v(" "), _c("br"), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -2859,9 +2890,7 @@ var render = function render() {
       on: {
         click: _vm.handleShowBoxColor
       }
-    })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(sku.color.hex))])])])])], 1)]), _vm._v(" "), _c("div", {
-      staticClass: "mt-2"
-    }, [_vm._v("Kích thước / Số lượng")]), _vm._v(" "), _vm._l(["s", "m", "l", "xl", "2xl"], function (size) {
+    })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(sku.color.hex))])])])])], 1)]), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _vm._l(["s", "m", "l", "xl", "2xl"], function (size) {
       return _c("div", {
         key: size,
         staticClass: "d-flex align-items-center mt-2"
@@ -2904,9 +2933,7 @@ var render = function render() {
           }
         }
       })])]);
-    }), _vm._v(" "), _c("div", {
-      staticClass: "mt-2"
-    }, [_vm._v("Hình ảnh")]), _vm._v(" "), _c("div", {
+    }), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c("div", {
       staticClass: "box-image"
     }, [_c("input", {
       ref: "file" + sku.id,
@@ -3011,7 +3038,7 @@ var render = function render() {
           return _vm.removeProductSku(sku.id);
         }
       }
-    }, [_vm._m(0, true), _vm._v(" "), _c("span", {
+    }, [_vm._m(9, true), _vm._v(" "), _c("span", {
       staticClass: "text"
     }, [_vm._v("Xóa loại sản phẩm")])])])], 2);
   })], 2), _vm._v(" "), _c("div", [_c("button", {
@@ -3022,16 +3049,11 @@ var render = function render() {
     on: {
       click: _vm.addProductSku
     }
-  }, [_vm._m(1), _vm._v(" "), _c("span", {
+  }, [_vm._m(10), _vm._v(" "), _c("span", {
     staticClass: "text"
   }, [_vm._v("Thêm loại sản phẩm")])])]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
-  }, [_c("label", {
-    staticClass: "form-control-label font-weight-bold",
-    attrs: {
-      "for": "description"
-    }
-  }, [_vm._v("Chất liệu:\n      ")]), _vm._v(" "), _c("textarea", {
+  }, [_vm._m(11), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3055,12 +3077,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
-  }, [_c("label", {
-    staticClass: "form-control-label font-weight-bold",
-    attrs: {
-      "for": "description"
-    }
-  }, [_vm._v("Mô tả sản phẩm:\n      ")]), _vm._v(" "), _c("textarea", {
+  }, [_vm._m(12), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3094,15 +3111,99 @@ var render = function render() {
   }, [_vm._v("\n      Đóng\n    ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
+      disabled: _vm.disabledSubmit || _vm.isSubmiting,
       type: "submit"
     },
     on: {
       click: _vm.submit
     }
-  }, [_vm._v("Tạo")])])]);
+  }, [_vm._v("\n      Tạo\n    ")])])]);
 };
 
 var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    staticClass: "form-control-label font-weight-bold",
+    attrs: {
+      "for": "title"
+    }
+  }, [_vm._v("Tên sản phẩm ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" ):\n      ")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    staticClass: "form-control-label font-weight-bold"
+  }, [_vm._v("Giá ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" ):\n        ")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    staticClass: "form-control-label font-weight-bold"
+  }, [_vm._v("Thể loại sản phẩm ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" ):\n        ")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    staticClass: "form-control-label mb-0 font-weight-bold mr-3"
+  }, [_vm._v("Thumnail ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" ):\n      ")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    staticClass: "form-control-label font-weight-bold",
+    attrs: {
+      "for": "description"
+    }
+  }, [_vm._v("Các loại sản phẩm ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" ):\n      ")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", [_vm._v("Mã sản phẩm ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" )")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", [_vm._v("Giá ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" )")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "mt-2"
+  }, [_vm._v("\n          Kích thước / Số lượng ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" )\n        ")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "mt-2"
+  }, [_vm._v("\n          Hình ảnh ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" )\n        ")]);
+}, function () {
   var _vm = this,
       _c = _vm._self._c;
 
@@ -3120,6 +3221,30 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "fas fa-plus"
   })]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    staticClass: "form-control-label font-weight-bold",
+    attrs: {
+      "for": "description"
+    }
+  }, [_vm._v("Chất liệu ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" ):\n      ")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    staticClass: "form-control-label font-weight-bold",
+    attrs: {
+      "for": "description"
+    }
+  }, [_vm._v("Mô tả sản phẩm ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" ):\n      ")]);
 }];
 render._withStripped = true;
 
@@ -21408,19 +21533,27 @@ var api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
 /*!*****************************************!*\
   !*** ./resources/js/api/product.api.js ***!
   \*****************************************/
-/*! exports provided: uploadImages */
+/*! exports provided: uploadImages, createProduct */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uploadImages", function() { return uploadImages; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createProduct", function() { return createProduct; });
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api */ "./resources/js/api/api.js");
 
 var uploadImages = function uploadImages(formData) {
-  return _api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/image-upload", formData, {
+  return _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/image-upload', formData, {
     headers: {
       Authorization: 'XxebrehFRKpyorD',
-      "Content-Type": "multipart/form-data"
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+};
+var createProduct = function createProduct(data) {
+  return _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/product/store', data, {
+    headers: {
+      Authorization: 'XxebrehFRKpyorD'
     }
   });
 };
