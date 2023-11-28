@@ -101,7 +101,7 @@ class FirebaseService implements FirebaseServiceInterface
      * @return mixed
      */
     public function getUsers() {
-        $localUsers = FirebaseUser::all()->pluck('uid')->toArray();
+        $localUsers = FirebaseUser::all()->pluck('uid');
         if (empty($localUsers)) {
             return [];
         }
