@@ -56,4 +56,14 @@ class ProductService implements ProductServiceInterface
 
         return [true, $productCreated];
     }
+
+    /**
+     * find function
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function find(int $id) {
+        return Product::with('productSkus')->find($id);
+    }
 }

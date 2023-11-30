@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Api\ApiController;
+use App\Models\Product;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use League\Fractal\Manager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,21 +15,25 @@ class ProductController extends ApiController
 {
     protected $productService;
 
-    public function __construct(ProductServiceInterface $productService)
+    public function __construct(Manager $fractal, ProductServiceInterface $productService)
     {
         $this->productService = $productService;
     }
 
     public function index() {
-        return view('product');
+        $products = Product::with('productSkus')->all();
+
+        return view('product', compact('products'));
     }
 
     public function create() {
         return view('create-product');
     }
 
-    public function edit() {
-        return view('edit-product');
+    public function edit(Request $request, int $id) {
+        $product = $this->productService->find($id);
+
+        return view('edit-product', compact('product'));
     }
 
     /**
