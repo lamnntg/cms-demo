@@ -31,9 +31,8 @@ class ProductService implements ProductServiceInterface
             ]);
 
             // create with relationships
-            $skus = [];
             foreach ($product['product_skus'] as $sku) {
-                $skus[] = [
+                ProductSku::create([
                     'product_id' => $productCreated->id,
                     'sku_code' => $sku['sku_code'],
                     'price' => $sku['price'],
@@ -42,12 +41,12 @@ class ProductService implements ProductServiceInterface
                     'quantity_size_l' => $sku['quantity_size_l'],
                     'quantity_size_xl' => $sku['quantity_size_xl'],
                     'quantity_size_2xl' => $sku['quantity_size_2xl'],
-                    'image_sku' => json_encode($sku['image_sku']),
+                    'image_sku' => $sku['image_sku'],
                     'color' => $sku['color'],
-                ];
+                ]);
             }
 
-            ProductSku::insert($skus);
+            // ProductSku::insert($skus);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
