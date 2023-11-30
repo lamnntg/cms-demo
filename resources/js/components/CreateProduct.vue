@@ -2,8 +2,8 @@
   <div>
     <div class="modal-body">
       <div class="mb-3">
-        <label for="title" class="form-control-label font-weight-bold"
-          >Tên sản phẩm ( <span class="text-danger">*</span> ):
+        <label for="title" class="form-control-label font-weight-bold">
+          Tên sản phẩm ( <span class="text-danger">*</span> ):
         </label>
         <input
           v-model="name"
@@ -11,6 +11,7 @@
           class="form-control"
           id="title"
           name="name"
+          placeholder="Nhập tên sản phẩm "
           required
         />
       </div>
@@ -25,6 +26,7 @@
             v-model="price"
             class="form-control"
             name="price"
+            placeholder="Nhập giá sản phẩm"
             required
           />
         </div>
@@ -46,7 +48,8 @@
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label class="form-control-label mb-0 font-weight-bold mr-3"
-          >Thumnail ( <span class="text-danger">*</span> ):
+          >Thumnail ( <span class="text-danger">*</span>
+          ):
         </label>
         <div>
           <input
@@ -87,166 +90,180 @@
       </div>
       <div class="mb-3">
         <label for="description" class="form-control-label font-weight-bold"
-          >Các loại sản phẩm ( <span class="text-danger">*</span> ):
+          >Phân loại sản phẩm ( <span class="text-danger">*</span> ):
         </label>
-        <div v-for="sku in product_sku" :key="sku.id" class="ml-4 sku">
-          <div class="d-flex" style="gap: 1rem">
-            <div>
-              <label>Mã sản phẩm ( <span class="text-danger">*</span> )</label>
-              <br />
-              <input
-                v-model="sku.sku_code"
-                class="form-control"
-                type="text"
-                required
-                style="width: 189px"
-              />
-            </div>
-            <div>
-              <label>Giá ( <span class="text-danger">*</span> )</label>
-              <br />
-              <input v-model="sku.price" class="form-control" type="number" />
-            </div>
-            <div class="field-color">
-              <label>Màu sắc</label>
-              <popper
-                trigger="clickToOpen"
-                :options="{
-                  placement: 'top',
-                  modifiers: { offset: { offset: '0,10px' } }
-                }"
-              >
-                <div class="popper">
-                  <sketch-picker
-                    :value="sku.color"
-                    @input="color => updateColor(color, sku.id)"
-                  />
-                </div>
 
-                <div slot="reference">
-                  <div class="colors d-flex align-items-center">
-                    <div class="mr-2">
-                      <div
-                        class="color"
-                        :style="{ background: sku.color.hex }"
-                        @click="handleShowBoxColor"
-                      ></div>
-                    </div>
-                    <span>{{ sku.color.hex }}</span>
-                  </div>
-                </div>
-              </popper>
-            </div>
-          </div>
-
-          <!-- Size -->
-          <div class="mt-2">
-            Kích thước / Số lượng ( <span class="text-danger">*</span> )
-          </div>
-          <div
-            v-for="size in ['s', 'm', 'l', 'xl', '2xl']"
-            :key="size"
-            class="d-flex align-items-center mt-2"
-          >
-            <div class="mr-3">
-              <select
-                class="custom-select"
-                name="category"
-                required
-                style="height: 40px; width: 189px"
-                disabled
-              >
-                <option :value="size">{{ size.toUpperCase() }}</option>
-              </select>
-            </div>
-            <div>
-              <input
-                v-model="sku[`quantity_size_${size}`]"
-                class="form-control"
-                type="number"
-              />
-            </div>
-          </div>
-
-          <!-- Image -->
-          <div class="mt-2">
-            Hình ảnh ( <span class="text-danger">*</span> )
-          </div>
-          <div class="box-image">
-            <input
-              :ref="'file' + sku.id"
-              type="file"
-              hidden
-              multiple
-              accept="image/png, image/gif, image/jpeg"
-              @change="e => onChangeFile(e, sku.id)"
-            />
-            <div
-              :class="['images relative', active ? 'drag-active' : '']"
-              @dragover="e => dragover(e, sku.id)"
-              @dragleave="dragleave(sku.id)"
-              @drop="e => drop(e, sku.id)"
-              @click.stop="clickFile(sku.id)"
-            >
-              <div v-if="sku.loading" class="loading">
-                <div class="spinner-border"></div>
-              </div>
-              <div
-                v-if="sku.image_sku.length > 0"
-                class="d-flex flex-wrap"
-                style="gap: 1rem"
-              >
-                <div
-                  v-for="image in sku.image_sku"
-                  :key="image.url"
-                  class="detail"
-                  @click.stop=""
-                >
-                  <div class="d-flex align-items-center p-2 thumbnail">
-                    <img class="file-image" :src="image.url" alt="" />
-                  </div>
-                  <span class="file-name text-start px-2 name-truncate">{{
-                    image.name
-                  }}</span>
-                  <span class="file-size text-start px-2">{{
-                    getFileSize(image.size)
-                  }}</span>
-                  <div
-                    class="btn-remove-file"
-                    @click.stop="removeImage(sku.id, image.url)"
-                  >
-                    Xóa ảnh
-                  </div>
-                </div>
-              </div>
-              <div v-else class="py-5" style="text-align: center">
-                <div>Kéo thả hình ảnh vào đây</div>
-                <div>hoặc</div>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-icon-split mb-2 mt-3"
-                  @click.stop="clickFile(sku.id)"
-                >
-                  <span class="text">Chọn hình ảnh</span>
-                </button>
-              </div>
-            </div>
-          </div>
+        <div v-for="sku in product_sku" :key="sku.id" class="ml-2 sku">
           <div style="text-align: end">
             <button
               type="button"
-              class="btn btn-danger btn-icon-split mb-2 mt-3"
+              class="btn btn-danger btn-icon-split"
               @click="removeProductSku(sku.id)"
               :disabled="product_sku.length < 2"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-trash"></i>
               </span>
-              <span class="text">Xóa loại sản phẩm</span>
+              <!-- <span class="text">Xóa loại sản phẩm</span> -->
             </button>
+          </div>
+
+          <div class="d-flex align-items-center box-container">
+            <!-- Sku attributes -->
+            <div class="mr-4">
+              <div class="d-flex" style="gap: 1rem">
+                <div>
+                  <label
+                    >Sku Code ( <span class="text-danger">*</span> )</label
+                  >
+                  <br />
+                  <input
+                    v-model="sku.sku_code"
+                    class="form-control"
+                    type="text"
+                    placeholder="#A12345"
+                    required
+                    style="width: 110px"
+                  />
+                </div>
+                <div>
+                  <label>Giá ( <span class="text-danger">*</span> )</label>
+                  <br />
+                  <input
+                    v-model="sku.price"
+                    class="form-control"
+                    type="number"
+                  />
+                </div>
+                <div class="field-color">
+                  <label>Màu sắc</label>
+                  <popper
+                    trigger="clickToOpen"
+                    :options="{
+                      placement: 'top',
+                      modifiers: { offset: { offset: '0,10px' } }
+                    }"
+                  >
+                    <div class="popper">
+                      <sketch-picker
+                        :value="sku.color"
+                        @input="color => updateColor(color, sku.id)"
+                      />
+                    </div>
+
+                    <div slot="reference">
+                      <div class="colors d-flex align-items-center">
+                        <div class="mr-2">
+                          <div
+                            class="color"
+                            :style="{ background: sku.color.hex }"
+                            @click="handleShowBoxColor"
+                          ></div>
+                        </div>
+                        <span>{{ sku.color.hex }}</span>
+                      </div>
+                    </div>
+                  </popper>
+                </div>
+              </div>
+
+              <!-- Size -->
+              <div class="mt-2">
+                Kích thước / Số lượng ( <span class="text-danger">*</span> )
+              </div>
+              <div
+                v-for="size in ['s', 'm', 'l', 'xl', '2xl']"
+                :key="size"
+                class="d-flex align-items-center mt-2"
+              >
+                <div class="mr-3">
+                  <select
+                    class="custom-select"
+                    name="category"
+                    required
+                    style="height: 40px; width: 189px"
+                    disabled
+                  >
+                    <option :value="size">{{ size.toUpperCase() }}</option>
+                  </select>
+                </div>
+                <div>
+                  <input
+                    v-model="sku[`quantity_size_${size}`]"
+                    class="form-control"
+                    type="number"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Image -->
+            <div class="mr-4 w-75 h-100 box-image">
+              <div>Hình ảnh ( <span class="text-danger">*</span> )</div>
+              <div class="box-image">
+                <input
+                  :ref="'file' + sku.id"
+                  type="file"
+                  hidden
+                  multiple
+                  accept="image/png, image/gif, image/jpeg"
+                  @change="e => onChangeFile(e, sku.id)"
+                />
+                <div
+                  :class="['images relative', active ? 'drag-active' : '']"
+                  @dragover="e => dragover(e, sku.id)"
+                  @dragleave="dragleave(sku.id)"
+                  @drop="e => drop(e, sku.id)"
+                  @click.stop="clickFile(sku.id)"
+                >
+                  <div v-if="sku.loading" class="loading">
+                    <div class="spinner-border"></div>
+                  </div>
+                  <div
+                    v-if="sku.image_sku.length > 0"
+                    class="d-flex flex-wrap"
+                    style="gap: 1rem"
+                  >
+                    <div
+                      v-for="image in sku.image_sku"
+                      :key="image.url"
+                      class="detail"
+                      @click.stop=""
+                    >
+                      <div class="d-flex align-items-center p-2 thumbnail">
+                        <img class="file-image" :src="image.url" alt="" />
+                      </div>
+                      <span class="file-name text-start px-2 name-truncate">{{
+                        image.name
+                      }}</span>
+                      <span class="file-size text-start px-2">{{
+                        getFileSize(image.size)
+                      }}</span>
+                      <div
+                        class="btn-remove-file"
+                        @click.stop="removeImage(sku.id, image.url)"
+                      >
+                        Xóa ảnh
+                      </div>
+                    </div>
+                  </div>
+                  <div v-else class="py-5" style="text-align: center">
+                    <div>Kéo thả hình ảnh vào đây</div>
+                    <div>hoặc</div>
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-icon-split mb-2 mt-3"
+                      @click.stop="clickFile(sku.id)"
+                    >
+                      <span class="text">Chọn hình ảnh</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
       <div>
         <button
           type="button"
@@ -269,6 +286,7 @@
           aria-label="With textarea"
           id="editor"
           name="material"
+          placeholder="Vải chính: 73% rayon, 25% viscose, 2% spandex - Lớp lót: 70% satin, 30% polyester"
         ></textarea>
       </div>
       <div class="mb-3">
@@ -282,6 +300,7 @@
           rows="20"
           id="editor"
           name="description"
+          placeholder="Áo blazer dạng croptop phong cách cá tính và trẻ trung, vải jeans bền, có 2 túi cơi phía trước, thiết kế dài ngang eo trên hông. Vải lót lụa satin mềm mại, thấm hút mồ hôi tốt."
         ></textarea>
       </div>
     </div>
@@ -306,9 +325,16 @@ import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
 import { createProduct, uploadImages } from './../api/product.api';
 import { v4 as uuidv4 } from 'uuid';
+import { format_currency } from '../common/format';
 
 export default {
   name: 'CreateProduct',
+  props:{
+    isEdit:{
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     popper: Popper
   },
@@ -360,7 +386,7 @@ export default {
         thumbnail
       } = this;
       const inValidSku = product_sku.some(
-        sku => !sku.price || !sku.sku_code || sku.loading
+        sku => !sku.price || !sku.sku_code || sku.loading || sku.image_sku.length < 1
       );
       const isInValidSubmit =
         !name ||
@@ -399,7 +425,8 @@ export default {
           'image/png',
           'image/gif',
           'image/webp',
-          'image/jpg'
+          'image/jpg',
+          'image/svg+xml'
         ];
         if (!allowedTypes.includes(file.type) || file.size > 1024 * 1024 * 10) {
           isValid = false;
@@ -545,18 +572,7 @@ export default {
         product_sku,
         thumbnail
       } = this;
-      const inValidSku = product_sku.some(
-        sku => !sku.price || !sku.sku_code || sku.loading
-      );
-      const isInValidSubmit =
-        !name ||
-        !price ||
-        !category ||
-        !material ||
-        !description ||
-        thumbnail.loading ||
-        inValidSku;
-      if (isInValidSubmit) {
+      if (this.disabledSubmit) {
         this.$toast.warning('Hãy điền đầy đủ thông tin trước khi tạo');
         return;
       }
@@ -576,11 +592,11 @@ export default {
           sku_code,
           color: color.hex,
           price,
-          quantity_size_s,
-          quantity_size_m,
-          quantity_size_l,
-          quantity_size_xl,
-          quantity_size_2xl,
+          quantity_size_s: quantity_size_s || 0,
+          quantity_size_m: quantity_size_m || 0,
+          quantity_size_l: quantity_size_l || 0,
+          quantity_size_xl:quantity_size_xl || 0,
+          quantity_size_2xl: quantity_size_2xl || 0,
           image_sku: image_sku.map(image => image.url)
         };
       });
@@ -599,7 +615,7 @@ export default {
       createProduct(data)
         .then(() => {
           vm.$toast.success('Tạo sản phẩm thành công');
-          vm.reset()
+          vm.reset();
         })
         .catch(err => {
           console.warn(err);
@@ -651,49 +667,63 @@ export default {
   height: 95vh;
   overflow: auto;
 }
+
 .modal-product {
   max-width: 90%;
 }
+
 .color {
   width: 40px;
   height: 40px;
   border-radius: 4px;
 }
+
 .box-color {
   position: absolute;
   top: 100%;
   left: 0;
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
 .field-color {
   position: relative;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+
   span {
     display: flex;
     flex: 1;
     align-items: center;
   }
 }
+
 .icon-remove {
   margin-left: 1rem;
   font-size: 22px;
   cursor: pointer;
   color: #e63946;
 }
+
 .box-image {
   background: #fff;
   border-radius: 8px;
   padding: 1rem;
   border-radius: 0.375rem;
+
   .images {
+    height: 285px;
     text-align: center;
     border: 2px dashed #e7e7e8;
     border-radius: 0.375rem;
@@ -701,17 +731,21 @@ export default {
     cursor: pointer;
   }
 }
+
 .drag-active {
   border: 2px dashed #4e73df !important;
 }
+
 .detail {
   display: flex;
   flex-direction: column;
   width: 10rem;
   box-shadow: 0 0.375rem 1rem 0 rgba(58, 53, 65, 0.12);
   border-radius: 0.3125rem;
+
   .thumbnail {
     border-bottom: 1px solid #e7e7e8;
+
     .file-image {
       width: 120px;
       height: 120px;
@@ -719,10 +753,12 @@ export default {
       margin: auto;
     }
   }
+
   .file-name {
     color: #b4b2b7;
     text-align: start;
   }
+
   .file-size {
     color: #b4b2b7;
     text-align: start;
@@ -731,54 +767,75 @@ export default {
     border-bottom: 1px solid #e7e7e8;
     font-weight: bold;
   }
+
   .btn-remove-file {
     padding: 8px;
     cursor: pointer;
     color: #89868d;
+
     &:hover {
       background: rgba(58, 53, 65, 0.06);
     }
   }
 }
+
 .border-bottom {
   width: 100%;
   height: 1px;
   background: #e7e7e8;
   margin: 1rem 0;
 }
+
 .thumbnail-product {
   width: 120px;
   height: 120px;
   object-fit: cover;
 }
+
 .relative {
   position: relative;
 }
+
 .loading {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   .spinner-border {
     border: 0.25em solid #4e73df !important;
     border-right-color: transparent !important;
   }
 }
+
 .name-truncate {
   width: 160px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .sku {
   background: #f0f0f0;
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
 }
+
 .custom-select:disabled {
   font-weight: bold;
   color: #000 !important;
   background: white !important;
+}
+@media screen and (max-width:1200px) {
+  .box-container{
+    flex-direction: column;
+    align-items: start !important;
+    gap: 1rem;
+    .box-image{
+      width: 100% !important;
+      margin-right: 0 !important;
+    }
+  }
 }
 </style>

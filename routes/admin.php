@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product');
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+        Route::get('/edit', [ProductController::class, 'edit'])->name('product.edit');
     });
 
     Route::prefix('/article')->group(function () {

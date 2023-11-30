@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends ApiController
@@ -25,11 +26,15 @@ class ProductController extends ApiController
         return view('create-product');
     }
 
+    public function edit() {
+        return view('edit-product');
+    }
+
     /**
      * store function
      *
      * @param Request $request
-     * @return HttpResponse
+     * @return JsonResponse
      */
     public function store(Request $request)
     {

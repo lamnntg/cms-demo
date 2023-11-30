@@ -17,10 +17,12 @@ class ProductService implements ProductServiceInterface
     public function store(array $product) {
         DB::beginTransaction();
         try {
+            $nextAutoIncrement = Product::next();
+
             $productCreated = Product::create([
                 'category_id' => $product['category_id'] ?? 1,
                 'name' => $product['name'],
-                'slug' => \Str::slug($product['name']) . now(),
+                'slug' => \Str::slug($product['name']) . '-' . $nextAutoIncrement,
                 'material' => $product['material'],
                 'description' => $product['description'],
                 'preservation' => $product['preservation'] ?? null,
@@ -46,6 +48,7 @@ class ProductService implements ProductServiceInterface
             }
 
             ProductSku::insert($skus);
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
             return [false, $e->getMessage()];

@@ -36,8 +36,13 @@ class Product extends Model
         'images' => 'array',
     ];
 
-    public function productSkus() {
+    public function productSkus()
+    {
         return $this->hasMany(ProductSku::class);
     }
-}
 
+    public static function next()
+    {
+        return static::max('id') + 1;
+    }
+}
