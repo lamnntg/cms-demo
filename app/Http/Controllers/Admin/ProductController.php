@@ -7,7 +7,6 @@ use App\Models\Product;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use League\Fractal\Manager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,13 +14,13 @@ class ProductController extends ApiController
 {
     protected $productService;
 
-    public function __construct(Manager $fractal, ProductServiceInterface $productService)
+    public function __construct(ProductServiceInterface $productService)
     {
         $this->productService = $productService;
     }
 
     public function index() {
-        $products = Product::with('productSkus')->all();
+        $products = Product::with('productSkus')->get();
 
         return view('product', compact('products'));
     }
