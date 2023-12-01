@@ -59,6 +59,8 @@ Route::middleware(['auth.firebase'])->group(function () {
 // Api for admin
 Route::middleware('auth.token')->group(function () {
     Route::post('/image-upload', [AdminHomeController::class, 'uploadImage'])->name('image.upload');
+    Route::post('/image-upload-local', [AdminHomeController::class, 'uploadImageLocal'])->name('image.uploadLocal');
+
     Route::post('/product/store', [AdminProductController::class, 'store'])->name('product.store');
-    Route::post('/product/update', [AdminProductController::class, 'update'])->name('product.update');
+    Route::post('/product/update/{id}', [AdminProductController::class, 'update'])->name('product.update');
 });

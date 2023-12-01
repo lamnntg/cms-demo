@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\FirebaseUser;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -64,5 +65,33 @@ class HomeController extends Controller
         }
 
         return response()->json(['fileName' => '', 'uploaded' => 1, 'url' => '']);
+    }
+
+    public function uploadImageLocal(Request $request) {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'name' => 'required|string'
+        ]);
+
+        $path = storage_path('images/');
+
+        if ($request->hasFile('upload')) {
+            $image = $request->file('upload');
+            $fileName = $request->name;
+
+            Storage::disk('local')->put($path . $fileName, File::get($image));
+
+            // TODO: resize
+            // $img = Image::make($image->getRealPath());
+            // $img->resize(120, 120, function ($constraint) {
+            //     $constraint->aspectRatio();
+            // });
+
+            // $img->stream(); // <-- Key point
+
+            //dd();
+
+
+        }
     }
 }
