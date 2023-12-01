@@ -63,4 +63,5 @@ Route::middleware('auth.token')->group(function () {
 
     Route::post('/product/store', [AdminProductController::class, 'store'])->name('product.store');
     Route::post('/product/update/{id}', [AdminProductController::class, 'update'])->name('product.update');
+    Route::delete('/product/delete/{id}', [AdminProductController::class, 'delete'])->name('product.delete');
 });

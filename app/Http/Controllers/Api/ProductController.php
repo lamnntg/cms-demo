@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductFavorite;
@@ -35,13 +36,14 @@ class ProductController extends ApiController
                     ->where('firebase_user_id', request()->get('user_id'))
                     ->exist();
             }
-            $product->setAttribute('is_product_facvorite', $productFavoriteFlag);
+            $product->setAttribute('is_product_favorite', $productFavoriteFlag);
 
         } catch (\Throwable $th) {
             return $this->response([], Response::HTTP_NOT_FOUND);
         }
+        $product = new ProductResource($product);
 
-        return $this->response($product);
+        return $this->response($product->toArray([]));
     }
 
     public function getCategories(Request $request) {

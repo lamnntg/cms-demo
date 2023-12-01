@@ -35,6 +35,12 @@ class ProductController extends ApiController
         return view('edit-product', compact('product'));
     }
 
+    public function delete(Request $request, int $id) {
+        list($result, $message) = $this->productService->destroy($id);
+
+        return $this->response($result, $message);
+    }
+
     public function update(Request $request, int $id) {
         $data = $request->all();
 

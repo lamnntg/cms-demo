@@ -109,6 +109,7 @@ class ProductService implements ProductServiceInterface
                     'quantity_size_l' => $sku['quantity_size_l'],
                     'quantity_size_xl' => $sku['quantity_size_xl'],
                     'quantity_size_2xl' => $sku['quantity_size_2xl'],
+                    'quantity' => $sku['quantity_size_s'] + $sku['quantity_size_m'] + $sku['quantity_size_l'] + $sku['quantity_size_xl'] + $sku['quantity_size_2xl'],
                     'image_sku' => $sku['image_sku'],
                     'color' => $sku['color'],
                 ]);
@@ -122,5 +123,27 @@ class ProductService implements ProductServiceInterface
         }
 
         return [true, $product];
+    }
+
+    public function destroy(int $id)
+    {
+        $product = Product::with('productSkus')->find($id);
+        if (!$product) {
+            return [false, 'Product not found'];
+        }
+
+        DB::beginTransaction();
+        try {
+            $skuIds = $product->productSkus->pluck('id')->toArray();
+            ProductSku::whereIn('id', $skuIds)->forceDelete();
+            $product->forceDelete();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return [false, $e->getMessage()];
+        }
+
+        return [true, 'Delete Successfully'];
     }
 }

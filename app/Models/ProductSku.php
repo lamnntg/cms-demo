@@ -22,6 +22,11 @@ class ProductSku extends Model
         'quantity',
         'image_sku',
         'color',
+        'quantity_size_s',
+        'quantity_size_m',
+        'quantity_size_l',
+        'quantity_size_xl',
+        'quantity_size_2xl'
     ];
 
     protected $dates = [
@@ -34,12 +39,12 @@ class ProductSku extends Model
         'image_sku' => 'array',
     ];
 
-    public function getImageSkuAttribute($value)
-    {
-        if (is_array($value)) {
-            return $this->attributes['image_sku'] = $value;
-        }
+    // public function getImageSkuAttribute($value)
+    // {
+    //     if (is_array($value)) {
+    //         return $this->attributes['image_sku'] = $value;
+    //     }
 
-        return $this->attributes['image_sku'] = explode(';', $value);
-    }
+    //     return $this->attributes['image_sku'] = explode(';', $value);
+    // }
 }
