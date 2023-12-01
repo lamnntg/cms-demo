@@ -73,7 +73,7 @@ class HomeController extends Controller
             'name' => 'required|string'
         ]);
 
-        $path = storage_path('images/');
+        $path = storage_path('banners/');
 
         if ($request->hasFile('upload')) {
             $image = $request->file('upload');

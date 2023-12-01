@@ -75,7 +75,7 @@ class ProductService implements ProductServiceInterface
      * @param array $product
      * @return array
      */
-    public function update(int $id, $product)
+    public function update(int $id, $data)
     {
         $product = Product::with('productSkus')->find($id);
 
@@ -86,19 +86,20 @@ class ProductService implements ProductServiceInterface
         DB::beginTransaction();
         try {
             $product->update([
-                'category_id' => $product['category_id'] ?? 1,
-                'name' => $product['name'],
-                'material' => $product['material'],
-                'description' => $product['description'],
-                'preservation' => $product['preservation'] ?? null,
-                'images' => !empty($product['images']) ? [$product['images']] : [],
-                'price' => $product['price']
+                'category_id' => $data['category_id'] ?? 1,
+                'name' => $data['name'],
+                'material' => $data['material'],
+                'description' => $data['description'],
+                'preservation' => $data['preservation'] ?? null,
+                'images' => !empty($data['images']) ? [$data['images']] : [],
+                'price' => $data['price']
             ]);
 
-            $product->productSkus()->forceDelete();
+            $skuIds = $product->productSkus->pluck('id')->toArray();
+            ProductSku::whereIn('id', $skuIds)->forceDelete();
 
             // create with relationships
-            foreach ($product['product_skus'] as $sku) {
+            foreach ($data['product_skus'] as $sku) {
                 ProductSku::create([
                     'product_id' => $product->id,
                     'sku_code' => $sku['sku_code'],
