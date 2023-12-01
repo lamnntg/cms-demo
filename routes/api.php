@@ -60,4 +60,5 @@ Route::middleware(['auth.firebase'])->group(function () {
 Route::middleware('auth.token')->group(function () {
     Route::post('/image-upload', [AdminHomeController::class, 'uploadImage'])->name('image.upload');
     Route::post('/product/store', [AdminProductController::class, 'store'])->name('product.store');
+    Route::post('/product/update', [AdminProductController::class, 'update'])->name('product.update');
 });
