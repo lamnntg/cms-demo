@@ -27,7 +27,7 @@ class ProductResource extends JsonResource
             'preservation' => $data['preservation'],
             'images' => $data['images'],
             'is_product_favorite' => $data['is_product_favorite'],
-            'productSkus' => $this->mappingSkus($data['productSkus'])
+            'product_skus' => $this->mappingSkus($data['productSkus'])
         ];
     }
 
@@ -41,18 +41,18 @@ class ProductResource extends JsonResource
         $skus = [];
         foreach ($productSkus as $productSku) {
             $skus[] = [
-                "id" => $productSku['id'],
-                "product_id" => $productSku['product_id'],
-                "sku_code" => $productSku['sku_code'],
-                "price" => $productSku['price'],
-                "quantity" => $productSku['quantity'],
-                "image_sku" => $productSku['image_sku'],
-                "quantity_size_s" => $productSku['quantity_size_s'],
-                "quantity_size_m" => $productSku['quantity_size_m'],
-                "quantity_size_l" => $productSku['quantity_size_l'],
-                "quantity_size_xl" => $productSku['quantity_size_xl'],
-                "quantity_size_2xl" => $productSku['quantity_size_2xl'],
-                "color" => $productSku['color'],
+                'id' => $productSku['id'],
+                'product_id' => $productSku['product_id'],
+                'sku_code' => $productSku['sku_code'],
+                'price' => $productSku['price'],
+                'quantity' => $productSku['quantity'],
+                'image_sku' => $productSku['image_sku'],
+                'quantity_size_s' => $productSku['quantity_size_s'],
+                'quantity_size_m' => $productSku['quantity_size_m'],
+                'quantity_size_l' => $productSku['quantity_size_l'],
+                'quantity_size_xl' => $productSku['quantity_size_xl'],
+                'quantity_size_2xl' => $productSku['quantity_size_2xl'],
+                'color' => $productSku['color'],
             ];
         }
 
