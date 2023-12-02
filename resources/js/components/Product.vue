@@ -1,22 +1,22 @@
 <template>
   <div>
-    <div>
-      <button
-        type="button"
-        data-toggle="modal"
-        data-target=".bd-example-modal-xl"
-        class="btn btn-primary btn-icon-split mb-2"
-        @click="redirectToCreate"
-      >
-        <span class="icon text-white-50">
-          <i class="fas fa-plus"></i>
-        </span>
-        <span class="text">Tạo sản phẩm</span>
-      </button>
-    </div>
     <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h6>
+      <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary text-lg">Danh sách sản phẩm</h6>
+        <div>
+          <button
+            type="button"
+            data-toggle="modal"
+            data-target=".bd-example-modal-xl"
+            class="btn btn-primary btn-icon-split"
+            @click="redirectToCreate"
+          >
+            <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Tạo sản phẩm</span>
+          </button>
+        </div>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -40,8 +40,13 @@
             <tbody>
               <tr v-for="product in products" :key="product.id">
                 <td>{{ product.name }}</td>
-                <td>{{ product.category_id }}</td>
-                <td>{{ product.price.toLocaleString() }}đ</td>
+                <td>
+                  {{
+                    categories.find(item => item.id === product.category_id)
+                      .name
+                  }}
+                </td>
+                <td>{{ product.price.toLocaleString() }}</td>
                 <td>{{ product.material }}</td>
                 <td>{{ product.description }}</td>
                 <td>
@@ -103,11 +108,7 @@
         <div v-if="productSelected" class="modal-content">
           <div class="modal-body p-4">
             <div class="d-flex">
-              <img
-                class="thumbnail"
-                src="https://i.pinimg.com/236x/56/1b/64/561b6478c1352784e0cd4c7030e416b4.jpg"
-                alt=""
-              />
+              <img class="thumbnail" :src="productSelected.images[0]" alt="" />
               <div>
                 <p
                   class="mb-0 font-weight-bold"
@@ -119,7 +120,7 @@
                   class="mb-0 text-danger font-weight-semibold"
                   style="font-size: 18px"
                 >
-                  {{ productSelected.price }}đ
+                  {{ productSelected.price.toLocaleString() }}đ
                 </p>
                 <span>{{ productSelected.description }}</span>
               </div>
@@ -182,8 +183,8 @@
                         </tr>
                       </tbody>
                     </table>
-                    <div class="text-black text-md">
-                      Tổng số lượng sản phẩm:
+                    <div class="text-black text-lg">
+                      Tổng số lượng phân loại:
                       <span class="font-weight-bold">{{ sku.quantity }}</span>
                       sản phẩm
                     </div>
@@ -192,8 +193,10 @@
               </div>
               <div class="d-flex mt-4" style="gap: 10px">
                 <img
+                  v-for="image in sku.image_sku"
+                  :key="image"
                   class="sku-img"
-                  src="https://i.pinimg.com/236x/56/1b/64/561b6478c1352784e0cd4c7030e416b4.jpg"
+                  :src="image"
                   alt=""
                 />
               </div>
@@ -308,8 +311,8 @@ export default {
         this.isSubmiting = false;
       }
     },
-    edit(id){
-      window.location.assign(`/admin/product/edit/${id}`)
+    edit(id) {
+      window.location.assign(`/admin/product/edit/${id}`);
     }
   }
 };

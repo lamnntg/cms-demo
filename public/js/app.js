@@ -2924,11 +2924,14 @@ var render = function render() {
       value: "",
       selected: ""
     }
-  }, [_vm._v("Chọn thể loại sản phẩm")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "1"
-    }
-  }, [_vm._v("Test club")])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Chọn thể loại sản phẩm")]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
+    return _c("option", {
+      key: category.id,
+      domProps: {
+        value: category.id
+      }
+    }, [_vm._v(_vm._s(category.name))]);
+  })], 2)])]), _vm._v(" "), _c("div", {
     staticClass: "mb-3 d-flex align-items-center"
   }, [_vm._m(3), _vm._v(" "), _c("div", [_c("input", {
     ref: "thumbnail",
@@ -3327,7 +3330,7 @@ var staticRenderFns = [function () {
 
   return _c("label", {
     staticClass: "form-control-label font-weight-bold"
-  }, [_vm._v("Giá ( "), _c("span", {
+  }, [_vm._v("Giá (VND) ( "), _c("span", {
     staticClass: "text-danger"
   }, [_vm._v("*")]), _vm._v(" ):\n        ")]);
 }, function () {
@@ -3380,9 +3383,9 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("label", [_vm._v("Giá ( "), _c("span", {
+  return _c("label", [_vm._v("Giá (VND) ( "), _c("span", {
     staticClass: "text-danger"
-  }, [_vm._v("*")]), _vm._v(" )")]);
+  }, [_vm._v("*")]), _vm._v(")")]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
@@ -3453,8 +3456,14 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("div", [_c("button", {
-    staticClass: "btn btn-primary btn-icon-split mb-2",
+  return _c("div", [_c("div", {
+    staticClass: "card shadow mb-4"
+  }, [_c("div", {
+    staticClass: "card-header py-3 d-flex justify-content-between align-items-center"
+  }, [_c("h6", {
+    staticClass: "m-0 font-weight-bold text-primary text-lg"
+  }, [_vm._v("Danh sách sản phẩm")]), _vm._v(" "), _c("div", [_c("button", {
+    staticClass: "btn btn-primary btn-icon-split",
     attrs: {
       type: "button",
       "data-toggle": "modal",
@@ -3465,9 +3474,7 @@ var render = function render() {
     }
   }, [_vm._m(0), _vm._v(" "), _c("span", {
     staticClass: "text"
-  }, [_vm._v("Tạo sản phẩm")])])]), _vm._v(" "), _c("div", {
-    staticClass: "card shadow mb-4"
-  }, [_vm._m(1), _vm._v(" "), _c("div", {
+  }, [_vm._v("Tạo sản phẩm")])])])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "table-responsive"
@@ -3478,12 +3485,14 @@ var render = function render() {
       width: "100%",
       cellspacing: "0"
     }
-  }, [_vm._m(2), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product) {
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product) {
     return _c("tr", {
       key: product.id
-    }, [_c("td", [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.category_id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.price.toLocaleString()) + "đ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.material))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.description))]), _vm._v(" "), _c("td", [_c("ul", {
+    }, [_c("td", [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c("td", [_vm._v("\n                " + _vm._s(_vm.categories.find(function (item) {
+      return item.id === product.category_id;
+    }).name) + "\n              ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.price.toLocaleString()))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.material))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.description))]), _vm._v(" "), _c("td", [_c("ul", {
       staticClass: "list-inline m-0 d-flex justify-content-center"
-    }, [_vm._m(3, true), _vm._v(" "), _c("li", {
+    }, [_vm._m(2, true), _vm._v(" "), _c("li", {
       staticClass: "list-inline-item"
     }, [_c("button", {
       staticClass: "btn btn-success btn-sm rounded-0",
@@ -3537,7 +3546,7 @@ var render = function render() {
   }, [_c("img", {
     staticClass: "thumbnail",
     attrs: {
-      src: "https://i.pinimg.com/236x/56/1b/64/561b6478c1352784e0cd4c7030e416b4.jpg",
+      src: _vm.productSelected.images[0],
       alt: ""
     }
   }), _vm._v(" "), _c("div", [_c("p", {
@@ -3551,7 +3560,7 @@ var render = function render() {
     staticStyle: {
       "font-size": "18px"
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.productSelected.price) + "đ\n              ")]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.productSelected.description))])])]), _vm._v(" "), _c("p", {
+  }, [_vm._v("\n                " + _vm._s(_vm.productSelected.price.toLocaleString()) + "đ\n              ")]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.productSelected.description))])])]), _vm._v(" "), _c("p", {
     staticClass: "text-lg font-weight-bold text-black mt-4 mb-0"
   }, [_vm._v("Mô tả")]), _vm._v(" "), _c("p", {
     staticClass: "text-md"
@@ -3590,11 +3599,25 @@ var render = function render() {
       staticClass: "mb-0 text-black text-lg font-weight-semibold"
     }, [_vm._v("\n                  Kích thước\n                ")]), _vm._v(" "), _c("div", [_c("table", {
       staticClass: "table-size"
-    }, [_vm._m(4, true), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v(_vm._s(sku.quantity_size_s))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_m))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_l))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_xl))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_2xl))])])])]), _vm._v(" "), _c("div", {
-      staticClass: "text-black text-md"
-    }, [_vm._v("\n                    Tổng số lượng sản phẩm:\n                    "), _c("span", {
+    }, [_vm._m(3, true), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v(_vm._s(sku.quantity_size_s))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_m))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_l))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_xl))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_2xl))])])])]), _vm._v(" "), _c("div", {
+      staticClass: "text-black text-lg"
+    }, [_vm._v("\n                    Tổng số lượng phân loại:\n                    "), _c("span", {
       staticClass: "font-weight-bold"
-    }, [_vm._v(_vm._s(sku.quantity))]), _vm._v("\n                    sản phẩm\n                  ")])])])]), _vm._v(" "), _vm._m(5, true)]);
+    }, [_vm._v(_vm._s(sku.quantity))]), _vm._v("\n                    sản phẩm\n                  ")])])])]), _vm._v(" "), _c("div", {
+      staticClass: "d-flex mt-4",
+      staticStyle: {
+        gap: "10px"
+      }
+    }, _vm._l(sku.image_sku, function (image) {
+      return _c("img", {
+        key: image,
+        staticClass: "sku-img",
+        attrs: {
+          src: image,
+          alt: ""
+        }
+      });
+    }), 0)]);
   })], 2)]) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade modal-delete",
     attrs: {
@@ -3646,15 +3669,6 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
-    staticClass: "card-header py-3"
-  }, [_c("h6", {
-    staticClass: "m-0 font-weight-bold text-primary"
-  }, [_vm._v("Danh sách sản phẩm")])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
   return _c("thead", [_c("tr", [_c("th", [_vm._v("Tên sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Loại sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Giá tiền (VND)")]), _vm._v(" "), _c("th", [_vm._v("Chất liệu")]), _vm._v(" "), _c("th", [_vm._v("Mô tả")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
   }, [_vm._v("Hành động")])])]);
@@ -3680,22 +3694,6 @@ var staticRenderFns = [function () {
       _c = _vm._self._c;
 
   return _c("thead", [_c("th", [_vm._v("S")]), _vm._v(" "), _c("th", [_vm._v("M")]), _vm._v(" "), _c("th", [_vm._v("L")]), _vm._v(" "), _c("th", [_vm._v("XL")]), _vm._v(" "), _c("th", [_vm._v("2XL")])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "d-flex mt-4",
-    staticStyle: {
-      gap: "10px"
-    }
-  }, [_c("img", {
-    staticClass: "sku-img",
-    attrs: {
-      src: "https://i.pinimg.com/236x/56/1b/64/561b6478c1352784e0cd4c7030e416b4.jpg",
-      alt: ""
-    }
-  })]);
 }];
 render._withStripped = true;
 
@@ -22021,8 +22019,8 @@ var updateProduct = function updateProduct(data, id) {
     }
   });
 };
-var deleteProduct = function deleteProduct(data, id) {
-  return _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/product/delete/".concat(id), data, {
+var deleteProduct = function deleteProduct(id) {
+  return _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/product/delete/".concat(id), {
     headers: {
       Authorization: 'XxebrehFRKpyorD'
     }

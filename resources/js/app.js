@@ -1,7 +1,6 @@
 import { Sketch } from 'vue-color';
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
-
 window.Vue = require('vue');
 
 const options = {
