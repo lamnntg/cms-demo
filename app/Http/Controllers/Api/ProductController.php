@@ -15,14 +15,14 @@ class ProductController extends ApiController
         $page = $request->get('page') ?? null;
         $productName = $request->get('product_name') ?? null;
 
-        $productQuery = Product::with(['productSkus'])->getQuery();
+        $productQuery = Product::with(['productSkus']);
 
         if ($productName) {
             $productQuery = $productQuery->where('name', 'like', "%{$productName}%");
         }
 
         return $this->response($productQuery->paginate(
-            4, ['*'], 'products', $page
+            4, ['*'], 'page', $page
         ));
     }
 

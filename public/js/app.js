@@ -2737,8 +2737,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       page: 1,
       total: 10,
-      productSelected: this.products[0],
-      productRemove: this.products[0],
+      productSelected: this.products.length > 0 ? this.products[0] : null,
+      productRemove: this.products.length > 0 ? this.products[0] : null,
       isSubmiting: false
     };
   },
@@ -3462,7 +3462,7 @@ var render = function render() {
     staticClass: "card-header py-3 d-flex justify-content-between align-items-center"
   }, [_c("h6", {
     staticClass: "m-0 font-weight-bold text-primary text-lg"
-  }, [_vm._v("Danh sách sản phẩm")]), _vm._v(" "), _c("div", [_c("button", {
+  }, [_vm._v("\n        Danh sách sản phẩm\n      ")]), _vm._v(" "), _c("div", [_c("button", {
     staticClass: "btn btn-primary btn-icon-split",
     attrs: {
       type: "button",
@@ -3546,7 +3546,7 @@ var render = function render() {
   }, [_c("img", {
     staticClass: "thumbnail",
     attrs: {
-      src: _vm.productSelected.images[0],
+      src: _vm.productSelected.images ? _vm.productSelected.images[0] : "",
       alt: ""
     }
   }), _vm._v(" "), _c("div", [_c("p", {
