@@ -2,7 +2,7 @@
 
 @section('main-content')
 <div id="app">
-    <create-product is-edit :product={{$product}}></create-product>
+    <create-product is-edit :product={{$product}} :categories="{{$categories}}"></create-product>
 </div>
 @endsection
 

@@ -2,7 +2,7 @@
 
 @section('main-content')
 <div id="app">
-    <product :products={{json_encode($products)}}></product>
+    <product :products="{{json_encode($products)}}" :categories="{{$categories}}"></product>
 </div>
 @endsection
 

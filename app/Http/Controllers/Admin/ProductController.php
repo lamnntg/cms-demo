@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class ProductController extends ApiController
 
     public function index() {
         $productsData = Product::with('productSkus')->get();
+        $categories = Category::all()->toArray();
 
         $products = [];
         foreach ($productsData as $key => $product) {
@@ -29,7 +31,7 @@ class ProductController extends ApiController
             $products[] = $product->toArray([]);
         }
 
-        return view('product', compact('products'));
+        return view('product', compact('products', 'categories'));
     }
 
     public function create() {
@@ -38,8 +40,9 @@ class ProductController extends ApiController
 
     public function edit(Request $request, int $id) {
         $product = $this->productService->find($id);
+        $categories = Category::all()->toArray();
 
-        return view('edit-product', compact('product'));
+        return view('edit-product', compact('product', 'categories'));
     }
 
     public function delete(Request $request, int $id) {
