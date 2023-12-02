@@ -35,7 +35,9 @@ class ProductController extends ApiController
     }
 
     public function create() {
-        return view('create-product');
+        $categories = Category::all()->toArray();
+
+        return view('create-product', compact('categories'));
     }
 
     public function edit(Request $request, int $id) {

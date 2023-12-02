@@ -337,6 +337,10 @@ export default {
     product: {
       type: Object,
       default: () => {}
+    },
+    categories: {
+      type: Array,
+      default: () => []
     }
   },
   components: {
@@ -378,47 +382,49 @@ export default {
     };
   },
   created() {
-    this.name = this.product.name;
-    this.category = this.product.category_id;
-    this.material = this.product.material;
-    this.description = this.product.description;
-    this.price = this.product.price;
-    this.thumbnail.url = this.product.images[0];
-    this.thumbnail.loading = false;
-    this.product_sku = this.product.product_skus.map(sku => {
-      const {
-        id,
-        sku_code,
-        color,
-        price,
-        quantity_size_s,
-        quantity_size_m,
-        quantity_size_l,
-        quantity_size_xl,
-        quantity_size_2xl,
-        image_sku
-      } = sku;
-      return {
-        id,
-        sku_code,
-        color: {
-          hex: color
-        },
-        image_sku: image_sku.map(img => {
-          return {
-            url: img
-          };
-        }),
-        price,
-        quantity_size_s,
-        quantity_size_m,
-        quantity_size_l,
-        quantity_size_xl,
-        quantity_size_2xl,
-        loading: false,
-        active: false
-      };
-    });
+    if (this.isEdit) {
+      this.name = this.product.name;
+      this.category = this.product.category_id;
+      this.material = this.product.material;
+      this.description = this.product.description;
+      this.price = this.product.price;
+      this.thumbnail.url = this.product.images[0];
+      this.thumbnail.loading = false;
+      this.product_sku = this.product.product_skus.map(sku => {
+        const {
+          id,
+          sku_code,
+          color,
+          price,
+          quantity_size_s,
+          quantity_size_m,
+          quantity_size_l,
+          quantity_size_xl,
+          quantity_size_2xl,
+          image_sku
+        } = sku;
+        return {
+          id,
+          sku_code,
+          color: {
+            hex: color
+          },
+          image_sku: image_sku.map(img => {
+            return {
+              url: img
+            };
+          }),
+          price,
+          quantity_size_s,
+          quantity_size_m,
+          quantity_size_l,
+          quantity_size_xl,
+          quantity_size_2xl,
+          loading: false,
+          active: false
+        };
+      });
+    }
   },
   computed: {
     disabledSubmit() {
@@ -727,7 +733,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .form-product {
   height: 95vh;
   overflow: auto;
