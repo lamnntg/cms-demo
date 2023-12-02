@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
@@ -20,7 +21,13 @@ class ProductController extends ApiController
     }
 
     public function index() {
-        $products = Product::with('productSkus')->get();
+        $productsData = Product::with('productSkus')->get();
+
+        $products = [];
+        foreach ($productsData as $key => $product) {
+            $product = new ProductResource($product);
+            $products[] = $product->toArray([]);
+        }
 
         return view('product', compact('products'));
     }
