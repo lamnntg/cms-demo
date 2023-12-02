@@ -1,8 +1,12 @@
 <template>
   <div>
     <div class="card shadow mb-4">
-      <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <h6 class="m-0 font-weight-bold text-primary text-lg">Danh sách sản phẩm</h6>
+      <div
+        class="card-header py-3 d-flex justify-content-between align-items-center"
+      >
+        <h6 class="m-0 font-weight-bold text-primary text-lg">
+          Danh sách sản phẩm
+        </h6>
         <div>
           <button
             type="button"
@@ -108,7 +112,11 @@
         <div v-if="productSelected" class="modal-content">
           <div class="modal-body p-4">
             <div class="d-flex">
-              <img class="thumbnail" :src="productSelected.images[0]" alt="" />
+              <img
+                class="thumbnail"
+                :src="productSelected.images ? productSelected.images[0] : ''"
+                alt=""
+              />
               <div>
                 <p
                   class="mb-0 font-weight-bold"
@@ -268,8 +276,8 @@ export default {
     return {
       page: 1,
       total: 10,
-      productSelected: this.products[0],
-      productRemove: this.products[0],
+      productSelected: this.products.length > 0 ? this.products[0] : null,
+      productRemove: this.products.length > 0 ? this.products[0] : null,
       isSubmiting: false
     };
   },
