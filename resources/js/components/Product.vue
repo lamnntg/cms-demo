@@ -16,23 +16,17 @@
 </template>
 
 <script>
-<<<<<<< Updated upstream
-=======
 import { deleteProduct } from '../api/product.api';
-import Pagination from './Pagination.vue';
->>>>>>> Stashed changes
 export default {
   name: 'Product',
   methods:{
     redirectToCreate(){
         window.location.href = '/admin/product/create'
     }
-<<<<<<< Updated upstream
-=======
   },
-  components: {
-    Pagination
-  },
+  // components: {
+  //   Pagination
+  // },
   data() {
     return {
       page: 1,
@@ -78,7 +72,6 @@ export default {
         this.isSubmiting = false
       }
     }
->>>>>>> Stashed changes
   }
 };
 </script>

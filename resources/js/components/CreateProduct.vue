@@ -42,7 +42,7 @@
             style="height: 40px"
           >
             <option value="" selected>Chọn thể loại sản phẩm</option>
-            <option>Test club</option>
+            <option value="1">Test club</option>
           </select>
         </div>
       </div>
@@ -113,9 +113,7 @@
             <div class="mr-4">
               <div class="d-flex" style="gap: 1rem">
                 <div>
-                  <label
-                    >Sku Code ( <span class="text-danger">*</span> )</label
-                  >
+                  <label>Sku Code ( <span class="text-danger">*</span> )</label>
                   <br />
                   <input
                     v-model="sku.sku_code"
@@ -232,12 +230,6 @@
                       <div class="d-flex align-items-center p-2 thumbnail">
                         <img class="file-image" :src="image.url" alt="" />
                       </div>
-                      <span class="file-name text-start px-2 name-truncate">{{
-                        image.name
-                      }}</span>
-                      <span class="file-size text-start px-2">{{
-                        getFileSize(image.size)
-                      }}</span>
                       <div
                         class="btn-remove-file"
                         @click.stop="removeImage(sku.id, image.url)"
@@ -305,8 +297,13 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">
-        Đóng
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-dismiss="modal"
+        @click="onBack"
+      >
+        Hủy bỏ
       </button>
       <button
         :disabled="disabledSubmit || isSubmiting"
@@ -314,7 +311,7 @@
         class="btn btn-primary"
         @click="submit"
       >
-        Tạo
+        {{ isEdit ? 'Cập nhật' : 'Tạo mới' }}
       </button>
     </div>
   </div>
@@ -323,16 +320,23 @@
 <script>
 import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
-import { createProduct, uploadImages } from './../api/product.api';
+import {
+  createProduct,
+  updateProduct,
+  uploadImages
+} from './../api/product.api';
 import { v4 as uuidv4 } from 'uuid';
-import { format_currency } from '../common/format';
 
 export default {
   name: 'CreateProduct',
-  props:{
-    isEdit:{
+  props: {
+    isEdit: {
       type: Boolean,
       default: false
+    },
+    product: {
+      type: Object,
+      default: () => {}
     }
   },
   components: {
@@ -342,7 +346,6 @@ export default {
     return {
       showBoxColor: false,
       active: false,
-      background: '#000',
       name: '',
       category: '',
       price: '',
@@ -374,6 +377,49 @@ export default {
       isSubmiting: false
     };
   },
+  created() {
+    this.name = this.product.name;
+    this.category = this.product.category_id;
+    this.material = this.product.material;
+    this.description = this.product.description;
+    this.price = this.product.price;
+    this.thumbnail.url = this.product.images[0];
+    this.thumbnail.loading = false;
+    this.product_sku = this.product.product_skus.map(sku => {
+      const {
+        id,
+        sku_code,
+        color,
+        price,
+        quantity_size_s,
+        quantity_size_m,
+        quantity_size_l,
+        quantity_size_xl,
+        quantity_size_2xl,
+        image_sku
+      } = sku;
+      return {
+        id,
+        sku_code,
+        color: {
+          hex: color
+        },
+        image_sku: image_sku.map(img => {
+          return {
+            url: img
+          };
+        }),
+        price,
+        quantity_size_s,
+        quantity_size_m,
+        quantity_size_l,
+        quantity_size_xl,
+        quantity_size_2xl,
+        loading: false,
+        active: false
+      };
+    });
+  },
   computed: {
     disabledSubmit() {
       const {
@@ -386,7 +432,8 @@ export default {
         thumbnail
       } = this;
       const inValidSku = product_sku.some(
-        sku => !sku.price || !sku.sku_code || sku.loading || sku.image_sku.length < 1
+        sku =>
+          !sku.price || !sku.sku_code || sku.loading || sku.image_sku.length < 1
       );
       const isInValidSubmit =
         !name ||
@@ -595,7 +642,7 @@ export default {
           quantity_size_s: quantity_size_s || 0,
           quantity_size_m: quantity_size_m || 0,
           quantity_size_l: quantity_size_l || 0,
-          quantity_size_xl:quantity_size_xl || 0,
+          quantity_size_xl: quantity_size_xl || 0,
           quantity_size_2xl: quantity_size_2xl || 0,
           image_sku: image_sku.map(image => image.url)
         };
@@ -611,20 +658,6 @@ export default {
       };
       const vm = this;
       this.isSubmiting = true;
-<<<<<<< Updated upstream
-      this.$toast.info('Đang tạo sản phẩm');
-      createProduct(data)
-        .then(() => {
-          vm.$toast.success('Tạo sản phẩm thành công');
-          vm.reset();
-        })
-        .catch(err => {
-          console.warn(err);
-        })
-        .finally(() => {
-          vm.isSubmiting = false;
-        });
-=======
       if (this.isEdit) {
         this.$toast.info('Đang cập sản phẩm');
         updateProduct(data, this.product.id)
@@ -652,7 +685,6 @@ export default {
             vm.isSubmiting = false;
           });
       }
->>>>>>> Stashed changes
     },
     reset() {
       this.showBoxColor = false;
@@ -687,6 +719,9 @@ export default {
         loading: true
       };
       this.isSubmiting = false;
+    },
+    onBack() {
+      window.location.assign('/admin/product');
     }
   }
 };
@@ -857,12 +892,12 @@ export default {
   color: #000 !important;
   background: white !important;
 }
-@media screen and (max-width:1200px) {
-  .box-container{
+@media screen and (max-width: 1200px) {
+  .box-container {
     flex-direction: column;
     align-items: start !important;
     gap: 1rem;
-    .box-image{
+    .box-image {
       width: 100% !important;
       margin-right: 0 !important;
     }

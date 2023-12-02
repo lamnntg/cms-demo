@@ -16,8 +16,6 @@ export const createProduct = data => {
     }
   });
 };
-<<<<<<< Updated upstream
-=======
 
 export const updateProduct = (data, id) => {
   return api.post(`/product/update/${id}`, data, {
@@ -34,4 +32,3 @@ export const deleteProduct = (data, id) => {
     }
   });
 };
->>>>>>> Stashed changes
