@@ -2,6 +2,7 @@
 
 @section('main-content')
 <div id="app">
+    <h1 class="h3 mb-4 text-gray-800">{{ __('Sản phẩm') }}</h1>
     <product :products="{{json_encode($products)}}" :categories="{{json_encode($categories)}}"></product>
 </div>
 @endsection

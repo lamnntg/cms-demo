@@ -21,6 +21,7 @@
                                 <th>Số điện thoại</th>
                                 <th>Email</th>
                                 <th>Nội dung tin nhắn</th>
+                                <th>Tổng tiền</th>
                                 <th>Trạng thái</th>
 
                                 <th>Ngày tạo</th>
@@ -47,6 +48,7 @@
                                     <td>
                                         {{ $order->message }}
                                     </td>
+                                    <td>{{ $order->total_price }}</td>
                                     <td>
                                         <span class="badge badge-info">Đang xử lý</span>
                                     </td>
