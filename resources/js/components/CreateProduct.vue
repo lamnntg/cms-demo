@@ -611,6 +611,7 @@ export default {
       };
       const vm = this;
       this.isSubmiting = true;
+<<<<<<< Updated upstream
       this.$toast.info('Đang tạo sản phẩm');
       createProduct(data)
         .then(() => {
@@ -623,6 +624,35 @@ export default {
         .finally(() => {
           vm.isSubmiting = false;
         });
+=======
+      if (this.isEdit) {
+        this.$toast.info('Đang cập sản phẩm');
+        updateProduct(data, this.product.id)
+          .then(() => {
+            vm.$toast.success('Cập nhật sản phẩm thành công');
+            window.location.assign('/admin/product');
+          })
+          .catch(err => {
+            vm.$toast.success('Cập nhật sản phẩm thất bại');
+          })
+          .finally(() => {
+            vm.isSubmiting = false;
+          });
+      } else {
+        this.$toast.info('Đang tạo sản phẩm');
+        createProduct(data)
+          .then(() => {
+            vm.$toast.success('Tạo sản phẩm thành công');
+            vm.reset();
+          })
+          .catch(err => {
+            vm.$toast.success('Tạo sản phẩm thất bại');
+          })
+          .finally(() => {
+            vm.isSubmiting = false;
+          });
+      }
+>>>>>>> Stashed changes
     },
     reset() {
       this.showBoxColor = false;

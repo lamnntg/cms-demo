@@ -16,3 +16,22 @@ export const createProduct = data => {
     }
   });
 };
+<<<<<<< Updated upstream
+=======
+
+export const updateProduct = (data, id) => {
+  return api.post(`/product/update/${id}`, data, {
+    headers: {
+      Authorization: 'XxebrehFRKpyorD'
+    }
+  });
+};
+
+export const deleteProduct = (data, id) => {
+  return api.delete(`/product/delete/${id}`, data, {
+    headers: {
+      Authorization: 'XxebrehFRKpyorD'
+    }
+  });
+};
+>>>>>>> Stashed changes
