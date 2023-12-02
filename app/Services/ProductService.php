@@ -42,6 +42,7 @@ class ProductService implements ProductServiceInterface
                     'quantity_size_l' => $sku['quantity_size_l'],
                     'quantity_size_xl' => $sku['quantity_size_xl'],
                     'quantity_size_2xl' => $sku['quantity_size_2xl'],
+                    'quantity' => $sku['quantity_size_s'] + $sku['quantity_size_m'] + $sku['quantity_size_l'] + $sku['quantity_size_xl'] + $sku['quantity_size_2xl'],
                     'image_sku' => $sku['image_sku'],
                     'color' => $sku['color'],
                 ]);

@@ -2,7 +2,7 @@
 
 @section('main-content')
 <div id="app">
-    <h1 class="h3 mb-4 text-gray-800">{{ __('Sản phẩm') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ __('Tạo sản phẩm') }}</h1>
     <create-product :categories="{{json_encode($categories)}}"></create-product>
 </div>
 @endsection

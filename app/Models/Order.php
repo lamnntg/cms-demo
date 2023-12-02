@@ -42,6 +42,11 @@ class Order extends Model
         return $this->belongsTo(Club::class, 'club_id', 'id');
     }
 
+    public function firebaseUser()
+    {
+        return $this->belongsTo(FirebaseUser::class, 'firebase_user_id', 'id');
+    }
+
     public function orderItems() {
         return $this->hasMany(OrderItem::class);
     }

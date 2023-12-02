@@ -28,24 +28,24 @@ class LandingController extends Controller
             if (!isset($params['file'])) {
                 return redirect()->back();
             }
-            // $params['url'] = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
+            $params['url'] = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
 
             switch ($params['banner'] ?? null) {
                 case 1:
                     $updateValues['key'] = 'banner_1';
                     // $params['url'] = Storage::disk('local')->put('example.txt', 'Contents');
 
-                    $params['url'] = asset($request->file('file')->storeAs('public/banner', 'banner_1.png'));
+                    // $params['url'] = asset($request->file('file')->storeAs('public/banner', 'banner_1.png'));
 
                     break;
                 case 2:
                     $updateValues['key'] = 'banner_2';
-                    $params['url'] = $request->file('file')->storeAs('public/banner', 'banner_2');
+                    // $params['url'] = $request->file('file')->storeAs('public/banner', 'banner_2');
 
                     break;
                 default:
                     $updateValues['key'] = 'banner_3';
-                    $params['url'] = $request->file('file')->storeAs('public/banner', 'banner_3');
+                    // $params['url'] = $request->file('file')->storeAs('public/banner', 'banner_3');
 
                     break;
             }
