@@ -28,9 +28,9 @@ class LandingController extends Controller
             if (!isset($params['file'])) {
                 return redirect()->back();
             }
-            $imagePath = $request->file('file')->store('images', 'public');
-            // $params['url'] = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
-            $params['url'] = asset('storage/' . $imagePath);
+            // $imagePath = $request->file('file')->store('images', 'public');
+            $params['url'] = Cloudinary::upload($params['file']->getRealPath())->getSecurePath();
+            // $params['url'] = asset('storage/' . $imagePath);
             switch ($params['banner'] ?? null) {
                 case 1:
                     $updateValues['key'] = 'banner_1';

@@ -22,7 +22,6 @@ Route::get('/', function () {
     } catch (\Exception $e) {
         die("Could not connect to the database.  Please check your configuration. error:" . $e);
     }
-
-    return view('welcome');
+    return redirect()->route('home');
 });
 
