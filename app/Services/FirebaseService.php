@@ -102,7 +102,7 @@ class FirebaseService implements FirebaseServiceInterface
      */
     public function getUsers() {
         $localUsers = FirebaseUser::all()->pluck('uid');
-        if (empty($localUsers)) {
+        if ($localUsers->isEmpty()) {
             return [];
         }
 

@@ -19,7 +19,7 @@
       <div class="d-flex">
         <div class="mb-3 mr-3" style="flex: 1">
           <label class="form-control-label font-weight-bold"
-            >Giá ( <span class="text-danger">*</span> ):
+            >Giá (VND) ( <span class="text-danger">*</span> ):
           </label>
           <input
             type="number"
@@ -42,7 +42,7 @@
             style="height: 40px"
           >
             <option value="" selected>Chọn thể loại sản phẩm</option>
-            <option value="1">Test club</option>
+            <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
           </select>
         </div>
       </div>
@@ -125,7 +125,7 @@
                   />
                 </div>
                 <div>
-                  <label>Giá ( <span class="text-danger">*</span> )</label>
+                  <label>Giá (VND) ( <span class="text-danger">*</span>)</label>
                   <br />
                   <input
                     v-model="sku.price"
