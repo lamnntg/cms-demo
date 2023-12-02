@@ -2,7 +2,8 @@
 
 @section('main-content')
 <div id="app">
-    <product></product>
+    @dd($products)
+    <product :products={{$products}}></product>
 </div>
 @endsection
 
