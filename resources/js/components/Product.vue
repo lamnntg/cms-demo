@@ -45,10 +45,7 @@
               <tr v-for="product in products" :key="product.id">
                 <td>{{ product.name }}</td>
                 <td>
-                  {{
-                    categories.find(item => item.id === product.category_id)
-                      .name
-                  }}
+                  {{ getCategory(product.category_id) }}
                 </td>
                 <td>{{ product.price.toLocaleString() }}</td>
                 <td>{{ product.material }}</td>
@@ -321,6 +318,10 @@ export default {
     },
     edit(id) {
       window.location.assign(`/admin/product/edit/${id}`);
+    },
+    getCategory(id) {
+      const category = this.categories.find(item => Number(item.id) === Number(id))
+      return category?.name || '';
     }
   }
 };
