@@ -48,7 +48,11 @@ class ProductController extends ApiController
     public function delete(Request $request, int $id) {
         list($result, $message) = $this->productService->destroy($id);
 
-        return $this->response($result, $message);
+        if ($result) {
+            return $this->response($message);
+        }
+
+        return $this->response($message, Response::HTTP_BAD_REQUEST);
     }
 
     public function update(Request $request, int $id) {
