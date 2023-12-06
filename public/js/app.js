@@ -3497,7 +3497,24 @@ var render = function render() {
       key: product.id
     }, [_c("td", [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c("td", [_vm._v("\n                " + _vm._s(_vm.getCategory(product.category_id)) + "\n              ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.price.toLocaleString()))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.material))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.description))]), _vm._v(" "), _c("td", [_c("ul", {
       staticClass: "list-inline m-0 d-flex justify-content-center"
-    }, [_vm._m(2, true), _vm._v(" "), _c("li", {
+    }, [_c("li", {
+      staticClass: "list-inline-item"
+    }, [_c("button", {
+      staticClass: "btn btn-primary btn-sm rounded-0",
+      attrs: {
+        type: "button",
+        "data-placement": "top",
+        "data-toggle": "modal",
+        "data-target": ".modal-info"
+      },
+      on: {
+        click: function click($event) {
+          _vm.productSelected = product;
+        }
+      }
+    }, [_c("i", {
+      staticClass: "fa fa-info"
+    })])]), _vm._v(" "), _c("li", {
       staticClass: "list-inline-item"
     }, [_c("button", {
       staticClass: "btn btn-success btn-sm rounded-0",
@@ -3604,7 +3621,7 @@ var render = function render() {
       staticClass: "mb-0 text-black text-lg font-weight-semibold"
     }, [_vm._v("\n                  Kích thước\n                ")]), _vm._v(" "), _c("div", [_c("table", {
       staticClass: "table-size"
-    }, [_vm._m(3, true), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v(_vm._s(sku.quantity_size_s))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_m))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_l))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_xl))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_2xl))])])])]), _vm._v(" "), _c("div", {
+    }, [_vm._m(2, true), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v(_vm._s(sku.quantity_size_s))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_m))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_l))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_xl))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_2xl))])])])]), _vm._v(" "), _c("div", {
       staticClass: "text-black text-lg"
     }, [_vm._v("\n                    Tổng số lượng phân loại:\n                    "), _c("span", {
       staticClass: "font-weight-bold"
@@ -3677,23 +3694,6 @@ var staticRenderFns = [function () {
   return _c("thead", [_c("tr", [_c("th", [_vm._v("Tên sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Loại sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Giá tiền (VND)")]), _vm._v(" "), _c("th", [_vm._v("Chất liệu")]), _vm._v(" "), _c("th", [_vm._v("Mô tả")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
   }, [_vm._v("Hành động")])])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("li", {
-    staticClass: "list-inline-item"
-  }, [_c("button", {
-    staticClass: "btn btn-primary btn-sm rounded-0",
-    attrs: {
-      type: "button",
-      "data-placement": "top",
-      "data-toggle": "modal",
-      "data-target": ".modal-info"
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-info"
-  })])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
@@ -21977,7 +21977,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'https://manager.prismstudio.vn/api/v1',
+  baseURL: "http://localhost" + '/api/v1',
   headers: {
     'Content-Type': 'application/json',
     timeout: 1000
