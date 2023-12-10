@@ -60,6 +60,7 @@
                         data-placement="top"
                         data-toggle="modal"
                         data-target=".modal-info"
+                        @click="productSelected = product"
                       >
                         <i class="fa fa-info"></i>
                       </button>
