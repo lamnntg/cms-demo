@@ -28,25 +28,11 @@ Route::get('/landing', [LandingController::class, 'index']);
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{article_id}', [NewsController::class, 'articleDetail']);
 
-
-Route::prefix('/product')->group(function () {
-    Route::get('/', [ProductController::class, 'index']);
-    Route::get('/{id}', [ProductController::class, 'show']);
-});
-
 Route::prefix('/categories')->group(function () {
     Route::get('/', [ProductController::class, 'getCategories']);
 });
 
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {
-    Route::get('/cart', [CartController::class, 'index']);
-    Route::post('/cart/add', [CartController::class, 'addToCart']);
-
-    Route::get('/order', [OrderController::class, 'index']);
-    Route::post('/order', [OrderController::class, 'store']);
-    Route::get('/product-favorites', [ProductFavoriteController::class, 'index']);
-    Route::post('/product-favorites/add', [ProductFavoriteController::class, 'store']);
-    Route::delete('/product-favorites/delete', [ProductFavoriteController::class, 'delete']);
 
 });
