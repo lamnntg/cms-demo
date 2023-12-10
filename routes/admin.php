@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\ArticleController;
-use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\LandingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProfileController;
 
 /*
@@ -30,22 +28,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile',  [ProfileController::class, 'update'])->name('profile.update');
 
-    Route::prefix('/event')->group(function () {
-        Route::get('/', [EventController::class, 'index'])->name('event');
-        Route::post('/store', [EventController::class, 'store'])->name('event.store');
-    });
-
     Route::prefix('/article')->group(function () {
         Route::get('/', [ArticleController::class, 'index'])->name('article');
         Route::post('/store', [ArticleController::class, 'store'])->name('article.store');
     });
 
-    Route::prefix('/order')->group(function () {
-        Route::get('/', [OrderController::class, 'index'])->name('order');
-    });
-
     Route::post('/image-upload', [HomeController::class, 'uploadImage'])->name('image.upload');
-
     Route::get('/about', function () {
         return view('about');
     })->name('about');
