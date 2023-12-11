@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewsTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
-            $table->string('title');
-            $table->text('content')->nullable();
-            $table->string('slug')->unique();
-            $table->integer('views')->default(0);
-            $table->text('images')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->text('message');
+            $table->tinyInteger('is_read')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
@@ -37,6 +33,6 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('notifications');
     }
 }
