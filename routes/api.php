@@ -1,8 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\Api\HouseArticleController;
-use App\Http\Controllers\Api\ServiceArticleController;
+use App\Http\Controllers\Api\ArticleController;
 
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\LandingController;
@@ -37,16 +36,13 @@ Route::prefix('/categories')->group(function () {
 });
 
 // authenticate API by Firebase
-Route::middleware(['auth.firebase'])->group(function () {
-    Route::prefix('/house-articles')->group(function () {
-        Route::post('/store', [HouseArticleController::class, 'store'])->name('house-article.store');
-        Route::delete('/hard-delete/{id}', [HouseArticleController::class, 'hardDelete'])->where('id', '[0-9]+')->name('house-article.hard-delete');
-        Route::delete('/soft-delete/{id}', [HouseArticleController::class, 'softDelete'])->where('id', '[0-9]+')->name('house-article.soft-delete');
+//Route::middleware(['auth.firebase'])->group(function () {
+    Route::prefix('/article')->group(function () {
+        Route::post('house/store', [ArticleController::class, 'storeHouseArtical'])->name('house-article.store');
+        Route::post('service/store', [ArticleController::class, 'storeServiceArtical'])->name('service-article.store');
+        Route::delete('house/hard-delete/{id}', [ArticleController::class, 'hardDeleteHA'])->where('id', '[0-9]+')->name('article.hard-delete-house');
+        Route::delete('house/soft-delete/{id}', [ArticleController::class, 'softDeleteHA'])->where('id', '[0-9]+')->name('article.soft-delete-house');
+        Route::delete('service/hard-delete/{id}', [ArticleController::class, 'hardDeleteSA'])->where('id', '[0-9]+')->name('article.hard-delete-service');
+        Route::delete('service/soft-delete/{id}', [ArticleController::class, 'softDeleteSA'])->where('id', '[0-9]+')->name('article.soft-delete-service');
     });
-
-    Route::prefix('/service-articles')->group(function () {
-        Route::post('/store', [ServiceArticleController::class, 'store'])->name('service-article.store');
-        Route::delete('/hard-delete/{id}', [ServiceArticleController::class, 'hardDelete'])->where('id', '[0-9]+')->name('service-article.hard-delete');
-        Route::delete('/soft-delete/{id}', [ServiceArticleController::class, 'softDelete'])->where('id', '[0-9]+')->name('service-article.soft-delete');
-    });
-});
+//});
