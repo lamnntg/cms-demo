@@ -1,5 +1,9 @@
 <?php
 
+
+use App\Http\Controllers\Api\HouseArticleController;
+use App\Http\Controllers\Api\ServiceArticleController;
+
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\LandingController;
 use App\Http\Controllers\Api\OrderController;
@@ -34,5 +38,15 @@ Route::prefix('/categories')->group(function () {
 
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {
+    Route::prefix('/house-articles')->group(function () {
+        Route::post('/store', [HouseArticleController::class, 'store'])->name('house-article.store');
+        Route::delete('/hard-delete/{id}', [HouseArticleController::class, 'hardDelete'])->where('id', '[0-9]+')->name('house-article.hard-delete');
+        Route::delete('/soft-delete/{id}', [HouseArticleController::class, 'softDelete'])->where('id', '[0-9]+')->name('house-article.soft-delete');
+    });
 
+    Route::prefix('/service-articles')->group(function () {
+        Route::post('/store', [ServiceArticleController::class, 'store'])->name('service-article.store');
+        Route::delete('/hard-delete/{id}', [ServiceArticleController::class, 'hardDelete'])->where('id', '[0-9]+')->name('service-article.hard-delete');
+        Route::delete('/soft-delete/{id}', [ServiceArticleController::class, 'softDelete'])->where('id', '[0-9]+')->name('service-article.soft-delete');
+    });
 });

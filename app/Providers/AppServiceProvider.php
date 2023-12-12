@@ -13,10 +13,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(
-            \App\Services\FirebaseServiceInterface::class,
-            \App\Services\FirebaseService::class
-        );
+        foreach (glob(app_path('Services/*ServiceInterface.php')) as $service) {
+            $serviceName = explode('Interface.php', basename($service))[0];
+            $this->app->singleton(
+                sprintf('App\\Services\\%sInterface', $serviceName),
+                sprintf('App\\Services\\%s', $serviceName)
+            );
+        }
     }
 
     /**
