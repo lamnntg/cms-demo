@@ -36,7 +36,7 @@ Route::prefix('/categories')->group(function () {
 });
 
 // authenticate API by Firebase
-//Route::middleware(['auth.firebase'])->group(function () {
+Route::middleware(['auth.firebase'])->group(function () {
     Route::prefix('/article')->group(function () {
         Route::post('house/store', [ArticleController::class, 'storeHouseArtical'])->name('house-article.store');
         Route::post('service/store', [ArticleController::class, 'storeServiceArtical'])->name('service-article.store');
@@ -45,4 +45,10 @@ Route::prefix('/categories')->group(function () {
         Route::delete('service/hard-delete/{id}', [ArticleController::class, 'hardDeleteSA'])->where('id', '[0-9]+')->name('article.hard-delete-service');
         Route::delete('service/soft-delete/{id}', [ArticleController::class, 'softDeleteSA'])->where('id', '[0-9]+')->name('article.soft-delete-service');
     });
-//});
+
+    Route::prefix('/news')->group(function () {
+        Route::post('/store', [NewsController::class, 'store'])->name('news.store');
+        Route::delete('/hard-delete/{id}', [NewsController::class, 'hardDelete'])->where('id', '[0-9]+')->name('news.hard-delete');
+        Route::delete('/soft-delete/{id}', [NewsController::class, 'softDelete'])->where('id', '[0-9]+')->name('news.soft-delete');
+    });
+});

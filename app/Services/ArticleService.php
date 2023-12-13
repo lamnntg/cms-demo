@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Resources\HouseArticleResource;
 use App\Models\HouseArticle;
 use Illuminate\Http\Response;
 use App\Models\ServiceArticle;
