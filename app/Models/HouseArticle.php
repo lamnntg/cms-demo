@@ -4,10 +4,42 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class HouseArticle extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    //type
+    public const TYPE_SELL = 0;
+    public const TYPE_BUY = 1;
+    public const TYPE_LEASE = 2;
+    public const TYPE_NEED_RENT = 3;
+
+    public static $types = [
+        self::TYPE_SELL => 'Bán căn hộ',
+        self::TYPE_BUY => 'Mua căn hộ',
+        self::TYPE_LEASE => 'Cho thuê căn hộ',
+        self::TYPE_NEED_RENT => 'Cần thuê căn hộ'
+    ];
+
+    // kind
+    public const NEWS_NORMAL = 0;
+    public const NEWS_VIP = 1;
+
+    public static $kinds = [
+        self::NEWS_NORMAL => 'Tin thường',
+        self::NEWS_VIP => 'Tin vip'
+    ];
+
+    // status
+    public const STATUS_NOT_ACCEPTED = 0;
+    public const STATUS_ACCEPTED = 1;
+
+    public static $status = [
+        self::STATUS_NOT_ACCEPTED => 'Không được duyệt',
+        self::STATUS_ACCEPTED => 'Được duyệt'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -44,4 +76,9 @@ class HouseArticle extends Model
     protected $casts = [
         'images' => 'array'
     ];
+
+    public static function next()
+    {
+        return static::max('id') + 1;
+    }
 }

@@ -25,6 +25,9 @@ class CreateServiceArticlesTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            // index
+            $table->index('user_id');
         });
     }
 
