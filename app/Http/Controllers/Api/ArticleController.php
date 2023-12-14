@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Services\ArticleServiceInterface;
 use App\Http\Requests\CreateHouseArticleRequest;
 use App\Http\Requests\CreateServiceArticleRequest;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ArticleController extends ApiController
 {
@@ -24,7 +25,7 @@ class ArticleController extends ApiController
      * store house article service
      * @param CreateHouseArticleRequest $request
      *
-     * @return json
+     * @return JsonResponse
      */
     public function storeHouseArtical(CreateHouseArticleRequest $request)
     {
@@ -37,7 +38,7 @@ class ArticleController extends ApiController
      * store house article service
      * @param CreateServiceArticleRequest $request
      *
-     * @return json
+     * @return JsonResponse
      */
     public function storeServiceArtical(CreateServiceArticleRequest $request)
     {
@@ -50,7 +51,7 @@ class ArticleController extends ApiController
      * force delete house article service
      * @param int $id
      *
-     * @return json
+     * @return JsonResponse
      */
     public function hardDeleteHA(int $id)
     {
@@ -63,7 +64,7 @@ class ArticleController extends ApiController
      * soft delete house article service
      * @param int $id
      *
-     * @return json
+     * @return JsonResponse
      */
     public function softDeleteHA(int $id)
     {
@@ -76,7 +77,7 @@ class ArticleController extends ApiController
      * force delete service article service
      * @param int $id
      *
-     * @return json
+     * @return JsonResponse
      */
     public function hardDeleteSA(int $id)
     {
@@ -89,7 +90,7 @@ class ArticleController extends ApiController
      * soft delete service article service
      * @param int $id
      *
-     * @return json
+     * @return JsonResponse
      */
     public function softDeleteSA(int $id)
     {

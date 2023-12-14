@@ -6,6 +6,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Services\NewsServiceInterface;
 use App\Http\Requests\CreateNewsRequest;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class NewsController extends ApiController
@@ -15,7 +16,7 @@ class NewsController extends ApiController
     /**
      * index function
      *
-     * @return void
+     * @return JsonResponse
      */
     public function index() {
         $data = Article::all();
@@ -55,7 +56,7 @@ class NewsController extends ApiController
      * store news service
      * @param CreateNewsRequest $request
      *
-     * @return json
+     * @return JsonResponse
      */
     public function store(CreateNewsRequest $request)
     {
@@ -68,7 +69,7 @@ class NewsController extends ApiController
      * force delete news service
      * @param int $id
      *
-     * @return json
+     * @return JsonResponse
      */
     public function hardDelete(int $id)
     {
@@ -81,7 +82,7 @@ class NewsController extends ApiController
      * soft delete news service
      * @param int $id
      *
-     * @return json
+     * @return JsonResponse
      */
     public function softDelete(int $id)
     {

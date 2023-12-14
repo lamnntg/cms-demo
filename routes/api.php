@@ -3,12 +3,8 @@
 
 use App\Http\Controllers\Api\ArticleController;
 
-use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\LandingController;
-use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\NewsController;
-use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\ProductFavoriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,12 +23,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/health', function (Request $request) {
+    return 'Health Check API';
+});
+
 Route::get('/landing', [LandingController::class, 'index']);
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{article_id}', [NewsController::class, 'articleDetail']);
 
 Route::prefix('/categories')->group(function () {
-    Route::get('/', [ProductController::class, 'getCategories']);
 });
 
 // authenticate API by Firebase
