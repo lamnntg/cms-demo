@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\News;
+use Illuminate\Support\Str;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
 
 class NewsService implements NewsServiceInterface
 {
@@ -21,6 +23,29 @@ class NewsService implements NewsServiceInterface
             'images' => !empty($data['images']) ? [$data['images']] : [],
             'status' => News::STATUS_ACCEPTED
         ];
+
+        if (!empty($dataSave['images'])) {
+            foreach ($dataSave['images'] as $dataImage) {
+                // Lưu ảnh
+                if (!empty($dataImage)) {
+                    $profile = $dataImage;
+                    $filename = Str::uuid(time()) . '_' . $profile->getClientOriginalName();
+
+                    $uploadPath = public_path('/img/news');
+
+                    // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
+                    if (!File::exists($uploadPath)) {
+                        File::makeDirectory($uploadPath, 0777, true, true);
+                    }
+
+                    if (move_uploaded_file($profile, $uploadPath . '/' . $filename)) {
+                        $dataSave['images'][] = $filename;
+                    } else {
+                        return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
+                    }
+                }
+            }
+        }
 
         try {
             if (!$newsData) {
