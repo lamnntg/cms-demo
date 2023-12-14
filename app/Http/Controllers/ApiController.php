@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApiController extends Controller
 {
@@ -13,7 +14,7 @@ class ApiController extends Controller
      * @param  mixed  $data
      * @param  int  $status
      * @param  array  $headers
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function response($data = [], $status = Response::HTTP_OK, array $headers = [])
     {

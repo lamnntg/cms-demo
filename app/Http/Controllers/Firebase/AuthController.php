@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Firebase;
 
 use App\Http\Controllers\ApiController;
-use App\Models\FirebaseUser;
 use App\Services\FirebaseService;
 use App\Services\FirebaseServiceInterface;
-use Kreait\Firebase\Exception\Auth\UserNotFound;
 use Illuminate\Http\Request;
-use Kreait\Firebase\Exception\Auth\InvalidCustomToken;
-use Lcobucci\JWT\Token\Parser;
 
 class AuthController extends ApiController
 {
