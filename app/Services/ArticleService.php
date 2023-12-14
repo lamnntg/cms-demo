@@ -41,8 +41,8 @@ class ArticleService implements ArticleServiceInterface
                 if (!empty($dataImage)) {
                     $profile = $dataImage;
                     $filename = Str::uuid(time()) . '_' . $profile->getClientOriginalName();
-
-                    $uploadPath = public_path('/img/house_articles');
+                    $path = '/img/house_articles';
+                    $uploadPath = public_path($path);
 
                     // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
                     if (!File::exists($uploadPath)) {
@@ -50,7 +50,7 @@ class ArticleService implements ArticleServiceInterface
                     }
 
                     if (move_uploaded_file($profile, $uploadPath . '/' . $filename)) {
-                        $dataSave['images'][] = $filename;
+                        $dataSave['images'][] = $path . '/' . $filename;
                     } else {
                         return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
                     }
@@ -93,8 +93,8 @@ class ArticleService implements ArticleServiceInterface
                 if (!empty($dataImage)) {
                     $profile = $dataImage;
                     $filename = Str::uuid(time()) . '_' . $profile->getClientOriginalName();
-
-                    $uploadPath = public_path('/img/service_articles');
+                    $path = '/img/service_articles';
+                    $uploadPath = public_path($path);
 
                     // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
                     if (!File::exists($uploadPath)) {
@@ -102,7 +102,7 @@ class ArticleService implements ArticleServiceInterface
                     }
 
                     if (move_uploaded_file($profile, $uploadPath . '/' . $filename)) {
-                        $dataSave['images'][] = $filename;
+                        $dataSave['images'][] = $path . '/' . $filename;
                     } else {
                         return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
                     }

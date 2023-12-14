@@ -30,8 +30,8 @@ class NewsService implements NewsServiceInterface
                 if (!empty($dataImage)) {
                     $profile = $dataImage;
                     $filename = Str::uuid(time()) . '_' . $profile->getClientOriginalName();
-
-                    $uploadPath = public_path('/img/news');
+                    $path = '/img/news';
+                    $uploadPath = public_path($path);
 
                     // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
                     if (!File::exists($uploadPath)) {
@@ -39,7 +39,7 @@ class NewsService implements NewsServiceInterface
                     }
 
                     if (move_uploaded_file($profile, $uploadPath . '/' . $filename)) {
-                        $dataSave['images'][] = $filename;
+                        $dataSave['images'][] = $path . '/' . $filename;
                     } else {
                         return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
                     }
