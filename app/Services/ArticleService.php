@@ -26,12 +26,12 @@ class ArticleService implements ArticleServiceInterface
     }
 
     /**
-     * storeHouseArticale function
+     * storeHouseArticle function
      *
      * @param array $data
      * @return array
      */
-    public function storeHouseArticale(array $data)
+    public function storeHouseArticle(array $data)
     {
         $user = request()->user();
 
@@ -92,12 +92,12 @@ class ArticleService implements ArticleServiceInterface
     }
 
     /**
-     * storeServiceArticale function
+     * storeServiceArticle function
      *
      * @param array $data
      * @return void
      */
-    public function storeServiceArticale(array $data)
+    public function storeServiceArticle(array $data)
     {
         $user = request()->user();
         $nextAutoIncrement = HouseArticle::next();
