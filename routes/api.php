@@ -30,7 +30,6 @@ Route::get('/health', function (Request $request) {
 Route::get('/landing', [LandingController::class, 'index']);
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{article_id}', [NewsController::class, 'articleDetail']);
-
 Route::prefix('/categories')->group(function () {
 });
 

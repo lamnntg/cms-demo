@@ -6,6 +6,7 @@ use App\Services\ArticleServiceInterface;
 use App\Http\Requests\CreateHouseArticleRequest;
 use App\Http\Requests\CreateServiceArticleRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleController extends ApiController
 {
@@ -20,6 +21,21 @@ class ArticleController extends ApiController
     {
         $this->articleService = $articleService;
     }
+
+    /**
+     * get House Article
+     * @param CreateHouseArticleRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function index(Request $request)
+    {
+        $params = $request->all();
+        list($statusCode, $data) = $this->articleService->index($params);
+
+        return $this->response($data, $statusCode);
+    }
+
 
     /**
      * store house article service

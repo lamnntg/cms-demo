@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\File;
 
 class ArticleService implements ArticleServiceInterface
 {
+    public function index(array $params)
+    {
+
+    }
+
     /**
      * storeHouseArticale function
      *
@@ -19,16 +24,21 @@ class ArticleService implements ArticleServiceInterface
     public function storeHouseArticale(array $data)
     {
         $user = request()->user();
+
         $nextAutoIncrement = HouseArticle::next();
         $slug = \Str::slug($data['title']) . '-' . $nextAutoIncrement;
         $haData = HouseArticle::where('slug', $slug)->withTrashed()->exists();
+
+        if ($haData) {
+            return [Response::HTTP_BAD_REQUEST, ['message' => 'This title exists.']];
+        }
 
         $dataSave = [
             'user_id' => $user->id,
             'title' => $data['title'],
             'content' => empty($data['content']) ? '' : $data['content'],
             'slug' => $slug,
-            'images' => !empty($data['images']) ? $data['images'] : [],
+            'images' => [],
             'type' => $data['type'],
             'price' => $data['price'],
             'status' => HouseArticle::STATUS_WAITING_ACCEPT,
@@ -42,35 +52,28 @@ class ArticleService implements ArticleServiceInterface
             'kind' => HouseArticle::NEWS_NORMAL
         ];
 
-        if (!empty($dataSave['images'])) {
-            foreach ($dataSave['images'] as $dataImage) {
+        if (!empty($data['images'])) {
+            foreach ($data['images'] as $image) {
                 // Lưu ảnh
-                if (!empty($dataImage)) {
-                    $profile = $dataImage;
-                    $filename = Str::uuid(time()) . '_' . $profile->getClientOriginalName();
-                    $path = '/img/house_articles';
-                    $uploadPath = public_path($path);
+                $filename = Str::uuid(time()) . '_' . $image->getClientOriginalName();
+                $path = '/img/house_articles';
+                $uploadPath = public_path($path);
 
-                    // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
-                    if (!File::exists($uploadPath)) {
-                        File::makeDirectory($uploadPath, 0777, true, true);
-                    }
+                // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0777, true, true);
+                }
 
-                    if (move_uploaded_file($profile, $uploadPath . '/' . $filename)) {
-                        $dataSave['images'][] = $path . '/' . $filename;
-                    } else {
-                        return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
-                    }
+                if (move_uploaded_file($image, $uploadPath . '/' . $filename)) {
+                    $dataSave['images'][] = $path . '/' . $filename;
+                } else {
+                    return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
                 }
             }
         }
 
         try {
-            if (!$haData) {
-                $houseArticle = HouseArticle::create($dataSave);
-            } else {
-                return [Response::HTTP_BAD_REQUEST, ['message' => 'This title exists.']];
-            }
+            $houseArticle = HouseArticle::create($dataSave);
         } catch (\Exception $e) {
             return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
         }
@@ -96,30 +99,27 @@ class ArticleService implements ArticleServiceInterface
             'title' => $data['title'],
             'content' => empty($data['content']) ? '' : $data['content'],
             'slug' => $slug,
-            'images' => !empty($data['images']) ? [$data['images']] : [],
+            'images' => [],
             'price' => $data['price'],
             'status' => ServiceArticle::STATUS_WAITING_ACCEPT,
         ];
 
-        if (!empty($dataSave['images'])) {
-            foreach ($dataSave['images'] as $dataImage) {
+        if (!empty($data['images'])) {
+            foreach ($data['images'] as $image) {
                 // Lưu ảnh
-                if (!empty($dataImage)) {
-                    $profile = $dataImage;
-                    $filename = Str::uuid(time()) . '_' . $profile->getClientOriginalName();
-                    $path = '/img/service_articles';
-                    $uploadPath = public_path($path);
+                $filename = Str::uuid(time()) . '_' . $image->getClientOriginalName();
+                $path = '/img/service_articles';
+                $uploadPath = public_path($path);
 
-                    // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
-                    if (!File::exists($uploadPath)) {
-                        File::makeDirectory($uploadPath, 0777, true, true);
-                    }
+                // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0777, true, true);
+                }
 
-                    if (move_uploaded_file($profile, $uploadPath . '/' . $filename)) {
-                        $dataSave['images'][] = $path . '/' . $filename;
-                    } else {
-                        return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
-                    }
+                if (move_uploaded_file($image, $uploadPath . '/' . $filename)) {
+                    $dataSave['images'][] = $path . '/' . $filename;
+                } else {
+                    return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
                 }
             }
         }
