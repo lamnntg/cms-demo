@@ -13,10 +13,13 @@ class ServiceArticle extends Model
     // status
     public const STATUS_NOT_ACCEPTED = 0;
     public const STATUS_ACCEPTED = 1;
+    public const STATUS_WAITING_ACCEPT = 2;
+
 
     public static $status = [
         self::STATUS_NOT_ACCEPTED => 'Không được duyệt',
-        self::STATUS_ACCEPTED => 'Được duyệt'
+        self::STATUS_ACCEPTED => 'Được duyệt',
+        self::STATUS_WAITING_ACCEPT => 'Chờ duyệt'
     ];
 
 

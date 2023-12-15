@@ -10,29 +10,36 @@ use Illuminate\Support\Facades\File;
 
 class ArticleService implements ArticleServiceInterface
 {
-    public function storeHouseArtical(array $data)
+    /**
+     * storeHouseArticale function
+     *
+     * @param array $data
+     * @return array
+     */
+    public function storeHouseArticale(array $data)
     {
+        $user = request()->user();
         $nextAutoIncrement = HouseArticle::next();
         $slug = \Str::slug($data['title']) . '-' . $nextAutoIncrement;
         $haData = HouseArticle::where('slug', $slug)->withTrashed()->exists();
 
         $dataSave = [
-            'user_id' => empty($data['user_id']) ? 0 : $data['user_id'],
+            'user_id' => $user->id,
             'title' => $data['title'],
             'content' => empty($data['content']) ? '' : $data['content'],
             'slug' => $slug,
             'images' => !empty($data['images']) ? [$data['images']] : [],
             'type' => $data['type'],
             'price' => $data['price'],
-            'status' => HouseArticle::STATUS_ACCEPTED,
+            'status' => HouseArticle::STATUS_WAITING_ACCEPT,
             'area' => empty($data['area']) ? 0 : $data['area'],
             'bedrooms' => empty($data['bedrooms']) ? 0 : $data['bedrooms'],
             'wcs' => empty($data['wcs']) ? 0 : $data['wcs'],
-            'livingrooms' => empty($data['livingrooms']) ? 0 : $data['livingrooms'],
-            'address' => empty($data['address']) ? '' : $data['address'],
+            'livingrooms' => null,
+            'address' => null,
             'direction_house' => empty($data['direction_house']) ? '' : $data['direction_house'],
-            'house_number' =>  empty($data['house_number']) ? 0 : $data['house_number'],
-            'kind' => $data['kind']
+            'house_number' => empty($data['house_number']) ? 0 : $data['house_number'],
+            'kind' => HouseArticle::NEWS_NORMAL
         ];
 
         if (!empty($dataSave['images'])) {
@@ -71,20 +78,27 @@ class ArticleService implements ArticleServiceInterface
         return [Response::HTTP_OK, []];
     }
 
-    public function storeServiceArtical(array $data)
+    /**
+     * storeServiceArticale function
+     *
+     * @param array $data
+     * @return void
+     */
+    public function storeServiceArticale(array $data)
     {
+        $user = request()->user();
         $nextAutoIncrement = HouseArticle::next();
         $slug = \Str::slug($data['title']) . '-' . $nextAutoIncrement;
         $saData = ServiceArticle::where('slug', $slug)->withTrashed()->exists();
 
         $dataSave = [
-            'user_id' => empty($data['user_id']) ? 0 : $data['user_id'],
+            'user_id' => $user->id,
             'title' => $data['title'],
             'content' => empty($data['content']) ? '' : $data['content'],
             'slug' => $slug,
             'images' => !empty($data['images']) ? [$data['images']] : [],
             'price' => $data['price'],
-            'status' => ServiceArticle::STATUS_ACCEPTED,
+            'status' => ServiceArticle::STATUS_WAITING_ACCEPT,
         ];
 
         if (!empty($dataSave['images'])) {

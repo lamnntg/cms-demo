@@ -11,16 +11,12 @@ class HouseArticle extends Model
     use HasFactory, SoftDeletes;
 
     //type
-    public const TYPE_SELL = 0;
-    public const TYPE_BUY = 1;
+    public const TYPE_SELL = 1;
     public const TYPE_LEASE = 2;
-    public const TYPE_NEED_RENT = 3;
 
     public static $types = [
         self::TYPE_SELL => 'Bán căn hộ',
-        self::TYPE_BUY => 'Mua căn hộ',
         self::TYPE_LEASE => 'Cho thuê căn hộ',
-        self::TYPE_NEED_RENT => 'Cần thuê căn hộ'
     ];
 
     // kind
@@ -35,10 +31,12 @@ class HouseArticle extends Model
     // status
     public const STATUS_NOT_ACCEPTED = 0;
     public const STATUS_ACCEPTED = 1;
+    public const STATUS_WAITING_ACCEPT = 2;
 
     public static $status = [
         self::STATUS_NOT_ACCEPTED => 'Không được duyệt',
-        self::STATUS_ACCEPTED => 'Được duyệt'
+        self::STATUS_ACCEPTED => 'Được duyệt',
+        self::STATUS_WAITING_ACCEPT => 'Chờ duyệt'
     ];
 
     /**

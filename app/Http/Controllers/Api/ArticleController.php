@@ -29,7 +29,7 @@ class ArticleController extends ApiController
      */
     public function storeHouseArtical(CreateHouseArticleRequest $request)
     {
-        list($statusCode, $data) = $this->articleService->storeHouseArtical($request->all());
+        list($statusCode, $data) = $this->articleService->storeHouseArticale($request->all());
 
         return $this->response($data, $statusCode);
     }
@@ -42,7 +42,7 @@ class ArticleController extends ApiController
      */
     public function storeServiceArtical(CreateServiceArticleRequest $request)
     {
-        list($statusCode, $data) = $this->articleService->storeServiceArtical($request->all());
+        list($statusCode, $data) = $this->articleService->storeServiceArticale($request->all());
 
         return $this->response($data, $statusCode);
     }
