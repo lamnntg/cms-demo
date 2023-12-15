@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Str;
 use App\Models\HouseArticle;
 use Illuminate\Http\Response;
 use App\Models\ServiceArticle;
+use Illuminate\Support\Facades\File;
 
 class ArticleService implements ArticleServiceInterface
 {
@@ -32,6 +34,29 @@ class ArticleService implements ArticleServiceInterface
             'house_number' =>  empty($data['house_number']) ? 0 : $data['house_number'],
             'kind' => $data['kind']
         ];
+
+        if (!empty($dataSave['images'])) {
+            foreach ($dataSave['images'] as $dataImage) {
+                // Lưu ảnh
+                if (!empty($dataImage)) {
+                    $profile = $dataImage;
+                    $filename = Str::uuid(time()) . '_' . $profile->getClientOriginalName();
+                    $path = '/img/house_articles';
+                    $uploadPath = public_path($path);
+
+                    // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
+                    if (!File::exists($uploadPath)) {
+                        File::makeDirectory($uploadPath, 0777, true, true);
+                    }
+
+                    if (move_uploaded_file($profile, $uploadPath . '/' . $filename)) {
+                        $dataSave['images'][] = $path . '/' . $filename;
+                    } else {
+                        return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
+                    }
+                }
+            }
+        }
 
         try {
             if (!$haData) {
@@ -61,6 +86,29 @@ class ArticleService implements ArticleServiceInterface
             'price' => $data['price'],
             'status' => ServiceArticle::STATUS_ACCEPTED,
         ];
+
+        if (!empty($dataSave['images'])) {
+            foreach ($dataSave['images'] as $dataImage) {
+                // Lưu ảnh
+                if (!empty($dataImage)) {
+                    $profile = $dataImage;
+                    $filename = Str::uuid(time()) . '_' . $profile->getClientOriginalName();
+                    $path = '/img/service_articles';
+                    $uploadPath = public_path($path);
+
+                    // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
+                    if (!File::exists($uploadPath)) {
+                        File::makeDirectory($uploadPath, 0777, true, true);
+                    }
+
+                    if (move_uploaded_file($profile, $uploadPath . '/' . $filename)) {
+                        $dataSave['images'][] = $path . '/' . $filename;
+                    } else {
+                        return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
+                    }
+                }
+            }
+        }
 
         try {
             if (!$saData) {
