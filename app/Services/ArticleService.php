@@ -28,7 +28,7 @@ class ArticleService implements ArticleServiceInterface
             'title' => $data['title'],
             'content' => empty($data['content']) ? '' : $data['content'],
             'slug' => $slug,
-            'images' => !empty($data['images']) ? [$data['images']] : [],
+            'images' => !empty($data['images']) ? $data['images'] : [],
             'type' => $data['type'],
             'price' => $data['price'],
             'status' => HouseArticle::STATUS_WAITING_ACCEPT,
@@ -67,7 +67,7 @@ class ArticleService implements ArticleServiceInterface
 
         try {
             if (!$haData) {
-                HouseArticle::create($dataSave);
+                $houseArticle = HouseArticle::create($dataSave);
             } else {
                 return [Response::HTTP_BAD_REQUEST, ['message' => 'This title exists.']];
             }
