@@ -27,9 +27,11 @@ Route::get('/health', function (Request $request) {
     return 'Health Check API';
 });
 
-Route::get('/article', [ArticleController::class, 'index']);
-Route::get('/news', [NewsController::class, 'index']);
 
+Route::prefix('article')->group(function () {
+    Route::get('/house', [ArticleController::class, 'getHouseArticles']);
+    Route::get('/service', [ArticleController::class, 'serviceArticles']);
+});
 
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {

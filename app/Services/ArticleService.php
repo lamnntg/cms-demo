@@ -13,13 +13,21 @@ class ArticleService implements ArticleServiceInterface
     /**
      * Build Filter and query article function
      *
-     * @param array $params
+     * @param array $filter
+     * @param array $paginate
      * @return array
      */
-    public function index(array $params, array $paginate)
+    public function index(array $filter, array $paginate)
     {
         $query = HouseArticle::query();
-        $query = $query->where('type', 1);
+        // TODO:
+        // $query = $query->where('type', $filter['type'])->where('status', HouseArticle::STATUS_ACCEPTED);
+        $query = $query->where('type', $filter['type']);
+
+        if ($filter['sort_fields']) {
+            $query = $query->orderBy($filter['sort_fields'], $filter['sort_order']);
+        }
+
         $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
 
         return [Response::HTTP_OK, $data->toArray()];
@@ -65,7 +73,7 @@ class ArticleService implements ArticleServiceInterface
         if (!empty($data['images'])) {
             foreach ($data['images'] as $image) {
                 // Lưu ảnh
-                $filename = Str::uuid(time()) . '_' . $image->getClientOriginalName();
+                $filename = Str::uuid(time()) . '-' . trim($image->getClientOriginalName(), ' ');
                 $path = '/img/house_articles';
                 $uploadPath = public_path($path);
 
@@ -117,7 +125,7 @@ class ArticleService implements ArticleServiceInterface
         if (!empty($data['images'])) {
             foreach ($data['images'] as $image) {
                 // Lưu ảnh
-                $filename = Str::uuid(time()) . '_' . $image->getClientOriginalName();
+                $filename = Str::uuid(time()) . '-' . trim($image->getClientOriginalName(), ' ');
                 $path = '/img/service_articles';
                 $uploadPath = public_path($path);
 

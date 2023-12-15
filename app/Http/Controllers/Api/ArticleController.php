@@ -28,11 +28,14 @@ class ArticleController extends ApiController
      *
      * @return JsonResponse
      */
-    public function index(Request $request)
+    public function getHouseArticles(Request $request)
     {
         $request->validate([
-            'page' => 'nullable',
-            'per_page' => 'nullable'
+            'page' => 'nullable|integer',
+            'per_page' => 'nullable|integer',
+            'type' => 'required|in:1,2',
+            'sort_fields' => 'nullable|string|in:bedrooms,wcs,price',
+            'sort_order' => 'nullable|string|in:desc,asc',
         ]);
 
         $params = $request->all();
@@ -41,11 +44,16 @@ class ArticleController extends ApiController
             'per_page' => $params['per_page'] ?? 8
         ];
 
-        list($statusCode, $data) = $this->articleService->index($params, $paginate);
+        $filter = [
+            'type' => $params['type'],
+            'sort_fields' => $params['sort_fields'] ?? null,
+            'sort_order' => $params['sort_order'] ?? 'ASC',
+        ];
+
+        list($statusCode, $data) = $this->articleService->index($filter, $paginate);
 
         return $this->response($data, $statusCode);
     }
-
 
     /**
      * store house article service
