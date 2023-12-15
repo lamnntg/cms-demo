@@ -10,9 +10,19 @@ use Illuminate\Support\Facades\File;
 
 class ArticleService implements ArticleServiceInterface
 {
-    public function index(array $params)
+    /**
+     * Build Filter and query article function
+     *
+     * @param array $params
+     * @return array
+     */
+    public function index(array $params, array $paginate)
     {
+        $query = HouseArticle::query();
+        $query = $query->where('type', 1);
+        $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
 
+        return [Response::HTTP_OK, $data->toArray()];
     }
 
     /**

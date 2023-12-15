@@ -30,8 +30,18 @@ class ArticleController extends ApiController
      */
     public function index(Request $request)
     {
+        $request->validate([
+            'page' => 'nullable',
+            'per_page' => 'nullable'
+        ]);
+
         $params = $request->all();
-        list($statusCode, $data) = $this->articleService->index($params);
+        $paginate = [
+            'page' => $params['page'] ?? 1,
+            'per_page' => $params['per_page'] ?? 8
+        ];
+
+        list($statusCode, $data) = $this->articleService->index($params, $paginate);
 
         return $this->response($data, $statusCode);
     }
@@ -43,9 +53,9 @@ class ArticleController extends ApiController
      *
      * @return JsonResponse
      */
-    public function storeHouseArtical(CreateHouseArticleRequest $request)
+    public function storeHouseArticle(CreateHouseArticleRequest $request)
     {
-        list($statusCode, $data) = $this->articleService->storeHouseArticale($request->all());
+        list($statusCode, $data) = $this->articleService->storeHouseArticle($request->all());
 
         return $this->response($data, $statusCode);
     }
@@ -56,9 +66,9 @@ class ArticleController extends ApiController
      *
      * @return JsonResponse
      */
-    public function storeServiceArtical(CreateServiceArticleRequest $request)
+    public function storeServiceArticle(CreateServiceArticleRequest $request)
     {
-        list($statusCode, $data) = $this->articleService->storeServiceArticale($request->all());
+        list($statusCode, $data) = $this->articleService->storeServiceArticle($request->all());
 
         return $this->response($data, $statusCode);
     }

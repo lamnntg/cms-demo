@@ -27,17 +27,15 @@ Route::get('/health', function (Request $request) {
     return 'Health Check API';
 });
 
-Route::get('/landing', [LandingController::class, 'index']);
+Route::get('/article', [ArticleController::class, 'index']);
 Route::get('/news', [NewsController::class, 'index']);
-Route::get('/news/{article_id}', [NewsController::class, 'articleDetail']);
-Route::prefix('/categories')->group(function () {
-});
+
 
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {
     Route::prefix('/article')->group(function () {
-        Route::post('house/store', [ArticleController::class, 'storeHouseArtical'])->name('house-article.store');
-        Route::post('service/store', [ArticleController::class, 'storeServiceArtical'])->name('service-article.store');
+        Route::post('house/store', [ArticleController::class, 'storeHouseArticle'])->name('house-article.store');
+        Route::post('service/store', [ArticleController::class, 'storeServiceArticle'])->name('service-article.store');
         Route::delete('house/hard-delete/{id}', [ArticleController::class, 'hardDeleteHA'])->where('id', '[0-9]+')->name('article.hard-delete-house');
         Route::delete('house/soft-delete/{id}', [ArticleController::class, 'softDeleteHA'])->where('id', '[0-9]+')->name('article.soft-delete-house');
         Route::delete('service/hard-delete/{id}', [ArticleController::class, 'hardDeleteSA'])->where('id', '[0-9]+')->name('article.hard-delete-service');

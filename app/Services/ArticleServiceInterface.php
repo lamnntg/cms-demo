@@ -4,11 +4,11 @@ namespace App\Services;
 
 interface ArticleServiceInterface
 {
-    public function index(array $params);
+    public function index(array $params, array $paginate);
 
-    public function storeHouseArticale(array $params);
+    public function storeHouseArticle(array $params);
 
-    public function storeServiceArticale(array $params);
+    public function storeServiceArticle(array $params);
 
     public function hardDeleteHA(int $id);
 
