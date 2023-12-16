@@ -28,9 +28,9 @@ class ArticleService implements ArticleServiceInterface
         if ($filter['sort_fields']) {
             $query = $query->orderBy($filter['sort_fields'], $filter['sort_order']);
         }
-        $query = $query->orderBy('updated_at', 'DESC');
 
-        $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
+        $data = $query->orderBy('updated_at', 'DESC')
+            ->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
 
         return [Response::HTTP_OK, $data->toArray()];
     }
