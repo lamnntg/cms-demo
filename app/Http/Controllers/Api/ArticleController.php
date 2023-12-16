@@ -56,6 +56,19 @@ class ArticleController extends ApiController
     }
 
     /**
+     * getHouseArticleDetail function
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getHouseArticleDetail(Request $request, int $id) {
+
+        list($statusCode, $data) = $this->articleService->houseArticleDetail($id);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
      * getServiceArticles function
      *
      * @param Request $request
@@ -81,6 +94,19 @@ class ArticleController extends ApiController
         ];
 
         list($statusCode, $data) = $this->articleService->getServiceArticles($filter, $paginate);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * getServiceArticleDetail function
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getServiceArticleDetail(Request $request, int $id) {
+
+        list($statusCode, $data) = $this->articleService->serviceArticleDetail($id);
 
         return $this->response($data, $statusCode);
     }

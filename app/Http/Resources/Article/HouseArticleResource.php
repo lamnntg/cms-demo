@@ -1,20 +1,27 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Article;
 
+use App\Traits\ArticleResourceTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class HouseArticleResource extends JsonResource
 {
+    use ArticleResourceTrait;
+
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request)
+    public function toArray($request = null)
     {
         $data = $this->resource;
+        
+        if (!empty($data['firebaseUser'])) {
+            $firebaseUser = $this->firebaseUserTransform($data['firebaseUser']);
+        }
 
         return [
             'id' => $data['id'],
@@ -34,7 +41,8 @@ class HouseArticleResource extends JsonResource
             'address' => $data['address'],
             'direction_house' => $data['direction_house'],
             'house_number' => $data['house_number'],
-            'kind' => $data['kind']
+            'kind' => $data['kind'],
+            'user' => $firebaseUser ?? []
         ];
     }
 }

@@ -24,11 +24,13 @@ class FirebaseUser extends Authenticatable
         'photo_url'
     ];
 
-    public function getAuthIdentifierName() {
+    public function getAuthIdentifierName()
+    {
         return 'local_id';
-     }
-     public function getAuthIdentifier(){
-        return $this->local_id;
-     }
+    }
 
+    public function getAuthIdentifier()
+    {
+        return $this->local_id;
+    }
 }

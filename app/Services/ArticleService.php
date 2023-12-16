@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\Article\HouseArticleResource;
 use Illuminate\Support\Str;
 use App\Models\HouseArticle;
 use Illuminate\Http\Response;
@@ -27,10 +28,24 @@ class ArticleService implements ArticleServiceInterface
         if ($filter['sort_fields']) {
             $query = $query->orderBy($filter['sort_fields'], $filter['sort_order']);
         }
+        $query = $query->orderBy('updated_at', 'DESC');
 
         $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
 
         return [Response::HTTP_OK, $data->toArray()];
+    }
+
+    /**
+     * houseArticleDetail function
+     *
+     * @param integer $id
+     * @return array
+     */
+    public function houseArticleDetail(int $id) {
+        $houseArticle = HouseArticle::with('firebaseUser')->findOrFail($id);
+        $data = (new HouseArticleResource($houseArticle))->toArray();
+
+        return [Response::HTTP_OK, $data];
     }
 
     /**
@@ -47,6 +62,20 @@ class ArticleService implements ArticleServiceInterface
         $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
 
         return [Response::HTTP_OK, $data->toArray()];
+    }
+
+    /**
+     * serviceArticleDetail function
+     *
+     * @param integer $id
+     * @return array
+     */
+    public function serviceArticleDetail(int $id) {
+        $serviceArticle = ServiceArticle::with('firebaseUser')->findOrFail($id);
+        $data = (new HouseArticleResource($serviceArticle))->toArray();
+
+        return [Response::HTTP_OK, $data];
+
     }
 
     /**

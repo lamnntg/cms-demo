@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ServiceArticle extends Model
@@ -53,5 +54,13 @@ class ServiceArticle extends Model
     public static function next()
     {
         return static::max('id') + 1;
+    }
+
+    /**
+     * Get the firebaseUser associated with the user.
+     */
+    public function firebaseUser(): BelongsTo
+    {
+        return $this->belongsTo(FirebaseUser::class, 'user_id', 'id');
     }
 }

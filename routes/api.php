@@ -27,10 +27,12 @@ Route::get('/health', function (Request $request) {
     return 'Health Check API';
 });
 
-
 Route::prefix('article')->group(function () {
     Route::get('/house', [ArticleController::class, 'getHouseArticles']);
+    Route::get('/house/{id}', [ArticleController::class, 'getHouseArticleDetail']);
+
     Route::get('/service', [ArticleController::class, 'getServiceArticles']);
+    Route::get('/service/{id}', [ArticleController::class, 'getServiceArticleDetail']);
 });
 
 // authenticate API by Firebase

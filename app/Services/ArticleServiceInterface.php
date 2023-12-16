@@ -8,6 +8,10 @@ interface ArticleServiceInterface
 
     public function getServiceArticles(array $params, array $paginate);
 
+    public function houseArticleDetail(int $id);
+
+    public function serviceArticleDetail(int $id);
+
     public function storeHouseArticle(array $params);
 
     public function storeServiceArticle(array $params);
