@@ -59,7 +59,8 @@ class ArticleService implements ArticleServiceInterface
     {
         $query = ServiceArticle::query();
 
-        $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
+        $data = $query->orderBy('updated_at', 'DESC')
+            ->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
 
         return [Response::HTTP_OK, $data->toArray()];
     }
