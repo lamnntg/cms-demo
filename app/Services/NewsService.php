@@ -20,29 +20,26 @@ class NewsService implements NewsServiceInterface
             'title' => $data['title'],
             'content' => empty($data['content']) ? '' : $data['content'],
             'slug' => $slug,
-            'images' => !empty($data['images']) ? [$data['images']] : [],
+            'images' => [],
             'status' => News::STATUS_ACCEPTED
         ];
 
-        if (!empty($dataSave['images'])) {
-            foreach ($dataSave['images'] as $dataImage) {
+        if (!empty($data['images'])) {
+            foreach ($data['images'] as $dataImage) {
                 // Lưu ảnh
-                if (!empty($dataImage)) {
-                    $profile = $dataImage;
-                    $filename = Str::uuid(time()) . '_' . $profile->getClientOriginalName();
-                    $path = '/img/news';
-                    $uploadPath = public_path($path);
+                $filename = Str::uuid(time()) . '-' . trim($dataImage->getClientOriginalName(), ' ');
+                $path = '/img/news';
+                $uploadPath = public_path($path);
 
-                    // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
-                    if (!File::exists($uploadPath)) {
-                        File::makeDirectory($uploadPath, 0777, true, true);
-                    }
+                // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0777, true, true);
+                }
 
-                    if (move_uploaded_file($profile, $uploadPath . '/' . $filename)) {
-                        $dataSave['images'][] = $path . '/' . $filename;
-                    } else {
-                        return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
-                    }
+                if (move_uploaded_file($dataImage, $uploadPath . '/' . $filename)) {
+                    $dataSave['images'][] = $path . '/' . $filename;
+                } else {
+                    return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
                 }
             }
         }
