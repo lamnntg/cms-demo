@@ -118,21 +118,7 @@ class ArticleService implements ArticleServiceInterface
 
         if (!empty($data['images'])) {
             foreach ($data['images'] as $image) {
-                // Lưu ảnh
-                $filename = Str::uuid(time()) . '-' . trim($image->getClientOriginalName(), ' ');
-                $path = '/img/house_articles';
-                $uploadPath = public_path($path);
-
-                // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
-                if (!File::exists($uploadPath)) {
-                    File::makeDirectory($uploadPath, 0777, true, true);
-                }
-
-                if (move_uploaded_file($image, $uploadPath . '/' . $filename)) {
-                    $dataSave['images'][] = $path . '/' . $filename;
-                } else {
-                    return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
-                }
+                $dataSave = uploadImage($image, '/img/house_articles', $dataSave);
             }
         }
 
@@ -170,21 +156,7 @@ class ArticleService implements ArticleServiceInterface
 
         if (!empty($data['images'])) {
             foreach ($data['images'] as $image) {
-                // Lưu ảnh
-                $filename = Str::uuid(time()) . '-' . trim($image->getClientOriginalName(), ' ');
-                $path = '/img/service_articles';
-                $uploadPath = public_path($path);
-
-                // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
-                if (!File::exists($uploadPath)) {
-                    File::makeDirectory($uploadPath, 0777, true, true);
-                }
-
-                if (move_uploaded_file($image, $uploadPath . '/' . $filename)) {
-                    $dataSave['images'][] = $path . '/' . $filename;
-                } else {
-                    return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
-                }
+                $dataSave = uploadImage($image, '/img/service_articles', $dataSave);
             }
         }
 

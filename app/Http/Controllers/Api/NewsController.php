@@ -90,4 +90,27 @@ class NewsController extends ApiController
 
         return $this->response($data, $statusCode);
     }
+
+    /**
+     * get News function
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getNews(Request $request) {
+        $request->validate([
+            'page' => 'nullable|integer',
+            'per_page' => 'nullable|integer',
+        ]);
+
+        $params = $request->all();
+        $paginate = [
+            'page' => $params['page'] ?? 1,
+            'per_page' => $params['per_page'] ?? 8
+        ];
+
+        list($statusCode, $data) = $this->newsService->getNews($paginate);
+
+        return $this->response($data, $statusCode);
+    }
 }

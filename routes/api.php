@@ -35,6 +35,8 @@ Route::prefix('article')->group(function () {
     Route::get('/service/{id}', [ArticleController::class, 'getServiceArticleDetail']);
 });
 
+Route::get('/news', [NewsController::class, 'getNews']);
+
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {
     Route::prefix('/article')->group(function () {
