@@ -21,6 +21,7 @@ class CreateFirebaseUsersTable extends Migration
             $table->string('photo_url')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('local_id')->nullable();
+            $table->enum('role', ['admin', 'user'])->default('user');
             $table->timestamps();
         });
     }

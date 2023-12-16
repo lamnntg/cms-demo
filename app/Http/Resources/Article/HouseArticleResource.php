@@ -18,7 +18,7 @@ class HouseArticleResource extends JsonResource
     public function toArray($request = null)
     {
         $data = $this->resource;
-        
+
         if (!empty($data['firebaseUser'])) {
             $firebaseUser = $this->firebaseUserTransform($data['firebaseUser']);
         }
@@ -42,6 +42,8 @@ class HouseArticleResource extends JsonResource
             'direction_house' => $data['direction_house'],
             'house_number' => $data['house_number'],
             'kind' => $data['kind'],
+            'created_at' => $data['created_at'],
+            'updated_at' => $data['updated_at'],
             'user' => $firebaseUser ?? []
         ];
     }

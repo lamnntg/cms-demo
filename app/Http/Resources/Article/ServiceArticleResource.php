@@ -33,6 +33,8 @@ class ServiceArticleResource extends JsonResource
             'images' => $data['images'],
             'status' => $data['status'],
             'price' => $data['price'],
+            'created_at' => $data['created_at'],
+            'updated_at' => $data['updated_at'],
             'user' => $firebaseUser ?? []
         ];
     }

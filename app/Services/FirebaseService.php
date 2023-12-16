@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FirebaseService implements FirebaseServiceInterface
 {
-
     const METHOD_FRESH_TOKEN = 'fresh_token';
     const METHOD_USERNAME_PASSWORD = 'username_password';
 
@@ -54,7 +53,7 @@ class FirebaseService implements FirebaseServiceInterface
                     'photo_url' => $userInfo['photoUrl']
                 ]
             );
-            $data = array_merge($userInfo, $signInResult->asTokenResponse());
+            $data = array_merge($firebaseUser, $signInResult->asTokenResponse());
         } catch (\Throwable $th) {
             return [Response::HTTP_BAD_REQUEST, $th->getMessage()];
         }
@@ -81,7 +80,7 @@ class FirebaseService implements FirebaseServiceInterface
         }
 
         return [
-            Response::HTTP_OK, $result
+            Response::HTTP_OK, $firebaseUser
         ];
     }
 

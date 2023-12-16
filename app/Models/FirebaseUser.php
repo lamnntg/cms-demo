@@ -10,6 +10,14 @@ class FirebaseUser extends Authenticatable
 {
     use HasFactory;
 
+    const ROLE_ADMIN = 'admin';
+    const ROLE_USER = 'user';
+
+    public static $roles = [
+        self::ROLE_ADMIN => 'admin',
+        self::ROLE_USER => 'user'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
