@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Http\Resources\FirebaseUserResource;
 use App\Models\FirebaseUser;
-use Illuminate\Support\Facades\Auth;
 use Kreait\Firebase\Contract\Auth as FirebaseAuth;
 use Kreait\Firebase\Contract\Storage as FirebaseStorage;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +53,8 @@ class FirebaseService implements FirebaseServiceInterface
                     'photo_url' => $userInfo['photoUrl']
                 ]
             );
-            $data = array_merge($firebaseUser, $signInResult->asTokenResponse());
+
+            $data = array_merge((new FirebaseUserResource($firebaseUser))->toArray(), $signInResult->asTokenResponse());
         } catch (\Throwable $th) {
             return [Response::HTTP_BAD_REQUEST, $th->getMessage()];
         }
@@ -71,6 +72,8 @@ class FirebaseService implements FirebaseServiceInterface
      */
     public function register(array $params) {
         try {
+            // change format phoneNumber to store firebase
+            $params['phoneNumber'] = '+84' . ltrim($params['phoneNumber'], '0');
             $result = $this->auth->createUser($params)->jsonSerialize();
             $params['uid'] = $result['uid'];
 
