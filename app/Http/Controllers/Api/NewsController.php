@@ -71,7 +71,7 @@ class NewsController extends ApiController
      *
      * @return JsonResponse
      */
-    public function hardDelete(int $id)
+    public function delete(int $id)
     {
         list($statusCode, $data) = $this->newsService->hardDelete($id);
 

@@ -100,7 +100,7 @@ class ArticleController extends ApiController
      *
      * @return JsonResponse
      */
-    public function softDeleteHA(int $id)
+    public function deleteHouseArticle(int $id)
     {
         list($statusCode, $data) = $this->articleService->softDeleteHA($id);
 
@@ -126,7 +126,7 @@ class ArticleController extends ApiController
      *
      * @return JsonResponse
      */
-    public function softDeleteSA(int $id)
+    public function deleteServiceArticle(int $id)
     {
         list($statusCode, $data) = $this->articleService->softDeleteSA($id);
 

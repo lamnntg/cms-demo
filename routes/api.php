@@ -38,15 +38,13 @@ Route::middleware(['auth.firebase'])->group(function () {
     Route::prefix('/article')->group(function () {
         Route::post('house/store', [ArticleController::class, 'storeHouseArticle'])->name('house-article.store');
         Route::post('service/store', [ArticleController::class, 'storeServiceArticle'])->name('service-article.store');
-        Route::delete('house/hard-delete/{id}', [ArticleController::class, 'hardDeleteHA'])->where('id', '[0-9]+')->name('article.hard-delete-house');
-        Route::delete('house/soft-delete/{id}', [ArticleController::class, 'softDeleteHA'])->where('id', '[0-9]+')->name('article.soft-delete-house');
-        Route::delete('service/hard-delete/{id}', [ArticleController::class, 'hardDeleteSA'])->where('id', '[0-9]+')->name('article.hard-delete-service');
-        Route::delete('service/soft-delete/{id}', [ArticleController::class, 'softDeleteSA'])->where('id', '[0-9]+')->name('article.soft-delete-service');
+
+        Route::delete('house/delete/{id}', [ArticleController::class, 'deleteHouseArticle'])->where('id', '[0-9]+')->name('article.soft-delete-house');
+        Route::delete('service/delete/{id}', [ArticleController::class, 'deleteServiceArticle'])->where('id', '[0-9]+')->name('article.hard-delete-service');
     });
 
     Route::prefix('/news')->group(function () {
         Route::post('/store', [NewsController::class, 'store'])->name('news.store');
-        Route::delete('/hard-delete/{id}', [NewsController::class, 'hardDelete'])->where('id', '[0-9]+')->name('news.hard-delete');
-        Route::delete('/soft-delete/{id}', [NewsController::class, 'softDelete'])->where('id', '[0-9]+')->name('news.soft-delete');
+        Route::delete('/delete/{id}', [NewsController::class, 'delete'])->where('id', '[0-9]+')->name('news.hard-delete');
     });
 });
