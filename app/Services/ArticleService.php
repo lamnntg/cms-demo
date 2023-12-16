@@ -187,14 +187,18 @@ class ArticleService implements ArticleServiceInterface
         }
     }
 
-    public function softDeleteHA(int $id)
+    public function softDeleteHA($params)
     {
         try {
-            $houseArticle = HouseArticle::find($id);
+            $houseArticle = HouseArticle::withTrashed()->find($params['id']);
 
             if ($houseArticle) {
-                $houseArticle->delete();
-                return [Response::HTTP_OK, ['message' => 'This record has soft deleted.']];
+                if (!empty($params['hard_delete']) && $params['hard_delete']) {
+                    $houseArticle->forceDelete();
+                } else {
+                    $houseArticle->delete();
+                }
+                return [Response::HTTP_OK, ['message' => 'This record has deleted.']];
             } else {
                 return [Response::HTTP_BAD_REQUEST, ['message' => 'This record not found.']];
             }
@@ -219,14 +223,18 @@ class ArticleService implements ArticleServiceInterface
         }
     }
 
-    public function softDeleteSA(int $id)
+    public function softDeleteSA($params)
     {
         try {
-            $serviceArticle = ServiceArticle::find($id);
+            $serviceArticle = ServiceArticle::withTrashed()->find($params['id']);
 
             if ($serviceArticle) {
-                $serviceArticle->delete();
-                return [Response::HTTP_OK, ['message' => 'This record has soft deleted.']];
+                if (!empty($params['hard_delete']) && $params['hard_delete']) {
+                    $serviceArticle->forceDelete();
+                } else {
+                    $serviceArticle->delete();
+                }
+                return [Response::HTTP_OK, ['message' => 'This record has deleted.']];
             } else {
                 return [Response::HTTP_BAD_REQUEST, ['message' => 'This record not found.']];
             }

@@ -8,5 +8,5 @@ interface NewsServiceInterface
 
     public function hardDelete(int $id);
 
-    public function softDelete(int $id);
+    public function softDelete($params);
 }

@@ -14,9 +14,9 @@ interface ArticleServiceInterface
 
     public function hardDeleteHA(int $id);
 
-    public function softDeleteHA(int $id);
+    public function softDeleteHA($params);
 
     public function hardDeleteSA(int $id);
 
-    public function softDeleteSA(int $id);
+    public function softDeleteSA($params);
 }

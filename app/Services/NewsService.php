@@ -73,13 +73,17 @@ class NewsService implements NewsServiceInterface
         }
     }
 
-    public function softDelete(int $id)
+    public function softDelete($params)
     {
         try {
-            $news = News::find($id);
+            $news = News::withTrashed()->find($params['id']);
 
             if ($news) {
-                $news->delete();
+                if (!empty($params['hard_delete']) && $params['hard_delete']) {
+                    $news->forceDelete();
+                } else {
+                    $news->delete();
+                }
                 return [Response::HTTP_OK, ['message' => 'This record has soft deleted.']];
             } else {
                 return [Response::HTTP_BAD_REQUEST, ['message' => 'This record not found.']];

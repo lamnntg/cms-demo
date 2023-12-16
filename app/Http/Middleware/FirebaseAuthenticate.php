@@ -19,29 +19,44 @@ class FirebaseAuthenticate
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role)
     {
         $accessToken = $request->bearerToken();
         if (!$accessToken) {
-            return response()->json(
-                [
-                    'error' => 'Invalid credentials'
-                ],
-                Response::HTTP_FORBIDDEN
-            );
-        }
-
-        try {
-            $result = Firebase::auth()->verifyIdToken($accessToken)->claims()->all();
-            $firebaseUser = FirebaseUser::where('uid', $result['user_id'])->first();
-            if (!$firebaseUser) {
                 return response()->json(
                     [
                         'error' => 'Invalid credentials'
                     ],
-                    Response::HTTP_UNAUTHORIZED
+                    Response::HTTP_FORBIDDEN
                 );
             }
+
+            try {
+                $result = Firebase::auth()->verifyIdToken($accessToken)->claims()->all();
+                $firebaseUser = FirebaseUser::where('uid', $result['user_id'])->first();
+                if (!$firebaseUser) {
+                    return response()->json(
+                        [
+                            'error' => 'Invalid credentials'
+                        ],
+                        Response::HTTP_UNAUTHORIZED
+                    );
+                }
+
+                $roleUser = $firebaseUser->role;
+
+                if (in_array($role, array_keys(FirebaseUser::$roles)) && $firebaseUser->role != $role) {
+                    return response()->json(
+                        [
+                            'error' => 'Không có quyền truy cập API này!'
+                        ],
+                        Response::HTTP_FORBIDDEN
+                    );
+                }
+
+                if ($roleUser == FirebaseUser::ROLE_ADMIN) {
+                    $request['hard_delete'] = true;
+                }
 
             $request->setUserResolver(function () use ($firebaseUser) {
                 return $firebaseUser;
