@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Services\ArticleServiceInterface;
 use App\Http\Requests\CreateHouseArticleRequest;
 use App\Http\Requests\CreateServiceArticleRequest;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 
 class ArticleController extends ApiController
 {
@@ -50,7 +50,37 @@ class ArticleController extends ApiController
             'sort_order' => $params['sort_order'] ?? 'ASC',
         ];
 
-        list($statusCode, $data) = $this->articleService->index($filter, $paginate);
+        list($statusCode, $data) = $this->articleService->getHouseArticles($filter, $paginate);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * getServiceArticles function
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getServiceArticles(Request $request) {
+        $request->validate([
+            'page' => 'nullable|integer',
+            'per_page' => 'nullable|integer',
+            'sort_fields' => 'nullable|string|in:bedrooms,wcs,price',
+            'sort_order' => 'nullable|string|in:desc,asc',
+        ]);
+
+        $params = $request->all();
+        $paginate = [
+            'page' => $params['page'] ?? 1,
+            'per_page' => $params['per_page'] ?? 8
+        ];
+
+        $filter = [
+            'sort_fields' => $params['sort_fields'] ?? null,
+            'sort_order' => $params['sort_order'] ?? 'ASC',
+        ];
+
+        list($statusCode, $data) = $this->articleService->getServiceArticles($filter, $paginate);
 
         return $this->response($data, $statusCode);
     }

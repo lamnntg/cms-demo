@@ -4,7 +4,9 @@ namespace App\Services;
 
 interface ArticleServiceInterface
 {
-    public function index(array $params, array $paginate);
+    public function getHouseArticles(array $params, array $paginate);
+
+    public function getServiceArticles(array $params, array $paginate);
 
     public function storeHouseArticle(array $params);
 

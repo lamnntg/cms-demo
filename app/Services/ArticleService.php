@@ -17,7 +17,7 @@ class ArticleService implements ArticleServiceInterface
      * @param array $paginate
      * @return array
      */
-    public function index(array $filter, array $paginate)
+    public function getHouseArticles(array $filter, array $paginate)
     {
         $query = HouseArticle::query();
         // TODO:
@@ -27,6 +27,22 @@ class ArticleService implements ArticleServiceInterface
         if ($filter['sort_fields']) {
             $query = $query->orderBy($filter['sort_fields'], $filter['sort_order']);
         }
+
+        $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
+
+        return [Response::HTTP_OK, $data->toArray()];
+    }
+
+    /**
+     * Build Filter and query article function
+     *
+     * @param array $filter
+     * @param array $paginate
+     * @return array
+     */
+    public function getServiceArticles(array $filter, array $paginate)
+    {
+        $query = ServiceArticle::query();
 
         $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
 

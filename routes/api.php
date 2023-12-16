@@ -30,7 +30,7 @@ Route::get('/health', function (Request $request) {
 
 Route::prefix('article')->group(function () {
     Route::get('/house', [ArticleController::class, 'getHouseArticles']);
-    Route::get('/service', [ArticleController::class, 'serviceArticles']);
+    Route::get('/service', [ArticleController::class, 'getServiceArticles']);
 });
 
 // authenticate API by Firebase
