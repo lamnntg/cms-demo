@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Services\ArticleServiceInterface;
 use App\Http\Requests\CreateHouseArticleRequest;
+use App\Http\Requests\UpdateHouseArticleRequest;
 use App\Http\Requests\CreateMarketArticleRequest;
+use App\Http\Requests\UpdateMarketArticleRequest;
 use App\Http\Requests\CreateServiceArticleRequest;
+use App\Http\Requests\UpdateServiceArticleRequest;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -188,6 +191,54 @@ class ArticleController extends ApiController
     public function storeMarketArticle(CreateMarketArticleRequest $request)
     {
         list($statusCode, $data) = $this->articleService->storeMarketArticle($request->all());
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * update house article service
+     * @param UpdateHouseArticleRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function updateHouseArticle(UpdateHouseArticleRequest $request, int $id)
+    {
+        $data = $request->all();
+        $data['id'] = $id;
+
+        list($statusCode, $data) = $this->articleService->updateHouseArticle($data);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * update service article service
+     * @param UpdateServiceArticleRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function updateServiceArticle(UpdateServiceArticleRequest $request, int $id)
+    {
+        $data = $request->all();
+        $data['id'] = $id;
+
+        list($statusCode, $data) = $this->articleService->updateServiceArticle($data);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * update market article service
+     * @param UpdateMarketArticleRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function updateMarketArticle(UpdateMarketArticleRequest $request, int $id)
+    {
+        $data = $request->all();
+        $data['id'] = $id;
+
+        list($statusCode, $data) = $this->articleService->updateMarketArticle($data);
 
         return $this->response($data, $statusCode);
     }

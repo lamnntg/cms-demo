@@ -6,8 +6,9 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Services\NewsServiceInterface;
 use App\Http\Requests\CreateNewsRequest;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Http\Requests\UpdateNewsRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class NewsController extends ApiController
 {
@@ -110,6 +111,22 @@ class NewsController extends ApiController
         ];
 
         list($statusCode, $data) = $this->newsService->getNews($paginate);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * update news service
+     * @param UpdateNewsRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function updateNews(UpdateNewsRequest $request, int $id)
+    {
+        $data = $request->all();
+        $data['id'] = $id;
+
+        list($statusCode, $data) = $this->newsService->updateNews($data);
 
         return $this->response($data, $statusCode);
     }

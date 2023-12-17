@@ -3,6 +3,7 @@
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * upload image func
@@ -27,3 +28,18 @@ function uploadImage($dataImage, $path, $dataSave)
         return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
     }
 }
+
+/**
+ * delete image func
+ *
+ * @return string
+ */
+function deleteImageLocalStorage($image)
+{
+    if (!empty($image)) {
+        Storage::delete($image);
+        File::delete(public_path($image));
+    }
+}
+
+

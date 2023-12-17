@@ -11,4 +11,6 @@ interface NewsServiceInterface
     public function softDelete(int $id);
 
     public function getNews(array $paginate);
+
+    public function updateNews(array $params);
 }

@@ -22,6 +22,12 @@ interface ArticleServiceInterface
 
     public function storeMarketArticle(array $params);
 
+    public function updateHouseArticle(array $params);
+
+    public function updateServiceArticle(array $params);
+
+    public function updateMarketArticle(array $params);
+
     public function hardDeleteHA(int $id);
 
     public function softDeleteHA(int $id);
