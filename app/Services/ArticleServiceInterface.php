@@ -8,13 +8,19 @@ interface ArticleServiceInterface
 
     public function getServiceArticles(array $params, array $paginate);
 
+    public function getMarketArticles(array $params, array $paginate);
+
     public function houseArticleDetail(int $id);
 
     public function serviceArticleDetail(int $id);
 
+    public function marketArticleDetail(int $id);
+
     public function storeHouseArticle(array $params);
 
     public function storeServiceArticle(array $params);
+
+    public function storeMarketArticle(array $params);
 
     public function hardDeleteHA(int $id);
 
@@ -23,4 +29,6 @@ interface ArticleServiceInterface
     public function hardDeleteSA(int $id);
 
     public function softDeleteSA(int $id);
+
+    public function softDeleteMA(int $id);
 }

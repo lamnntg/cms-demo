@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use App\Http\Resources\Article\HouseArticleResource;
+use App\Http\Resources\Article\ServiceArticleResource;
+use App\Http\Resources\Article\MarketArticleResource;
 use Illuminate\Support\Str;
 use App\Models\HouseArticle;
+use App\Models\MarketArticle;
 use Illuminate\Http\Response;
 use App\Models\ServiceArticle;
 use Illuminate\Support\Facades\File;
@@ -30,7 +33,7 @@ class ArticleService implements ArticleServiceInterface
         }
 
         $data = $query->orderBy('updated_at', 'DESC')
-            ->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
+            ->paginate($paginate['per_page'], ['*'], 'page', $paginate['page']);
 
         return [Response::HTTP_OK, $data->toArray()];
     }
@@ -41,7 +44,8 @@ class ArticleService implements ArticleServiceInterface
      * @param integer $id
      * @return array
      */
-    public function houseArticleDetail(int $id) {
+    public function houseArticleDetail(int $id)
+    {
         $houseArticle = HouseArticle::with('firebaseUser')->findOrFail($id);
         $data = (new HouseArticleResource($houseArticle))->toArray();
 
@@ -60,7 +64,7 @@ class ArticleService implements ArticleServiceInterface
         $query = ServiceArticle::query();
 
         $data = $query->orderBy('updated_at', 'DESC')
-            ->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
+            ->paginate($paginate['per_page'], ['*'], 'page', $paginate['page']);
 
         return [Response::HTTP_OK, $data->toArray()];
     }
@@ -71,12 +75,43 @@ class ArticleService implements ArticleServiceInterface
      * @param integer $id
      * @return array
      */
-    public function serviceArticleDetail(int $id) {
+    public function serviceArticleDetail(int $id)
+    {
         $serviceArticle = ServiceArticle::with('firebaseUser')->findOrFail($id);
-        $data = (new HouseArticleResource($serviceArticle))->toArray();
+        $data = (new ServiceArticleResource($serviceArticle))->toArray();
 
         return [Response::HTTP_OK, $data];
+    }
 
+    /**
+     * Build Filter and query article function
+     *
+     * @param array $filter
+     * @param array $paginate
+     * @return array
+     */
+    public function getMarketArticles(array $filter, array $paginate)
+    {
+        $query = MarketArticle::query();
+
+        $data = $query->orderBy('updated_at', 'DESC')
+            ->paginate($paginate['per_page'], ['*'], 'page', $paginate['page']);
+
+        return [Response::HTTP_OK, $data->toArray()];
+    }
+
+    /**
+     * marketArticleDetail function
+     *
+     * @param integer $id
+     * @return array
+     */
+    public function marketArticleDetail(int $id)
+    {
+        $marketArticle = MarketArticle::with('firebaseUser')->findOrFail($id);
+        $data = (new MarketArticleResource($marketArticle))->toArray();
+
+        return [Response::HTTP_OK, $data];
     }
 
     /**
@@ -175,6 +210,49 @@ class ArticleService implements ArticleServiceInterface
         return [Response::HTTP_OK, []];
     }
 
+    /**
+     * storeMarketArticle function
+     *
+     * @param array $data
+     * @return void
+     */
+    public function storeMarketArticle(array $data)
+    {
+        $user = request()->user();
+        $nextAutoIncrement = MarketArticle::next();
+        $slug = \Str::slug($data['title']) . '-' . $nextAutoIncrement;
+        $saData = MarketArticle::where('slug', $slug)->withTrashed()->exists();
+
+        $dataSave = [
+            'user_id' => $user->id ?? 0,
+            'title' => $data['title'],
+            'content' => empty($data['content']) ? '' : $data['content'],
+            'slug' => $slug,
+            'images' => [],
+            'price' => $data['price'],
+            'status' => MarketArticle::STATUS_WAITING_ACCEPT,
+            'hashtags' => empty($data['hashtags']) ? [] : $data['hashtags']
+        ];
+
+        if (!empty($data['images'])) {
+            foreach ($data['images'] as $image) {
+                $dataSave = uploadImage($data['images'], '/img/market_articles', $dataSave);
+            }
+        }
+
+        try {
+            if (!$saData) {
+                MarketArticle::create($dataSave);
+            } else {
+                return [Response::HTTP_BAD_REQUEST, ['message' => 'This title exists.']];
+            }
+        } catch (\Exception $e) {
+            return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
+        }
+
+        return [Response::HTTP_OK, []];
+    }
+
     public function hardDeleteHA(int $id)
     {
         try {
@@ -230,6 +308,22 @@ class ArticleService implements ArticleServiceInterface
 
             if ($serviceArticle) {
                 $serviceArticle->delete();
+                return [Response::HTTP_OK, ['message' => 'This record has soft deleted.']];
+            } else {
+                return [Response::HTTP_BAD_REQUEST, ['message' => 'This record not found.']];
+            }
+        } catch (\Exception $e) {
+            return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
+        }
+    }
+
+    public function softDeleteMA(int $id)
+    {
+        try {
+            $marketArticle = MarketArticle::find($id);
+
+            if ($marketArticle) {
+                $marketArticle->delete();
                 return [Response::HTTP_OK, ['message' => 'This record has soft deleted.']];
             } else {
                 return [Response::HTTP_BAD_REQUEST, ['message' => 'This record not found.']];

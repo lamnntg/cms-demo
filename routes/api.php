@@ -34,8 +34,8 @@ Route::prefix('article')->group(function () {
     Route::get('/service', [ArticleController::class, 'getServiceArticles']);
     Route::get('/service/{id}', [ArticleController::class, 'getServiceArticleDetail']);
 
-    Route::get('/service', [ArticleController::class, 'getServiceArticles']);
-    Route::get('/service/{id}', [ArticleController::class, 'getServiceArticleDetail']);
+    Route::get('/market', [ArticleController::class, 'getMarketArticles']);
+    Route::get('/market/{id}', [ArticleController::class, 'getMarketArticleDetail']);
 });
 
 Route::get('/news', [NewsController::class, 'getNews']);
@@ -45,9 +45,11 @@ Route::middleware(['auth.firebase'])->group(function () {
     Route::prefix('/article')->group(function () {
         Route::post('house/store', [ArticleController::class, 'storeHouseArticle'])->name('house-article.store');
         Route::post('service/store', [ArticleController::class, 'storeServiceArticle'])->name('service-article.store');
+        Route::post('market/store', [ArticleController::class, 'storeMarketArticle'])->name('market-article.store');
 
         Route::delete('house/delete/{id}', [ArticleController::class, 'deleteHouseArticle'])->where('id', '[0-9]+')->name('article.soft-delete-house');
         Route::delete('service/delete/{id}', [ArticleController::class, 'deleteServiceArticle'])->where('id', '[0-9]+')->name('article.hard-delete-service');
+        Route::delete('market/delete/{id}', [ArticleController::class, 'deleteMarketArticle'])->where('id', '[0-9]+')->name('article.soft-delete-market');
     });
 
     Route::prefix('/news')->group(function () {
