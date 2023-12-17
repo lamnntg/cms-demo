@@ -89,4 +89,39 @@ class NewsService implements NewsServiceInterface
 
         return [Response::HTTP_OK, $data->toArray()];
     }
+
+    /**
+     * update news function
+     *
+     * @param array $data
+     * @return array
+     */
+    public function updateNews(array $data)
+    {
+        $user = request()->user();
+
+        $news= News::findOrFail($data['id']);
+
+        $dataSave = $data;
+        $dataSave['user_id'] = $user->id ?? 0;
+        $dataSave['images'] = [];
+
+        if (!empty($data['images'])) {
+            foreach ($news->images as $image) {
+                deleteImageLocalStorage($image);
+            }
+
+            foreach ($data['images'] as $image) {
+                $dataSave = uploadImage($image, '/img/news', $dataSave);
+            }
+        }
+
+        try {
+            $news->update($dataSave);
+        } catch (\Exception $e) {
+            return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
+        }
+
+        return [Response::HTTP_OK, []];
+    }
 }

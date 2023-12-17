@@ -133,7 +133,7 @@ class ArticleService implements ArticleServiceInterface
         }
 
         $dataSave = [
-            'user_id' => $user->id,
+            'user_id' => $user->id ?? 0,
             'title' => $data['title'],
             'content' => empty($data['content']) ? '' : $data['content'],
             'slug' => $slug,
@@ -176,12 +176,12 @@ class ArticleService implements ArticleServiceInterface
     public function storeServiceArticle(array $data)
     {
         $user = request()->user();
-        $nextAutoIncrement = HouseArticle::next();
+        $nextAutoIncrement = ServiceArticle::next();
         $slug = \Str::slug($data['title']) . '-' . $nextAutoIncrement;
         $saData = ServiceArticle::where('slug', $slug)->withTrashed()->exists();
 
         $dataSave = [
-            'user_id' => $user->id,
+            'user_id' => $user->id ?? 0,
             'title' => $data['title'],
             'content' => empty($data['content']) ? '' : $data['content'],
             'slug' => $slug,
@@ -197,12 +197,12 @@ class ArticleService implements ArticleServiceInterface
             }
         }
 
+        if ($saData) {
+            return [Response::HTTP_BAD_REQUEST, ['message' => 'This title exists.']];
+        }
+
         try {
-            if (!$saData) {
                 ServiceArticle::create($dataSave);
-            } else {
-                return [Response::HTTP_BAD_REQUEST, ['message' => 'This title exists.']];
-            }
         } catch (\Exception $e) {
             return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
         }
@@ -236,7 +236,7 @@ class ArticleService implements ArticleServiceInterface
 
         if (!empty($data['images'])) {
             foreach ($data['images'] as $image) {
-                $dataSave = uploadImage($data['images'], '/img/market_articles', $dataSave);
+                $dataSave = uploadImage($image, '/img/market_articles', $dataSave);
             }
         }
 
@@ -246,6 +246,111 @@ class ArticleService implements ArticleServiceInterface
             } else {
                 return [Response::HTTP_BAD_REQUEST, ['message' => 'This title exists.']];
             }
+        } catch (\Exception $e) {
+            return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
+        }
+
+        return [Response::HTTP_OK, []];
+    }
+
+    /**
+     * updateHouseArticle function
+     *
+     * @param array $data
+     * @return array
+     */
+    public function updateHouseArticle(array $data)
+    {
+        $user = request()->user();
+
+        $houseArticle= HouseArticle::findOrFail($data['id']);
+
+        $dataSave = $data;
+        $dataSave['user_id'] = $user->id ?? 0;
+        $dataSave['images'] = [];
+
+        if (!empty($data['images'])) {
+            foreach ($houseArticle->images as $image) {
+                deleteImageLocalStorage($image);
+            }
+
+            foreach ($data['images'] as $image) {
+                $dataSave = uploadImage($image, '/img/house_articles', $dataSave);
+            }
+        }
+
+        try {
+            $houseArticle->update($dataSave);
+        } catch (\Exception $e) {
+            return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
+        }
+
+        return [Response::HTTP_OK, []];
+    }
+
+    /**
+     * updateServiceArticle function
+     *
+     * @param array $data
+     * @return array
+     */
+    public function updateServiceArticle(array $data)
+    {
+        $user = request()->user();
+
+        $serviceArticle= ServiceArticle::findOrFail($data['id']);
+
+        $dataSave = $data;
+        $dataSave['user_id'] = $user->id ?? 0;
+        $dataSave['images'] = [];
+
+        if (!empty($data['images'])) {
+            foreach ($serviceArticle->images as $image) {
+                deleteImageLocalStorage($image);
+            }
+
+            foreach ($data['images'] as $image) {
+                $dataSave = uploadImage($image, '/img/service_articles', $dataSave);
+            }
+        }
+
+        try {
+            $serviceArticle->update($dataSave);
+        } catch (\Exception $e) {
+            return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
+        }
+
+        return [Response::HTTP_OK, []];
+    }
+
+    /**
+     * updateMarketArticle function
+     *
+     * @param array $data
+     * @return array
+     */
+    public function updateMarketArticle(array $data)
+    {
+        $user = request()->user();
+
+        $marketArticle= MarketArticle::findOrFail($data['id']);
+
+        $dataSave = $data;
+        $dataSave['user_id'] = $user->id ?? 0;
+        $dataSave['images'] = [];
+
+        if (!empty($data['images'])) {
+            foreach ($marketArticle->images as $image) {
+                deleteImageLocalStorage($image);
+            }
+
+            foreach ($data['images'] as $image) {
+                $dataSave = uploadImage($image, '/img/market_articles', $dataSave);
+            }
+        }
+
+        try {
+            $marketArticle->update($dataSave);
         } catch (\Exception $e) {
             return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
         }

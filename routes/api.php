@@ -47,6 +47,10 @@ Route::middleware(['auth.firebase'])->group(function () {
         Route::post('service/store', [ArticleController::class, 'storeServiceArticle'])->name('service-article.store');
         Route::post('market/store', [ArticleController::class, 'storeMarketArticle'])->name('market-article.store');
 
+        Route::patch('house/update/{id}', [ArticleController::class, 'updateHouseArticle'])->where('id', '[0-9]+')->name('house-article.update');
+        Route::patch('service/update/{id}', [ArticleController::class, 'updateServiceArticle'])->where('id', '[0-9]+')->name('service-article.update');
+        Route::patch('market/update/{id}', [ArticleController::class, 'updateMarketArticle'])->where('id', '[0-9]+')->name('market-article.update');
+
         Route::delete('house/delete/{id}', [ArticleController::class, 'deleteHouseArticle'])->where('id', '[0-9]+')->name('article.soft-delete-house');
         Route::delete('service/delete/{id}', [ArticleController::class, 'deleteServiceArticle'])->where('id', '[0-9]+')->name('article.hard-delete-service');
         Route::delete('market/delete/{id}', [ArticleController::class, 'deleteMarketArticle'])->where('id', '[0-9]+')->name('article.soft-delete-market');
@@ -55,5 +59,6 @@ Route::middleware(['auth.firebase'])->group(function () {
     Route::prefix('/news')->group(function () {
         Route::post('/store', [NewsController::class, 'store'])->name('news.store');
         Route::delete('/delete/{id}', [NewsController::class, 'delete'])->where('id', '[0-9]+')->name('news.hard-delete');
+        Route::patch('/update/{id}', [NewsController::class, 'updateNews'])->where('id', '[0-9]+')->name('news.update');
     });
 });
