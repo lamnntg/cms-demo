@@ -10,14 +10,14 @@ class News extends Model
 {
     use HasFactory, SoftDeletes;
 
-     // status
-     public const STATUS_NOT_ACCEPTED = 0;
-     public const STATUS_ACCEPTED = 1;
+    // status
+    public const STATUS_NOT_ACCEPTED = 0;
+    public const STATUS_ACCEPTED = 1;
 
-     public static $status = [
-         self::STATUS_NOT_ACCEPTED => 'Không được duyệt',
-         self::STATUS_ACCEPTED => 'Được duyệt'
-     ];
+    public static $status = [
+        self::STATUS_NOT_ACCEPTED => 'Không được duyệt',
+        self::STATUS_ACCEPTED => 'Được duyệt'
+    ];
 
 
     /**
@@ -33,7 +33,8 @@ class News extends Model
         'slug',
         'views',
         'images',
-        'status'
+        'status',
+        'hashtags'
     ];
 
     protected $dates = [
@@ -43,7 +44,8 @@ class News extends Model
     ];
 
     protected $casts = [
-        'images' => 'array'
+        'images' => 'array',
+        'hashtags' => 'array'
     ];
 
     public static function next()

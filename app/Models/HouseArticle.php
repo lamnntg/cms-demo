@@ -63,7 +63,8 @@ class HouseArticle extends Model
         'address',
         'direction_house',
         'house_number',
-        'kind'
+        'kind',
+        'hashtags'
     ];
 
     protected $dates = [
@@ -73,7 +74,8 @@ class HouseArticle extends Model
     ];
 
     protected $casts = [
-        'images' => 'array'
+        'images' => 'array',
+        'hashtags' => 'array'
     ];
 
     public static function next()

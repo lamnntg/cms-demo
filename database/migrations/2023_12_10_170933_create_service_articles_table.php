@@ -16,6 +16,7 @@ class CreateServiceArticlesTable extends Migration
         Schema::create('service_articles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
+            $table->enum('type', ['service', 'market'])->default('service');
             $table->string('title');
             $table->text('content')->nullable();
             $table->string('slug')->unique();
@@ -23,6 +24,7 @@ class CreateServiceArticlesTable extends Migration
             $table->text('images')->nullable();
             $table->double('price')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->text('hashtags')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

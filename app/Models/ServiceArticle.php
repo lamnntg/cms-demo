@@ -11,11 +11,18 @@ class ServiceArticle extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public const TYPE_SERVICE = 'service';
+    public const TYPE_MARKET = 'market';
+
     // status
     public const STATUS_NOT_ACCEPTED = 0;
     public const STATUS_ACCEPTED = 1;
     public const STATUS_WAITING_ACCEPT = 2;
 
+    public static $type = [
+        self::TYPE_SERVICE => 'Dịch vụ - quảng cáo',
+        self::TYPE_MARKET => 'Chợ cư dân'
+    ];
 
     public static $status = [
         self::STATUS_NOT_ACCEPTED => 'Không được duyệt',
@@ -34,11 +41,13 @@ class ServiceArticle extends Model
         'user_id',
         'title',
         'content',
+        'type',
         'slug',
         'views',
         'images',
         'price',
-        'status'
+        'status',
+        'hashtags'
     ];
 
     protected $dates = [
@@ -48,7 +57,8 @@ class ServiceArticle extends Model
     ];
 
     protected $casts = [
-        'images' => 'array'
+        'images' => 'array',
+        'hashtags' => 'array'
     ];
 
     public static function next()

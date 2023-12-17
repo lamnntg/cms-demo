@@ -32,6 +32,7 @@ class CreateHouseArticlesTable extends Migration
             $table->text('direction_house')->nullable();
             $table->string('house_number')->nullable();
             $table->tinyInteger('kind')->default(0);
+            $table->text('hashtags')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
