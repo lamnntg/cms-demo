@@ -5,12 +5,10 @@ namespace App\Services;
 use App\Http\Resources\Article\HouseArticleResource;
 use App\Http\Resources\Article\ServiceArticleResource;
 use App\Http\Resources\Article\MarketArticleResource;
-use Illuminate\Support\Str;
 use App\Models\HouseArticle;
 use App\Models\MarketArticle;
 use Illuminate\Http\Response;
 use App\Models\ServiceArticle;
-use Illuminate\Support\Facades\File;
 
 class ArticleService implements ArticleServiceInterface
 {
@@ -202,7 +200,7 @@ class ArticleService implements ArticleServiceInterface
         }
 
         try {
-                ServiceArticle::create($dataSave);
+            ServiceArticle::create($dataSave);
         } catch (\Exception $e) {
             return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
         }

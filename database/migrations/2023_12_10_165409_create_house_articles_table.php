@@ -23,7 +23,7 @@ class CreateHouseArticlesTable extends Migration
             $table->text('images')->nullable();
             $table->tinyInteger('type')->default(0);
             $table->double('price')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(2)->comment('0. reject, 1. accept, 2. waiting');
             $table->float('area')->nullable()->comment('m2');
             $table->smallInteger('bedrooms')->default(0);
             $table->smallInteger('wcs')->default(0);

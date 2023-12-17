@@ -124,4 +124,11 @@ class NewsService implements NewsServiceInterface
 
         return [Response::HTTP_OK, []];
     }
+
+    public function getNewsDetail(int $id)
+    {
+        $news = News::findOrFail($id);
+
+        return $news;
+    }
 }

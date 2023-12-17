@@ -80,19 +80,6 @@ class NewsController extends ApiController
     }
 
     /**
-     * soft delete news service
-     * @param int $id
-     *
-     * @return JsonResponse
-     */
-    public function softDelete(int $id)
-    {
-        list($statusCode, $data) = $this->newsService->softDelete($id);
-
-        return $this->response($data, $statusCode);
-    }
-
-    /**
      * get News function
      *
      * @param Request $request
@@ -111,6 +98,18 @@ class NewsController extends ApiController
         ];
 
         list($statusCode, $data) = $this->newsService->getNews($paginate);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * get News function
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getNewsDetail(Request $request, int $id) {
+        list($statusCode, $data) = $this->newsService->getNewsDetail($id);
 
         return $this->response($data, $statusCode);
     }

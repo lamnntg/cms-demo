@@ -2,8 +2,7 @@
 
 
 use App\Http\Controllers\Api\ArticleController;
-
-use App\Http\Controllers\Api\LandingController;
+use App\Http\Controllers\Api\ManageController;
 use App\Http\Controllers\Api\NewsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +38,7 @@ Route::prefix('article')->group(function () {
 });
 
 Route::get('/news', [NewsController::class, 'getNews']);
+Route::get('/news/{id}', [NewsController::class, 'getNewsDetail']);
 
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {
@@ -60,5 +60,9 @@ Route::middleware(['auth.firebase'])->group(function () {
         Route::post('/store', [NewsController::class, 'store'])->name('news.store');
         Route::delete('/delete/{id}', [NewsController::class, 'delete'])->where('id', '[0-9]+')->name('news.hard-delete');
         Route::patch('/update/{id}', [NewsController::class, 'updateNews'])->where('id', '[0-9]+')->name('news.update');
+    });
+
+    Route::prefix('/manage')->group(function () {
+        Route::post('/approve', [ManageController::class, 'approve'])->name('manage.approve');
     });
 });

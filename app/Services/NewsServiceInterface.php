@@ -12,5 +12,7 @@ interface NewsServiceInterface
 
     public function getNews(array $paginate);
 
+    public function getNewsDetail(int $id);
+
     public function updateNews(array $params);
 }

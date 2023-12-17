@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\FirebaseUser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
@@ -42,4 +43,13 @@ function deleteImageLocalStorage($image)
     }
 }
 
+function is_role_admin()
+{
+    $firebaseUser = request()->user();
 
+    if (!empty($firebaseUser) && $firebaseUser->role == FirebaseUser::ROLE_ADMIN) {
+        return true;
+    }
+
+    return false;
+}

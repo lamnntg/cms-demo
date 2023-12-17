@@ -22,7 +22,7 @@ class CreateMarketArticlesTable extends Migration
             $table->integer('views')->default(0);
             $table->text('images')->nullable();
             $table->double('price')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(2)->comment('0. reject, 1. accept, 2. waiting');
             $table->text('hashtags')->nullable();
             $table->timestamps();
             $table->softDeletes();
