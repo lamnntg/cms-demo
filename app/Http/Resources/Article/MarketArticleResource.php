@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Article;
 
-use App\Traits\ArticleResourceTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Traits\ArticleResourceTrait;
 
-class ServiceArticleResource extends JsonResource
+class MarketArticleResource extends JsonResource
 {
     use ArticleResourceTrait;
 

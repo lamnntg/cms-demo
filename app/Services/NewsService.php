@@ -20,7 +20,8 @@ class NewsService implements NewsServiceInterface
             'content' => empty($data['content']) ? '' : $data['content'],
             'slug' => $slug,
             'images' => [],
-            'status' => News::STATUS_ACCEPTED
+            'status' => News::STATUS_ACCEPTED,
+            'hashtags' => empty($data['hashtags']) ? [] : $data['hashtags']
         ];
 
         if (!empty($data['images'])) {

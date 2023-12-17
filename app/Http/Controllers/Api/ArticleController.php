@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Services\ArticleServiceInterface;
 use App\Http\Requests\CreateHouseArticleRequest;
+use App\Http\Requests\CreateMarketArticleRequest;
 use App\Http\Requests\CreateServiceArticleRequest;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -101,12 +102,53 @@ class ArticleController extends ApiController
     /**
      * getServiceArticleDetail function
      *
+     * @return JsonResponse
+     */
+    public function getServiceArticleDetail(int $id) {
+
+        list($statusCode, $data) = $this->articleService->serviceArticleDetail($id);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * getMarketArticles function
+     *
      * @param Request $request
      * @return JsonResponse
      */
-    public function getServiceArticleDetail(Request $request, int $id) {
+    public function getMarketArticles(Request $request) {
+        $request->validate([
+            'page' => 'nullable|integer',
+            'per_page' => 'nullable|integer',
+            'sort_fields' => 'nullable|string|in:bedrooms,wcs,price',
+            'sort_order' => 'nullable|string|in:desc,asc',
+        ]);
 
-        list($statusCode, $data) = $this->articleService->serviceArticleDetail($id);
+        $params = $request->all();
+        $paginate = [
+            'page' => $params['page'] ?? 1,
+            'per_page' => $params['per_page'] ?? 8
+        ];
+
+        $filter = [
+            'sort_fields' => $params['sort_fields'] ?? null,
+            'sort_order' => $params['sort_order'] ?? 'ASC',
+        ];
+
+        list($statusCode, $data) = $this->articleService->getMarketArticles($filter, $paginate);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * getMarketArticleDetail function
+     *
+     * @return JsonResponse
+     */
+    public function getMarketArticleDetail(int $id) {
+
+        list($statusCode, $data) = $this->articleService->marketArticleDetail($id);
 
         return $this->response($data, $statusCode);
     }
@@ -133,6 +175,19 @@ class ArticleController extends ApiController
     public function storeServiceArticle(CreateServiceArticleRequest $request)
     {
         list($statusCode, $data) = $this->articleService->storeServiceArticle($request->all());
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * store market article func
+     * @param CreateMarketArticleRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function storeMarketArticle(CreateMarketArticleRequest $request)
+    {
+        list($statusCode, $data) = $this->articleService->storeMarketArticle($request->all());
 
         return $this->response($data, $statusCode);
     }
@@ -185,6 +240,19 @@ class ArticleController extends ApiController
     public function deleteServiceArticle(int $id)
     {
         list($statusCode, $data) = $this->articleService->softDeleteSA($id);
+
+        return $this->response($data, $statusCode);
+    }
+
+    /**
+     * soft delete market article service
+     * @param int $id
+     *
+     * @return JsonResponse
+     */
+    public function deleteMarketArticle(int $id)
+    {
+        list($statusCode, $data) = $this->articleService->softDeleteMA($id);
 
         return $this->response($data, $statusCode);
     }

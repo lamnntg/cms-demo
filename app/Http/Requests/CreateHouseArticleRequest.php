@@ -36,7 +36,8 @@ class CreateHouseArticleRequest extends FormRequest
             'address' => 'nullable',
             'direction_house' => 'nullable',
             'house_number' => 'nullable|integer',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'hashtags' => 'nullable|array'
         ];
     }
 }
