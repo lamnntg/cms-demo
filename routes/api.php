@@ -41,7 +41,7 @@ Route::prefix('article')->group(function () {
 Route::get('/news', [NewsController::class, 'getNews']);
 
 // authenticate API by Firebase
-//Route::middleware(['auth.firebase'])->group(function () {
+Route::middleware(['auth.firebase'])->group(function () {
     Route::prefix('/article')->group(function () {
         Route::post('house/store', [ArticleController::class, 'storeHouseArticle'])->name('house-article.store');
         Route::post('service/store', [ArticleController::class, 'storeServiceArticle'])->name('service-article.store');
@@ -61,4 +61,4 @@ Route::get('/news', [NewsController::class, 'getNews']);
         Route::delete('/delete/{id}', [NewsController::class, 'delete'])->where('id', '[0-9]+')->name('news.hard-delete');
         Route::patch('/update/{id}', [NewsController::class, 'updateNews'])->where('id', '[0-9]+')->name('news.update');
     });
-//});
+});
