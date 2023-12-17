@@ -33,6 +33,9 @@ Route::prefix('article')->group(function () {
 
     Route::get('/service', [ArticleController::class, 'getServiceArticles']);
     Route::get('/service/{id}', [ArticleController::class, 'getServiceArticleDetail']);
+
+    Route::get('/service', [ArticleController::class, 'getServiceArticles']);
+    Route::get('/service/{id}', [ArticleController::class, 'getServiceArticleDetail']);
 });
 
 Route::get('/news', [NewsController::class, 'getNews']);
