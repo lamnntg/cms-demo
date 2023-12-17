@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\News;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\File;
 
 class NewsService implements NewsServiceInterface
 {
@@ -26,21 +25,7 @@ class NewsService implements NewsServiceInterface
 
         if (!empty($data['images'])) {
             foreach ($data['images'] as $dataImage) {
-                // Lưu ảnh
-                $filename = Str::uuid(time()) . '-' . trim($dataImage->getClientOriginalName(), ' ');
-                $path = '/img/news';
-                $uploadPath = public_path($path);
-
-                // Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
-                if (!File::exists($uploadPath)) {
-                    File::makeDirectory($uploadPath, 0777, true, true);
-                }
-
-                if (move_uploaded_file($dataImage, $uploadPath . '/' . $filename)) {
-                    $dataSave['images'][] = $path . '/' . $filename;
-                } else {
-                    return [Response::HTTP_INTERNAL_SERVER_ERROR, ['message' => 'Upload file local fail!']];
-                }
+                $dataSave = uploadImage($dataImage, '/img/news', $dataSave);
             }
         }
 
@@ -87,5 +72,20 @@ class NewsService implements NewsServiceInterface
         } catch (\Exception $e) {
             return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
         }
+    }
+
+    /**
+     * Build query news function
+     *
+     * @param array $paginate
+     * @return array
+     */
+    public function getNews(array $paginate)
+    {
+        $query = News::query();
+
+        $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
+
+        return [Response::HTTP_OK, $data->toArray()];
     }
 }

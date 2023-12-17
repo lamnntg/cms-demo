@@ -24,7 +24,6 @@ class CreateNewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer|exists:firebase_users,id',
             'title' => 'required|string|max:255',
             'content' => 'nullable',
             'images' => 'nullable|array',
