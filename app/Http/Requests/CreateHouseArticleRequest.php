@@ -35,7 +35,7 @@ class CreateHouseArticleRequest extends FormRequest
             'wcs' => 'nullable|integer',
             'address' => 'nullable',
             'direction_house' => 'nullable',
-            'house_number' => 'nullable|integer',
+            'house_number' => 'nullable|string',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'hashtags' => 'nullable|array'
         ];
