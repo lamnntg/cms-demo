@@ -44,7 +44,8 @@ class HouseArticleResource extends JsonResource
             'kind' => $data['kind'],
             'created_at' => $data['created_at'],
             'updated_at' => $data['updated_at'],
-            'user' => $firebaseUser ?? []
+            'user' => $firebaseUser ?? [],
+            'hashtags' => $data['hashtags']
         ];
     }
 }

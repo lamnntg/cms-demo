@@ -24,7 +24,8 @@ class NewsResource extends JsonResource
             'slug' => $data['slug'],
             'views' => $data['views'],
             'images' => $data['images'],
-            'status' => $data['status']
+            'status' => $data['status'],
+            'hashtags' => $data['hashtags']
         ];
     }
 }

@@ -27,7 +27,8 @@ class CreateNewsRequest extends FormRequest
             'title' => 'required|string|max:255',
             'content' => 'nullable',
             'images' => 'nullable|array',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'hashtags' => 'nullable|array'
         ];
     }
 }

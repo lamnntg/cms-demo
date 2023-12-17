@@ -113,7 +113,8 @@ class ArticleService implements ArticleServiceInterface
             'address' => null,
             'direction_house' => empty($data['direction_house']) ? '' : $data['direction_house'],
             'house_number' => empty($data['house_number']) ? 0 : $data['house_number'],
-            'kind' => HouseArticle::NEWS_NORMAL
+            'kind' => HouseArticle::NEWS_NORMAL,
+            'hashtags' => empty($data['hashtags']) ? [] : $data['hashtags']
         ];
 
         if (!empty($data['images'])) {
@@ -152,6 +153,7 @@ class ArticleService implements ArticleServiceInterface
             'images' => [],
             'price' => $data['price'],
             'status' => ServiceArticle::STATUS_WAITING_ACCEPT,
+            'hashtags' => empty($data['hashtags']) ? [] : $data['hashtags']
         ];
 
         if (!empty($data['images'])) {

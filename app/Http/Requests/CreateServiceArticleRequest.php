@@ -29,7 +29,8 @@ class CreateServiceArticleRequest extends FormRequest
             'content' => 'nullable',
             'images' => 'nullable|array',
             'price' => 'required|numeric',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'hashtags' => 'nullable|array'
         ];
     }
 }
