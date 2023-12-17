@@ -28,8 +28,10 @@ class UpdateServiceArticleRequest extends FormRequest
             'title' => 'nullable|string|max:255',
             'content' => 'nullable',
             'images' => 'nullable|array',
+            'remove_images' => 'nullable|array',
             'price' => 'nullable|numeric',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'remove_images.*' => 'nullable|string',
             'hashtags' => 'nullable|array',
             'status' => 'nullable|integer|in: '  . implode(',', array_keys(ServiceArticle::$status))
         ];

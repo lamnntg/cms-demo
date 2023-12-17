@@ -28,8 +28,10 @@ class UpdateMarketArticleRequest extends FormRequest
             'title' => 'required|string|max:255',
             'content' => 'nullable',
             'images' => 'nullable|array',
+            'remove_images' => 'nullable|array',
             'price' => 'required|numeric',
             'images.*' => 'nullable|image|sometimes|mimes:jpeg,png,jpg,gif|max:2048',
+            'remove_images.*' => 'nullable|string',
             'hashtags' => 'nullable|array',
             'status' => 'nullable|integer|in: '  . implode(',', array_keys(MarketArticle::$status))
         ];

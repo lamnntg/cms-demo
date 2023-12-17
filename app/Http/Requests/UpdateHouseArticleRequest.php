@@ -28,6 +28,7 @@ class UpdateHouseArticleRequest extends FormRequest
             'title' => 'nullable|string|max:255',
             'content' => 'nullable',
             'images' => 'nullable|array',
+            'remove_images' => 'nullable|array',
             'type' => 'nullable|integer|in: ' . implode(',', array_keys(HouseArticle::$types)),
             'price' => 'nullable|numeric',
             'area' => 'nullable|numeric',
@@ -36,7 +37,8 @@ class UpdateHouseArticleRequest extends FormRequest
             'address' => 'nullable',
             'direction_house' => 'nullable',
             'house_number' => 'nullable|string',
-            'images.*' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'remove_images.*' => 'nullable|string',
             'hashtags' => 'nullable|array',
             'status' => 'nullable|integer|in: '  . implode(',', array_keys(HouseArticle::$status))
         ];

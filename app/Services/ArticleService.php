@@ -260,15 +260,13 @@ class ArticleService implements ArticleServiceInterface
     public function updateHouseArticle(array $data)
     {
         $user = request()->user();
-
-        $houseArticle= HouseArticle::findOrFail($data['id']);
-
+        $houseArticle = HouseArticle::findOrFail($data['id']);
         $dataSave = $data;
         $dataSave['user_id'] = $user->id ?? 0;
-        $dataSave['images'] = [];
+        $dataSave['images'] = $houseArticle->images;
 
         if (!empty($data['images'])) {
-            foreach ($houseArticle->images as $image) {
+            foreach ($data['remove_images'] as $image) {
                 deleteImageLocalStorage($image);
             }
 

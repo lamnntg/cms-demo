@@ -11,6 +11,8 @@ class HouseArticle extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'house_articles';
+
     //type
     public const TYPE_SELL = 1;
     public const TYPE_LEASE = 2;
