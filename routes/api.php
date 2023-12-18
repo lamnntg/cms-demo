@@ -41,7 +41,7 @@ Route::get('/news', [NewsController::class, 'getNews']);
 Route::get('/news/{id}', [NewsController::class, 'getNewsDetail']);
 
 // authenticate API by Firebase
-//Route::middleware(['auth.firebase'])->group(function () {
+Route::middleware(['auth.firebase'])->group(function () {
     Route::prefix('/article')->group(function () {
         Route::post('house/store', [ArticleController::class, 'storeHouseArticle'])->name('house-article.store');
         Route::post('service/store', [ArticleController::class, 'storeServiceArticle'])->name('service-article.store');
@@ -65,4 +65,4 @@ Route::get('/news/{id}', [NewsController::class, 'getNewsDetail']);
     Route::prefix('/manage')->group(function () {
         Route::post('/approve', [ManageController::class, 'approve'])->name('manage.approve');
     });
-//});
+});
