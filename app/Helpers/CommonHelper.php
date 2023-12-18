@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 function uploadImage($dataImage, $path, $dataSave)
 {
     // Lưu ảnh
-    $filename = Str::uuid(time()) . '-' . trim($dataImage->getClientOriginalName(), ' ');
+    $filename = trim($dataImage->getClientOriginalName(), ' ');
     $uploadPath = public_path($path);
 
     //Kiểm tra xem thư mục đã tồn tại chưa, nếu không thì tạo mới
