@@ -31,14 +31,12 @@ class ManageController extends ApiController
 
             $params = $request->all();
             $model = self::POST_MODELS[$params['object_type']];
-
-            $object = $model->findOrFail($params['id']);
-
+            $object = $model::findOrFail($params['id']);
             $object->update([
                 'status' => $params['status']
             ]);
 
-            return $this->response([], Response::HTTP_OK);
+            return $this->response("Update successfully", Response::HTTP_OK);
         } catch (\Throwable $th) {
             return $this->response($th, Response::HTTP_BAD_REQUEST);
         }
