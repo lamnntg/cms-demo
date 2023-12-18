@@ -22,9 +22,12 @@ class ArticleService implements ArticleServiceInterface
     public function getHouseArticles(array $filter, array $paginate)
     {
         $query = HouseArticle::query();
-        // TODO:
-        // $query = $query->where('type', $filter['type'])->where('status', HouseArticle::STATUS_ACCEPTED);
-        $query = $query->where('type', $filter['type']);
+        // check admin role
+        if (is_role_admin()) {
+            $query = $query->where('type', $filter['type']);
+        } else {
+            $query = $query->where('type', $filter['type'])->where('status', HouseArticle::STATUS_ACCEPTED);
+        }
 
         if ($filter['sort_fields']) {
             $query = $query->orderBy($filter['sort_fields'], $filter['sort_order']);
@@ -60,7 +63,11 @@ class ArticleService implements ArticleServiceInterface
     public function getServiceArticles(array $filter, array $paginate)
     {
         $query = ServiceArticle::query();
-
+        // check admin role
+        if (!is_role_admin()) {
+            $query = $query->where('status', ServiceArticle::STATUS_ACCEPTED);
+        }
+        
         $data = $query->orderBy('updated_at', 'DESC')
             ->paginate($paginate['per_page'], ['*'], 'page', $paginate['page']);
 
@@ -91,7 +98,11 @@ class ArticleService implements ArticleServiceInterface
     public function getMarketArticles(array $filter, array $paginate)
     {
         $query = MarketArticle::query();
-
+        // check admin role
+        if (!is_role_admin()) {
+            $query = $query->where('status', HouseArticle::STATUS_ACCEPTED);
+        }
+        
         $data = $query->orderBy('updated_at', 'DESC')
             ->paginate($paginate['per_page'], ['*'], 'page', $paginate['page']);
 
