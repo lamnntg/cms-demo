@@ -279,6 +279,7 @@ class ArticleService implements ArticleServiceInterface
                     unset($dataSave['images'][$key]);
                 }
             }
+            $dataSave['images'] = array_values($dataSave['images']);
         }
 
         try {
