@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\HouseArticle;
 use App\Models\MarketArticle;
 use App\Models\News;
+use App\Models\ServiceArticle;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,7 +14,7 @@ class ManageController extends ApiController
     const POST_MODELS = [
         'market' => MarketArticle::class,
         'house' => HouseArticle::class,
-        'news' => News::class,
+        'service' => ServiceArticle::class,
     ];
 
     public function approve(Request $request)
@@ -26,7 +27,7 @@ class ManageController extends ApiController
             $request->validate([
                 'status' => 'required|in:0,1,2',
                 'id' => 'required|integer',
-                'object_type' => 'required|string|in:market,house,news',
+                'object_type' => 'required|string|in:market,house,service',
             ]);
 
             $params = $request->all();
