@@ -308,13 +308,20 @@ class ArticleService implements ArticleServiceInterface
         $dataSave['images'] = [];
 
         if (!empty($data['images'])) {
-            foreach ($serviceArticle->images as $image) {
+            foreach ($data['remove_images'] ?? [] as $image) {
                 deleteImageLocalStorage($image);
             }
 
             foreach ($data['images'] as $image) {
                 $dataSave = uploadImage($image, '/img/service_articles', $dataSave);
             }
+
+            foreach ($dataSave['images'] as $key => $image) {
+                if (in_array($image, $data['remove_images'] ?? [])) {
+                    unset($dataSave['images'][$key]);
+                }
+            }
+            $dataSave['images'] = array_values($dataSave['images']);
         }
 
         try {
@@ -343,13 +350,20 @@ class ArticleService implements ArticleServiceInterface
         $dataSave['images'] = [];
 
         if (!empty($data['images'])) {
-            foreach ($marketArticle->images as $image) {
+            foreach ($data['remove_images'] ?? [] as $image) {
                 deleteImageLocalStorage($image);
             }
 
             foreach ($data['images'] as $image) {
                 $dataSave = uploadImage($image, '/img/market_articles', $dataSave);
             }
+
+            foreach ($dataSave['images'] as $key => $image) {
+                if (in_array($image, $data['remove_images'] ?? [])) {
+                    unset($dataSave['images'][$key]);
+                }
+            }
+            $dataSave['images'] = array_values($dataSave['images']);
         }
 
         try {
