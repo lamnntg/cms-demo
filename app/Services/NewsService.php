@@ -107,13 +107,20 @@ class NewsService implements NewsServiceInterface
         $dataSave['images'] = [];
 
         if (!empty($data['images'])) {
-            foreach ($news->images as $image) {
+            foreach ($data['remove_images'] ?? [] as $image) {
                 deleteImageLocalStorage($image);
             }
 
             foreach ($data['images'] as $image) {
                 $dataSave = uploadImage($image, '/img/news', $dataSave);
             }
+
+            foreach ($dataSave['images'] as $key => $image) {
+                if (in_array($image, $data['remove_images'] ?? [])) {
+                    unset($dataSave['images'][$key]);
+                }
+            }
+            $dataSave['images'] = array_values($dataSave['images']);
         }
 
         try {
