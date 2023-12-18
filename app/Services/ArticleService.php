@@ -283,6 +283,7 @@ class ArticleService implements ArticleServiceInterface
         }
 
         try {
+            $dataSave['status'] = HouseArticle::STATUS_WAITING_ACCEPT;
             $houseArticle->update($dataSave);
         } catch (\Exception $e) {
             return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
@@ -325,6 +326,7 @@ class ArticleService implements ArticleServiceInterface
         }
 
         try {
+            $dataSave['status'] = ServiceArticle::STATUS_WAITING_ACCEPT;
             $serviceArticle->update($dataSave);
         } catch (\Exception $e) {
             return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
@@ -367,6 +369,7 @@ class ArticleService implements ArticleServiceInterface
         }
 
         try {
+            $dataSave['status'] = MarketArticle::STATUS_WAITING_ACCEPT;
             $marketArticle->update($dataSave);
         } catch (\Exception $e) {
             return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
