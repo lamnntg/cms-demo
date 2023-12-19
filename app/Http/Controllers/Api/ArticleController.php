@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Middleware\FirebaseAuthenticate;
 use App\Services\ArticleServiceInterface;
 use App\Http\Requests\CreateHouseArticleRequest;
 use App\Http\Requests\UpdateHouseArticleRequest;

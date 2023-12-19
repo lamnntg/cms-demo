@@ -21,22 +21,16 @@ class ArticleService implements ArticleServiceInterface
      * @param array $paginate
      * @return array
      */
-    public function getHouseArticles(array $filter, array $paginate)
+    public function getHouseArticles(array $filter, array $paginate, int $userId = null)
     {
         $query = HouseArticle::query();
-        $fromAdmin = ($filter['from'] == 'admin');
-        // check admin role
-        if (is_role_admin() && $fromAdmin) {
+
+        if ($userId) {
+            if (!is_role_admin()) {
+                $query = $query->where('user_id', $userId);
+            }
             $query = $query->where('type', $filter['type']);
         } else {
-            // query from admin -> check middleware in controller
-            if ($fromAdmin) {
-                $user = $this->verifyUserRequestFromAdmin();
-                if (!$user) {
-                    return [Response::HTTP_UNAUTHORIZED, 'Must be logged in'];
-                }
-                $query = $query->where('user_id', $user->id);
-            }
             $query = $query->where('type', $filter['type'])->where('status', HouseArticle::STATUS_ACCEPTED);
         }
 
@@ -71,22 +65,16 @@ class ArticleService implements ArticleServiceInterface
      * @param array $paginate
      * @return array
      */
-    public function getServiceArticles(array $filter, array $paginate)
+    public function getServiceArticles(array $filter, array $paginate, int $userId = null)
     {
-        $fromAdmin = ($filter['from'] == 'admin');
-
         $query = ServiceArticle::query();
 
-        if (!$fromAdmin) {
-            $query = $query->where('status', ServiceArticle::STATUS_ACCEPTED);
-        } else {
-            $user = $this->verifyUserRequestFromAdmin();
-            if (!$user) {
-                return [Response::HTTP_UNAUTHORIZED, 'Must be logged in'];
-            }
+        if ($userId) {
             if (!is_role_admin()) {
-                $query = $query->where('user_id', $user->id);
+                $query = $query->where('user_id', $userId);
             }
+        } else {
+            $query = $query->where('status', ServiceArticle::STATUS_ACCEPTED);
         }
 
         $data = $query->orderBy('updated_at', 'DESC')
@@ -116,21 +104,15 @@ class ArticleService implements ArticleServiceInterface
      * @param array $paginate
      * @return array
      */
-    public function getMarketArticles(array $filter, array $paginate)
+    public function getMarketArticles(array $filter, array $paginate, $userId = null)
     {
-        $fromAdmin = ($filter['from'] == 'admin');
-
         $query = MarketArticle::query();
-        if (!$fromAdmin) {
-            $query = $query->where('status', ServiceArticle::STATUS_ACCEPTED);
-        } else {
-            $user = $this->verifyUserRequestFromAdmin();
-            if (!$user) {
-                return [Response::HTTP_UNAUTHORIZED, 'Must be logged in'];
-            }
+        if ($userId) {
             if (!is_role_admin()) {
-                $query = $query->where('user_id', $user->id);
+                $query = $query->where('user_id', $userId);
             }
+        } else {
+            $query = $query->where('status', ServiceArticle::STATUS_ACCEPTED);
         }
 
         $data = $query->orderBy('updated_at', 'DESC')

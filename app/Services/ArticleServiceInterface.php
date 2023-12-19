@@ -4,11 +4,11 @@ namespace App\Services;
 
 interface ArticleServiceInterface
 {
-    public function getHouseArticles(array $params, array $paginate);
+    public function getHouseArticles(array $filter, array $paginate, int $userId = null);
 
-    public function getServiceArticles(array $params, array $paginate);
+    public function getServiceArticles(array $params, array $paginate, int $userId = null);
 
-    public function getMarketArticles(array $params, array $paginate);
+    public function getMarketArticles(array $params, array $paginate, int $userId = null);
 
     public function houseArticleDetail(int $id);
 

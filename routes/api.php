@@ -64,5 +64,10 @@ Route::middleware(['auth.firebase'])->group(function () {
 
     Route::prefix('/manage')->group(function () {
         Route::post('/approve', [ManageController::class, 'approve'])->name('manage.approve');
+        Route::prefix('/article')->group(function () {
+            Route::get('/house', [ManageController::class, 'getHouseArticles']);
+            Route::get('/service', [ManageController::class, 'getServiceArticles']);
+            Route::get('/market', [ManageController::class, 'getMarketArticles']);
+        });
     });
 });
