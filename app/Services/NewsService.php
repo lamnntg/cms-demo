@@ -85,7 +85,8 @@ class NewsService implements NewsServiceInterface
     {
         $query = News::query();
 
-        $data = $query->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
+        $data = $query->orderBy('updated_at', 'DESC')
+            ->paginate($paginate['per_page'], ['*'] , 'page', $paginate['page']);
 
         return [Response::HTTP_OK, $data->toArray()];
     }
