@@ -70,7 +70,8 @@ class FirebaseService implements FirebaseServiceInterface
      * @param array $params
      * @return array
      */
-    public function register(array $params) {
+    public function register(array $params)
+    {
         try {
             // change format phoneNumber to store firebase
             $params['phoneNumber'] = '+84' . ltrim($params['phoneNumber'], '0');
@@ -88,12 +89,31 @@ class FirebaseService implements FirebaseServiceInterface
     }
 
     /**
+     * logout function
+     *
+     * @param string $uid
+     * @return array
+     */
+    public function logout(string $uid)
+    {
+        try {
+            $this->auth->revokeRefreshTokens($uid);
+            return [
+                Response::HTTP_OK, []
+            ];
+        } catch (\Throwable $th) {
+            return [Response::HTTP_BAD_REQUEST, $th->getMessage()];
+        }
+    }
+
+    /**
      * uploadFile function
      *
      * @param [type] $file
      * @return void
      */
-    public function uploadFile($file) {
+    public function uploadFile($file)
+    {
         $this->storage;
     }
 }

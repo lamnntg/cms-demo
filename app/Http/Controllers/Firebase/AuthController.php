@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Services\FirebaseService;
 use App\Services\FirebaseServiceInterface;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AuthController extends ApiController
 {
@@ -62,4 +63,22 @@ class AuthController extends ApiController
 
         return $this->response($data, $status);
     }
+
+     /**
+     * logout function
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request)
+    {
+        $request->validate([
+            'uid' => 'required|string',
+        ]);
+        $uid = $request->get('uid');
+        [$status, $data] = $this->firebaseService->logout($uid);
+
+        return $this->response($data, $status);
+    }
+
 }

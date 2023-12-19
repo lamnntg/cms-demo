@@ -7,7 +7,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Exception\Auth\FailedToVerifyToken;
 use Kreait\Laravel\Firebase\Facades\Firebase;
-use Lcobucci\JWT\Token\Plain;
 use Symfony\Component\HttpFoundation\Response;
 
 class FirebaseAuthenticate
@@ -32,7 +31,8 @@ class FirebaseAuthenticate
         }
 
         try {
-            $result = Firebase::auth()->verifyIdToken($accessToken)->claims()->all();
+            $checkRevoked = true;
+            $result = Firebase::auth()->verifyIdToken($accessToken, $checkRevoked)->claims()->all();
             $firebaseUser = FirebaseUser::where('uid', $result['user_id'])->first();
             if (!$firebaseUser) {
                 return response()->json(
