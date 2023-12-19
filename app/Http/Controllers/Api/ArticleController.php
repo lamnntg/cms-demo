@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Middleware\FirebaseAuthenticate;
 use App\Services\ArticleServiceInterface;
 use App\Http\Requests\CreateHouseArticleRequest;
 use App\Http\Requests\UpdateHouseArticleRequest;
@@ -23,6 +24,12 @@ class ArticleController extends ApiController
      */
     public function __construct(ArticleServiceInterface $articleService)
     {
+        $param = request()->all();
+        // boot middleware firebase to assign user to request object
+        if (!empty($param['from']) && $param['from'] == 'admin') {
+            $this->middleware(FirebaseAuthenticate::class);
+        }
+
         $this->articleService = $articleService;
     }
 
@@ -40,6 +47,7 @@ class ArticleController extends ApiController
             'type' => 'required|in:1,2',
             'sort_fields' => 'nullable|string|in:bedrooms,wcs,price',
             'sort_order' => 'nullable|string|in:desc,asc',
+            'from' => 'nullable|string'
         ]);
 
         $params = $request->all();
@@ -49,6 +57,7 @@ class ArticleController extends ApiController
         ];
 
         $filter = [
+            'from' => $params['from'] ?? null,
             'type' => $params['type'],
             'sort_fields' => $params['sort_fields'] ?? null,
             'sort_order' => $params['sort_order'] ?? 'ASC',
@@ -84,6 +93,7 @@ class ArticleController extends ApiController
             'per_page' => 'nullable|integer',
             'sort_fields' => 'nullable|string|in:bedrooms,wcs,price',
             'sort_order' => 'nullable|string|in:desc,asc',
+            'from' => 'nullable|string'
         ]);
 
         $params = $request->all();
@@ -93,6 +103,7 @@ class ArticleController extends ApiController
         ];
 
         $filter = [
+            'from' => $params['from'] ?? null,
             'sort_fields' => $params['sort_fields'] ?? null,
             'sort_order' => $params['sort_order'] ?? 'ASC',
         ];
@@ -126,6 +137,7 @@ class ArticleController extends ApiController
             'per_page' => 'nullable|integer',
             'sort_fields' => 'nullable|string|in:bedrooms,wcs,price',
             'sort_order' => 'nullable|string|in:desc,asc',
+            'from' => 'nullable|string'
         ]);
 
         $params = $request->all();
@@ -135,6 +147,7 @@ class ArticleController extends ApiController
         ];
 
         $filter = [
+            'from' => $params['from'] ?? null,
             'sort_fields' => $params['sort_fields'] ?? null,
             'sort_order' => $params['sort_order'] ?? 'ASC',
         ];
