@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use Kreait\Laravel\Firebase\Facades\Firebase;
 use App\Http\Resources\Article\HouseArticleResource;
 use App\Http\Resources\Article\ServiceArticleResource;
 use App\Http\Resources\Article\MarketArticleResource;
+use App\Models\FirebaseUser;
 use App\Models\HouseArticle;
 use App\Models\MarketArticle;
 use Illuminate\Http\Response;
@@ -21,7 +23,6 @@ class ArticleService implements ArticleServiceInterface
      */
     public function getHouseArticles(array $filter, array $paginate)
     {
-        $user = request()->user();
         $query = HouseArticle::query();
         $fromAdmin = ($filter['from'] == 'admin');
         // check admin role
@@ -30,8 +31,9 @@ class ArticleService implements ArticleServiceInterface
         } else {
             // query from admin -> check middleware in controller
             if ($fromAdmin) {
+                $user = $this->verifyUserRequestFromAdmin();
                 if (!$user) {
-                    return [Response::HTTP_FORBIDDEN, 'Must be loggin first'];
+                    return [Response::HTTP_UNAUTHORIZED, 'Must be logged in'];
                 }
                 $query = $query->where('user_id', $user->id);
             }
@@ -78,8 +80,10 @@ class ArticleService implements ArticleServiceInterface
         if (!$fromAdmin) {
             $query = $query->where('status', ServiceArticle::STATUS_ACCEPTED);
         } else {
-            $user = request()->user();
-
+            $user = $this->verifyUserRequestFromAdmin();
+            if (!$user) {
+                return [Response::HTTP_UNAUTHORIZED, 'Must be logged in'];
+            }
             if (!is_role_admin()) {
                 $query = $query->where('user_id', $user->id);
             }
@@ -120,8 +124,10 @@ class ArticleService implements ArticleServiceInterface
         if (!$fromAdmin) {
             $query = $query->where('status', ServiceArticle::STATUS_ACCEPTED);
         } else {
-            $user = request()->user();
-
+            $user = $this->verifyUserRequestFromAdmin();
+            if (!$user) {
+                return [Response::HTTP_UNAUTHORIZED, 'Must be logged in'];
+            }
             if (!is_role_admin()) {
                 $query = $query->where('user_id', $user->id);
             }
@@ -491,5 +497,17 @@ class ArticleService implements ArticleServiceInterface
         } catch (\Exception $e) {
             return [Response::HTTP_INTERNAL_SERVER_ERROR, $e];
         }
+    }
+
+    private function verifyUserRequestFromAdmin() {
+        $accessToken = request()->bearerToken();
+        if (!$accessToken) {
+            return null;
+        }
+
+        $result = Firebase::auth()->verifyIdToken($accessToken)->claims()->all();
+        $firebaseUser = FirebaseUser::where('uid', $result['user_id'])->first();
+
+        return $firebaseUser;
     }
 }

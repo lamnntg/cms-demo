@@ -24,12 +24,6 @@ class ArticleController extends ApiController
      */
     public function __construct(ArticleServiceInterface $articleService)
     {
-        $param = request()->all();
-        // boot middleware firebase to assign user to request object
-        if (!empty($param['from']) && $param['from'] == 'admin') {
-            $this->middleware(FirebaseAuthenticate::class);
-        }
-
         $this->articleService = $articleService;
     }
 
