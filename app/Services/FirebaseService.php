@@ -34,13 +34,16 @@ class FirebaseService implements FirebaseServiceInterface
     {
         try {
             if ($method == self::METHOD_USERNAME_PASSWORD) {
-                $signInResult = $this->auth->signInWithEmailAndPassword($params['email'], $params['password']);
-                $signInResult = $this->auth->signInWithRefreshToken($signInResult->refreshToken());
+                $signInResult = $this->auth->signInWithEmailAndPassword($params['email'], $params['password'])->asTokenResponse();
+                $signInResult['access_token'] = $signInResult['id_token'];
             } else if ($method == self::METHOD_FRESH_TOKEN) {
-                $signInResult = $this->auth->signInWithRefreshToken($params['refresh_token']);
+                $signInResult = $this->auth->signInWithRefreshToken($params['refresh_token'])->asTokenResponse();
             }
 
-            $userInfo = $this->auth->getUser($signInResult->firebaseUserId())->jsonSerialize();
+            $userInfo = $this->auth->getUser(
+                $this->auth->parseToken($signInResult['access_token'])->claims()->get('user_id')
+            )->jsonSerialize();
+
             $firebaseUser = FirebaseUser::updateOrCreate(
                 [
                     'uid' => $userInfo['uid'],
@@ -54,7 +57,7 @@ class FirebaseService implements FirebaseServiceInterface
                 ]
             );
 
-            $data = array_merge((new FirebaseUserResource($firebaseUser))->toArray(), $signInResult->asTokenResponse());
+            $data = array_merge((new FirebaseUserResource($firebaseUser))->toArray(), $signInResult);
         } catch (\Throwable $th) {
             return [Response::HTTP_BAD_REQUEST, $th->getMessage()];
         }
