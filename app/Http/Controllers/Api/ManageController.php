@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\HouseArticle;
 use App\Models\MarketArticle;
 use App\Models\ServiceArticle;
+use App\Services\ArticleServiceInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,18 @@ class ManageController extends ApiController
         'house' => HouseArticle::class,
         'service' => ServiceArticle::class,
     ];
+
+    protected $articleService;
+
+    /**
+     * create a new instance
+     *
+     * @param ArticleServiceInterface $articleService
+     */
+    public function __construct(ArticleServiceInterface $articleService)
+    {
+        $this->articleService = $articleService;
+    }
 
     public function approve(Request $request)
     {
