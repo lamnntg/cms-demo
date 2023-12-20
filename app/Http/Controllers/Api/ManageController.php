@@ -70,7 +70,7 @@ class ManageController extends ApiController
             'page' => 'nullable|integer',
             'per_page' => 'nullable|integer',
             'type' => 'required|in:1,2',
-            'sort_fields' => 'nullable|string|in:bedrooms,wcs,price',
+            'sort_fields' => 'nullable|string|in:bedrooms,wcs,price,created_at,updated_at',
             'sort_order' => 'nullable|string|in:desc,asc',
             'from' => 'nullable|string'
         ]);
@@ -104,7 +104,7 @@ class ManageController extends ApiController
         $request->validate([
             'page' => 'nullable|integer',
             'per_page' => 'nullable|integer',
-            'sort_fields' => 'nullable|string|in:bedrooms,wcs,price',
+            'sort_fields' => 'nullable|string|in:bedrooms,wcs,price,created_at,updated_at',
             'sort_order' => 'nullable|string|in:desc,asc',
             'from' => 'nullable|string'
         ]);
@@ -139,7 +139,7 @@ class ManageController extends ApiController
         $request->validate([
             'page' => 'nullable|integer',
             'per_page' => 'nullable|integer',
-            'sort_fields' => 'nullable|string|in:bedrooms,wcs,price',
+            'sort_fields' => 'nullable|string|in:bedrooms,wcs,price,created_at,updated_at',
             'sort_order' => 'nullable|string|in:desc,asc',
             'from' => 'nullable|string'
         ]);
