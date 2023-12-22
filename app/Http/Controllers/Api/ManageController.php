@@ -72,6 +72,7 @@ class ManageController extends ApiController
             'type' => 'required|in:1,2',
             'sort_fields' => 'nullable|string|in:bedrooms,wcs,price,created_at,updated_at',
             'sort_order' => 'nullable|string|in:desc,asc',
+            'query' => 'nullable|string',
             'from' => 'nullable|string'
         ]);
         $params = $request->all();
@@ -85,6 +86,7 @@ class ManageController extends ApiController
             'type' => $params['type'],
             'sort_fields' => $params['sort_fields'] ?? null,
             'sort_order' => $params['sort_order'] ?? 'ASC',
+            'query' => $params['query'] ?? null
         ];
 
         list($statusCode, $data) = $this->articleService->getHouseArticles($filter, $paginate, $user->id);

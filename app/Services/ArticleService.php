@@ -34,6 +34,10 @@ class ArticleService implements ArticleServiceInterface
             $query = $query->where('type', $filter['type'])->where('status', HouseArticle::STATUS_ACCEPTED);
         }
 
+        if (!empty($filter['query'])) {
+            $query = $query->whereRaw($filter['query']);
+        }
+
         if ($filter['sort_fields']) {
             $query = $query->orderBy($filter['sort_fields'], $filter['sort_order']);
         }
