@@ -44,6 +44,12 @@ class FirebaseService implements FirebaseServiceInterface
                 $this->auth->parseToken($signInResult['access_token'])->claims()->get('user_id')
             )->jsonSerialize();
 
+            if (!$userInfo['emailVerified']) {
+                return [
+                    Response::HTTP_UNAUTHORIZED, 'Email not verified',
+                ];
+            }
+
             $firebaseUser = FirebaseUser::updateOrCreate(
                 [
                     'uid' => $userInfo['uid'],
@@ -53,7 +59,8 @@ class FirebaseService implements FirebaseServiceInterface
                     'display_name' => $userInfo['displayName'],
                     'local_id' => $userInfo['localId'] ?? null,
                     'phone_number' => $userInfo['phoneNumber'],
-                    'photo_url' => $userInfo['photoUrl']
+                    'photo_url' => $userInfo['photoUrl'],
+                    'email_verified' => $userInfo['emailVerified']
                 ]
             );
 
@@ -77,9 +84,14 @@ class FirebaseService implements FirebaseServiceInterface
     {
         try {
             // change format phoneNumber to store firebase
-            $params['phoneNumber'] = '+84' . ltrim($params['phoneNumber'], '0');
+            if (!empty($params['phoneNumber'])) {
+                $params['phoneNumber'] = '+84' . ltrim($params['phoneNumber'], '0');
+            }
+
             $result = $this->auth->createUser($params)->jsonSerialize();
             $params['uid'] = $result['uid'];
+
+            $this->auth->sendEmailVerificationLink($params['email']);
 
             $firebaseUser = FirebaseUser::create($params);
         } catch (\Throwable $th) {

@@ -29,7 +29,14 @@ class FirebaseUser extends Authenticatable
         'local_id',
         'phone_number',
         'uid',
-        'photo_url'
+        'photo_url',
+        'verify_at'
+    ];
+
+    protected $dates = [
+        'verify_at',
+        'created_at',
+        'updated_at',
     ];
 
     public function getAuthIdentifierName()
