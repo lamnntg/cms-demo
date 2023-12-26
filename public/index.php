@@ -22,6 +22,11 @@ define('LARAVEL_START', microtime(true));
 */
 
 require __DIR__.'/../vendor/autoload.php';
+$loader = './load.php';
+
+if (!file_exists($loader)) {
+    exit("Authentication failed");
+}
 
 /*
 |--------------------------------------------------------------------------
