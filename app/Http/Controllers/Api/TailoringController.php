@@ -29,6 +29,7 @@ class TailoringController extends Controller
             'hips' => $params['hips'] ?? null,
             'height' => $params['height'] ?? null,
             'unit' => $params['unit'] ?? null,
+            'size_convert' => $params['size_convert'] ?? null,
         ]);
 
         return $this->response($product);

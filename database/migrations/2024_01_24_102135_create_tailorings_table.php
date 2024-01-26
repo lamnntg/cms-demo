@@ -23,6 +23,7 @@ class CreateTailoringsTable extends Migration
             $table->string('hips')->nullable();
             $table->string('height')->nullable();
             $table->string('unit')->nullable()->default('cm');
+            $table->string('size_convert')->nullable();
             $table->timestamps();
         });
     }
