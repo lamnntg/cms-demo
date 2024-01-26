@@ -1,12 +1,12 @@
 FROM php:7.4-fpm
 
-ARG user=appuser
-ARG group=appuser
-ARG uid=1000
-ARG gid=1000
-RUN groupadd -g ${gid} ${group} && useradd -m -u ${uid} -g ${group} -s /bin/sh ${user}
+# ARG user=appuser
+# ARG group=appuser
+# ARG uid=1000
+# ARG gid=1000
+# RUN groupadd -g ${gid} ${group} && useradd -m -u ${uid} -g ${group} -s /bin/sh ${user}
 
-# USER root:root
+USER root:root
 
 RUN apt-get update -y
 RUN apt-get install -y

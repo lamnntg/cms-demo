@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductFavoriteController;
+use App\Http\Controllers\Api\TailoringController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,9 @@ Route::prefix('/categories')->group(function () {
     Route::get('/', [ProductController::class, 'getCategories']);
 });
 
+Route::prefix('/tailoring')->group(function () {
+    Route::get('/store', [TailoringController::class, 'storeTailoring']);
+});
 
 // authenticate API by Firebase
 Route::middleware(['auth.firebase'])->group(function () {
