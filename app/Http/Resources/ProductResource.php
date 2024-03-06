@@ -26,6 +26,7 @@ class ProductResource extends JsonResource
             'description' => $data['description'],
             'preservation' => $data['preservation'],
             'images' => $data['images'],
+            'type' => $data['type'],
             'is_product_favorite' => $data['is_product_favorite'],
             'product_skus' => $this->mappingSkus($data['productSkus'])
         ];
