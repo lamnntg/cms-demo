@@ -78,7 +78,7 @@ class ProductController extends ApiController
         ]);
 
         if ($validator->fails()) {
-            return $this->response($validator->errors());
+            return $this->response($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
         list($result, $product) = $this->productService->update($id, $data);
 
@@ -118,7 +118,7 @@ class ProductController extends ApiController
         ]);
 
         if ($validator->fails()) {
-            return $this->response($validator->errors());
+            return $this->response($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
         list($result, $product) = $this->productService->store($data);
 
