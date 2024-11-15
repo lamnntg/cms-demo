@@ -221,13 +221,9 @@
                   hidden
                   multiple
                   accept="image/png, image/gif, image/jpeg"
+                  @change="e => onChangeFile(e, sku.id)"
                 />
-                <div
-                  :class="['images relative', active ? 'drag-active' : '']"
-                  @dragover="e => dragover(e, sku.id)"
-                  @dragleave="dragleave(sku.id)"
-                  @drop="e => drop(e, sku.id)"
-                >
+                <div :class="['images relative', active ? 'drag-active' : '']">
                   <div v-if="sku.loading" class="loading">
                     <div class="spinner-border"></div>
                   </div>
@@ -448,7 +444,7 @@ export default {
         } = sku;
         return {
           id,
-          sku_code,
+          sku_code: '',
           color: {
             hex: color
           },
@@ -470,6 +466,8 @@ export default {
           active: false
         };
       });
+    } else {
+      this.product_sku[0].sku_code = this.generateRandomString().toUpperCase();
     }
   },
   computed: {
@@ -638,7 +636,7 @@ export default {
     addProductSku() {
       this.product_sku.push({
         id: uuidv4(),
-        sku_code: this.generateRandomString(),
+        sku_code: (this.name + '-' + this.generateRandomString()).toUpperCase(),
         color: {
           hex: '#194d33',
           hex8: '#194D33A8',
@@ -708,7 +706,7 @@ export default {
         category_id: category,
         material,
         description,
-        is_new,
+        is_new: is_new ? 1 : 0,
         product_skus
       };
       const vm = this;
@@ -933,7 +931,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  z-index: 10;
   .spinner-border {
     border: 0.25em solid #4e73df !important;
     border-right-color: transparent !important;

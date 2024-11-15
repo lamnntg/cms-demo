@@ -2303,7 +2303,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             image_sku = sku.image_sku;
         return _ref = {
           id: id,
-          sku_code: sku_code,
+          sku_code: '',
           color: {
             hex: color
           },
@@ -2314,6 +2314,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           };
         })), _defineProperty(_ref, "price", price), _defineProperty(_ref, "quantity", quantity), _defineProperty(_ref, "quantity_size_s", quantity_size_s), _defineProperty(_ref, "quantity_size_m", quantity_size_m), _defineProperty(_ref, "quantity_size_l", quantity_size_l), _defineProperty(_ref, "quantity_size_xl", quantity_size_xl), _defineProperty(_ref, "quantity_size_2xl", quantity_size_2xl), _defineProperty(_ref, "loading", false), _defineProperty(_ref, "active", false), _ref;
       });
+    } else {
+      this.product_sku[0].sku_code = this.generateRandomString().toUpperCase();
     }
   },
   computed: {
@@ -2549,7 +2551,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addProductSku: function addProductSku() {
       this.product_sku.push({
         id: Object(uuid__WEBPACK_IMPORTED_MODULE_3__["v4"])(),
-        sku_code: this.generateRandomString(),
+        sku_code: (this.name + '-' + this.generateRandomString()).toUpperCase(),
         color: {
           hex: '#194d33',
           hex8: '#194D33A8',
@@ -2645,7 +2647,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         category_id: category,
         material: material,
         description: description,
-        is_new: is_new,
+        is_new: is_new ? 1 : 0,
         product_skus: product_skus
       };
       var vm = this;
@@ -3255,20 +3257,14 @@ var render = function render() {
         hidden: "",
         multiple: "",
         accept: "image/png, image/gif, image/jpeg"
-      }
-    }), _vm._v(" "), _c("div", {
-      "class": ["images relative", _vm.active ? "drag-active" : ""],
+      },
       on: {
-        dragover: function dragover(e) {
-          return _vm.dragover(e, sku.id);
-        },
-        dragleave: function dragleave($event) {
-          return _vm.dragleave(sku.id);
-        },
-        drop: function drop(e) {
-          return _vm.drop(e, sku.id);
+        change: function change(e) {
+          return _vm.onChangeFile(e, sku.id);
         }
       }
+    }), _vm._v(" "), _c("div", {
+      "class": ["images relative", _vm.active ? "drag-active" : ""]
     }, [sku.loading ? _c("div", {
       staticClass: "loading"
     }, [_c("div", {
@@ -3619,10 +3615,10 @@ var render = function render() {
       width: "100%",
       cellspacing: "0"
     }
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product) {
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product, index) {
     return _c("tr", {
       key: product.id
-    }, [_c("td", [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c("td", [_vm._v("\n                " + _vm._s(_vm.getCategory(product.category_id)) + "\n              ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.price.toLocaleString()))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.material))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.description))]), _vm._v(" "), _c("td", [_c("ul", {
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c("td", [_vm._v("\n                " + _vm._s(_vm.getCategory(product.category_id)) + "\n              ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.price.toLocaleString()))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.material))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.description))]), _vm._v(" "), _c("td", [_c("ul", {
       staticClass: "list-inline m-0 d-flex justify-content-center"
     }, [_c("li", {
       staticClass: "list-inline-item"
@@ -3742,17 +3738,13 @@ var render = function render() {
       staticClass: "text-lg"
     }, [_vm._v("Giá tiền:")]), _vm._v(" "), _c("span", {
       staticClass: "text-danger"
-    }, [_vm._v(_vm._s(sku.price.toLocaleString()) + "đ")])])]), _vm._v(" "), _c("div", {
-      staticClass: "flex-1"
-    }, [_c("p", {
-      staticClass: "mb-0 text-black text-lg font-weight-semibold"
-    }, [_vm._v("\n                  Kích thước\n                ")]), _vm._v(" "), _c("div", [_c("table", {
-      staticClass: "table-size"
-    }, [_vm._m(2, true), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v(_vm._s(sku.quantity_size_s))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_m))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_l))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_xl))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_2xl))])])])]), _vm._v(" "), _c("div", {
-      staticClass: "text-black text-lg"
-    }, [_vm._v("\n                    Tổng số lượng phân loại:\n                    "), _c("span", {
-      staticClass: "font-weight-bold"
-    }, [_vm._v(_vm._s(sku.quantity))]), _vm._v("\n                    sản phẩm\n                  ")])])])]), _vm._v(" "), _c("div", {
+    }, [_vm._v(_vm._s(sku.price.toLocaleString()) + "đ")])]), _vm._v(" "), _c("div", {
+      staticClass: "grid"
+    }, [_c("span", {
+      staticClass: "text-lg"
+    }, [_vm._v("Số lượng:")]), _vm._v(" "), _c("span", {
+      staticClass: "text-danger"
+    }, [_vm._v(_vm._s(sku.quantity))])])])]), _vm._v(" "), _c("div", {
       staticClass: "d-flex mt-4",
       staticStyle: {
         gap: "10px"
@@ -3818,14 +3810,9 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Tên sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Loại sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Giá tiền (VND)")]), _vm._v(" "), _c("th", [_vm._v("Chất liệu")]), _vm._v(" "), _c("th", [_vm._v("Mô tả")]), _vm._v(" "), _c("th", {
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("STT")]), _vm._v(" "), _c("th", [_vm._v("Tên sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Loại sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Giá tiền (VND)")]), _vm._v(" "), _c("th", [_vm._v("Chất liệu")]), _vm._v(" "), _c("th", [_vm._v("Mô tả")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
   }, [_vm._v("Hành động")])])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("thead", [_c("th", [_vm._v("S")]), _vm._v(" "), _c("th", [_vm._v("M")]), _vm._v(" "), _c("th", [_vm._v("L")]), _vm._v(" "), _c("th", [_vm._v("XL")]), _vm._v(" "), _c("th", [_vm._v("2XL")])]);
 }];
 render._withStripped = true;
 
@@ -3844,7 +3831,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".form-product[data-v-763eab10] {\n  height: 95vh;\n  overflow: auto;\n}\n.modal-product[data-v-763eab10] {\n  max-width: 90%;\n}\n.color[data-v-763eab10] {\n  width: 40px;\n  height: 40px;\n  border-radius: 4px;\n}\n.box-color[data-v-763eab10] {\n  position: absolute;\n  top: 100%;\n  left: 0;\n}\n.fade-enter-active[data-v-763eab10],\n.fade-leave-active[data-v-763eab10] {\n  transition: opacity 0.5s;\n}\n.fade-enter[data-v-763eab10],\n.fade-leave-to[data-v-763eab10] {\n  opacity: 0;\n}\n.field-color[data-v-763eab10] {\n  position: relative;\n  cursor: pointer;\n  display: flex;\n  flex-direction: column;\n}\n.field-color span[data-v-763eab10] {\n  display: flex;\n  flex: 1;\n  align-items: center;\n}\n.icon-remove[data-v-763eab10] {\n  margin-left: 1rem;\n  font-size: 22px;\n  cursor: pointer;\n  color: #e63946;\n}\n.box-image[data-v-763eab10] {\n  background: #fff;\n  border-radius: 8px;\n  padding: 1rem;\n  border-radius: 0.375rem;\n}\n.box-image .images[data-v-763eab10] {\n  text-align: center;\n  border: 2px dashed #e7e7e8;\n  border-radius: 0.375rem;\n  padding: 1rem;\n  cursor: pointer;\n}\n.drag-active[data-v-763eab10] {\n  border: 2px dashed #4e73df !important;\n}\n.detail[data-v-763eab10] {\n  display: flex;\n  flex-direction: column;\n  width: 10rem;\n  box-shadow: 0 0.375rem 1rem 0 rgba(58, 53, 65, 0.12);\n  border-radius: 0.3125rem;\n}\n.detail .thumbnail[data-v-763eab10] {\n  border-bottom: 1px solid #e7e7e8;\n}\n.detail .thumbnail .file-image[data-v-763eab10] {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  margin: auto;\n}\n.detail .file-name[data-v-763eab10] {\n  color: #b4b2b7;\n  text-align: start;\n}\n.detail .file-size[data-v-763eab10] {\n  color: #b4b2b7;\n  text-align: start;\n  font-style: italic;\n  font-size: 12px;\n  border-bottom: 1px solid #e7e7e8;\n  font-weight: bold;\n}\n.detail .btn-remove-file[data-v-763eab10] {\n  padding: 8px;\n  cursor: pointer;\n  color: #89868d;\n}\n.detail .btn-remove-file[data-v-763eab10]:hover {\n  background: rgba(58, 53, 65, 0.06);\n}\n.border-bottom[data-v-763eab10] {\n  width: 100%;\n  height: 1px;\n  background: #e7e7e8;\n  margin: 1rem 0;\n}\n.thumbnail-product[data-v-763eab10] {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.relative[data-v-763eab10] {\n  position: relative;\n}\n.loading[data-v-763eab10] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.loading .spinner-border[data-v-763eab10] {\n  border: 0.25em solid #4e73df !important;\n  border-right-color: transparent !important;\n}\n.name-truncate[data-v-763eab10] {\n  width: 160px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.sku[data-v-763eab10] {\n  background: #f0f0f0;\n  padding: 1rem;\n  border-radius: 8px;\n  margin-bottom: 1rem;\n}\n.custom-select[data-v-763eab10]:disabled {\n  font-weight: bold;\n  color: #000 !important;\n  background: white !important;\n}\n@media screen and (max-width: 1200px) {\n.box-container[data-v-763eab10] {\n    flex-direction: column;\n    align-items: start !important;\n    gap: 1rem;\n}\n.box-container .box-image[data-v-763eab10] {\n    width: 100% !important;\n    margin-right: 0 !important;\n}\n}", ""]);
+exports.push([module.i, ".form-product[data-v-763eab10] {\n  height: 95vh;\n  overflow: auto;\n}\n.modal-product[data-v-763eab10] {\n  max-width: 90%;\n}\n.color[data-v-763eab10] {\n  width: 40px;\n  height: 40px;\n  border-radius: 4px;\n}\n.box-color[data-v-763eab10] {\n  position: absolute;\n  top: 100%;\n  left: 0;\n}\n.fade-enter-active[data-v-763eab10],\n.fade-leave-active[data-v-763eab10] {\n  transition: opacity 0.5s;\n}\n.fade-enter[data-v-763eab10],\n.fade-leave-to[data-v-763eab10] {\n  opacity: 0;\n}\n.field-color[data-v-763eab10] {\n  position: relative;\n  cursor: pointer;\n  display: flex;\n  flex-direction: column;\n}\n.field-color span[data-v-763eab10] {\n  display: flex;\n  flex: 1;\n  align-items: center;\n}\n.icon-remove[data-v-763eab10] {\n  margin-left: 1rem;\n  font-size: 22px;\n  cursor: pointer;\n  color: #e63946;\n}\n.box-image[data-v-763eab10] {\n  background: #fff;\n  border-radius: 8px;\n  padding: 1rem;\n  border-radius: 0.375rem;\n}\n.box-image .images[data-v-763eab10] {\n  text-align: center;\n  border: 2px dashed #e7e7e8;\n  border-radius: 0.375rem;\n  padding: 1rem;\n  cursor: pointer;\n}\n.drag-active[data-v-763eab10] {\n  border: 2px dashed #4e73df !important;\n}\n.detail[data-v-763eab10] {\n  display: flex;\n  flex-direction: column;\n  width: 10rem;\n  box-shadow: 0 0.375rem 1rem 0 rgba(58, 53, 65, 0.12);\n  border-radius: 0.3125rem;\n}\n.detail .thumbnail[data-v-763eab10] {\n  border-bottom: 1px solid #e7e7e8;\n}\n.detail .thumbnail .file-image[data-v-763eab10] {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  margin: auto;\n}\n.detail .file-name[data-v-763eab10] {\n  color: #b4b2b7;\n  text-align: start;\n}\n.detail .file-size[data-v-763eab10] {\n  color: #b4b2b7;\n  text-align: start;\n  font-style: italic;\n  font-size: 12px;\n  border-bottom: 1px solid #e7e7e8;\n  font-weight: bold;\n}\n.detail .btn-remove-file[data-v-763eab10] {\n  padding: 8px;\n  cursor: pointer;\n  color: #89868d;\n}\n.detail .btn-remove-file[data-v-763eab10]:hover {\n  background: rgba(58, 53, 65, 0.06);\n}\n.border-bottom[data-v-763eab10] {\n  width: 100%;\n  height: 1px;\n  background: #e7e7e8;\n  margin: 1rem 0;\n}\n.thumbnail-product[data-v-763eab10] {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.relative[data-v-763eab10] {\n  position: relative;\n}\n.loading[data-v-763eab10] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 10;\n}\n.loading .spinner-border[data-v-763eab10] {\n  border: 0.25em solid #4e73df !important;\n  border-right-color: transparent !important;\n}\n.name-truncate[data-v-763eab10] {\n  width: 160px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.sku[data-v-763eab10] {\n  background: #f0f0f0;\n  padding: 1rem;\n  border-radius: 8px;\n  margin-bottom: 1rem;\n}\n.custom-select[data-v-763eab10]:disabled {\n  font-weight: bold;\n  color: #000 !important;\n  background: white !important;\n}\n@media screen and (max-width: 1200px) {\n.box-container[data-v-763eab10] {\n    flex-direction: column;\n    align-items: start !important;\n    gap: 1rem;\n}\n.box-container .box-image[data-v-763eab10] {\n    width: 100% !important;\n    margin-right: 0 !important;\n}\n}", ""]);
 
 // exports
 

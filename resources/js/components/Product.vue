@@ -32,6 +32,7 @@
           >
             <thead>
               <tr>
+                <th>STT</th>
                 <th>Tên sản phẩm</th>
                 <th>Loại sản phẩm</th>
                 <th>Giá tiền (VND)</th>
@@ -42,7 +43,8 @@
             </thead>
 
             <tbody>
-              <tr v-for="product in products" :key="product.id">
+              <tr v-for="(product, index) in products" :key="product.id">
+                <td>{{ index + 1 }}</td>
                 <td>{{ product.name }}</td>
                 <td>
                   {{ getCategory(product.category_id) }}
@@ -164,36 +166,9 @@
                       >{{ sku.price.toLocaleString() }}đ</span
                     >
                   </div>
-                </div>
-
-                <div class="flex-1">
-                  <p class="mb-0 text-black text-lg font-weight-semibold">
-                    Kích thước
-                  </p>
-                  <div>
-                    <table class="table-size">
-                      <thead>
-                        <th>S</th>
-                        <th>M</th>
-                        <th>L</th>
-                        <th>XL</th>
-                        <th>2XL</th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{{ sku.quantity_size_s }}</td>
-                          <td>{{ sku.quantity_size_m }}</td>
-                          <td>{{ sku.quantity_size_l }}</td>
-                          <td>{{ sku.quantity_size_xl }}</td>
-                          <td>{{ sku.quantity_size_2xl }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div class="text-black text-lg">
-                      Tổng số lượng phân loại:
-                      <span class="font-weight-bold">{{ sku.quantity }}</span>
-                      sản phẩm
-                    </div>
+                  <div class="grid">
+                    <span class="text-lg">Số lượng:</span>
+                    <span class="text-danger">{{ sku.quantity }}</span>
                   </div>
                 </div>
               </div>
@@ -321,7 +296,9 @@ export default {
       window.location.assign(`/admin/product/edit/${id}`);
     },
     getCategory(id) {
-      const category = this.categories.find(item => Number(item.id) === Number(id))
+      const category = this.categories.find(
+        item => Number(item.id) === Number(id)
+      );
       return category?.name || '';
     }
   }
