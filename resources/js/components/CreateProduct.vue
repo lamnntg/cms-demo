@@ -444,7 +444,7 @@ export default {
         } = sku;
         return {
           id,
-          sku_code: '',
+          sku_code,
           color: {
             hex: color
           },
@@ -636,7 +636,7 @@ export default {
     addProductSku() {
       this.product_sku.push({
         id: uuidv4(),
-        sku_code: (this.name + '-' + this.generateRandomString()).toUpperCase(),
+        sku_code: (this.name.slice(0, 1) + '-' + this.generateRandomString()).toUpperCase(),
         color: {
           hex: '#194d33',
           hex8: '#194D33A8',
