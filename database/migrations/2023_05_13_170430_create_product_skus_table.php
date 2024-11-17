@@ -20,6 +20,7 @@ class CreateProductSkusTable extends Migration
             $table->double('price');
             $table->integer('quantity')->default(0);
             $table->text('image_sku')->nullable();
+            $table->string('material')->nullable();
             $table->string('color');
             $table->integer('quantity_size_s')->default(0);
             $table->integer('quantity_size_m')->default(0);

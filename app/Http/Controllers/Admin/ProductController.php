@@ -75,6 +75,7 @@ class ProductController extends ApiController
             'product_skus.*.quantity' => 'required|integer',
             'product_skus.*.image_sku' => 'required|array',
             'product_skus.*.description' => 'nullable|string',
+            'product_skus.*.material' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
@@ -115,6 +116,7 @@ class ProductController extends ApiController
             'product_skus.*.quantity' => 'required|integer',
             'product_skus.*.image_sku' => 'required|array',
             'product_skus.*.description' => 'nullable|string',
+            'product_skus.*.material' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
