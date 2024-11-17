@@ -175,7 +175,28 @@
                   </popper>
                 </div>
               </div>
-
+              <div>
+                <label class="form-control-label font-weight-bold"
+                  >Chất liệu ( <span class="text-danger">*</span> ):
+                  {{ sku[`material`] }}
+                </label>
+                <select
+                  v-model="sku[`material`]"
+                  class="custom-select"
+                  name="category"
+                  required
+                  style="height: 40px"
+                >
+                  <option value="" selected>Chọn chất liệu</option>
+                  <option
+                    v-for="option in MATERIAL_OPTIONS"
+                    :key="option.value"
+                    :value="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+              </div>
               <!-- Size -->
               <div class="mt-2">
                 Số lượng ( <span class="text-danger">*</span> )
@@ -356,6 +377,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { Container, Draggable } from 'vue-smooth-dnd';
 import { applyDrag, generateItems } from '../utils/helper';
+import { MATERIAL_OPTIONS } from '../common/constant';
 
 export default {
   name: 'CreateProduct',
@@ -400,6 +422,7 @@ export default {
           description: '',
           image_sku: [],
           price: '',
+          material: 'gold',
           quantity_size_s: '',
           quantity_size_m: '',
           quantity_size_l: '',
@@ -414,11 +437,13 @@ export default {
         loading: true
       },
       isSubmiting: false,
-      items: generateItems(50, i => ({ id: i, data: 'Draggable ' + i }))
+      items: generateItems(50, i => ({ id: i, data: 'Draggable ' + i })),
+      MATERIAL_OPTIONS
     };
   },
   created() {
     if (this.isEdit) {
+      console.log('s', this.product);
       this.name = this.product.name;
       this.category = this.product.category_id;
       this.material = this.product.material;
@@ -435,6 +460,7 @@ export default {
           price,
           description,
           quantity,
+          material,
           quantity_size_s,
           quantity_size_m,
           quantity_size_l,
@@ -456,6 +482,7 @@ export default {
             };
           }),
           price,
+          material,
           quantity,
           quantity_size_s,
           quantity_size_m,
@@ -636,7 +663,11 @@ export default {
     addProductSku() {
       this.product_sku.push({
         id: uuidv4(),
-        sku_code: (this.name.slice(0, 1) + '-' + this.generateRandomString()).toUpperCase(),
+        sku_code: (
+          this.name.slice(0, 1) +
+          '-' +
+          this.generateRandomString()
+        ).toUpperCase(),
         color: {
           hex: '#194d33',
           hex8: '#194D33A8',
@@ -648,6 +679,7 @@ export default {
         image_sku: [],
         price: '',
         quantity_size_s: '',
+        material: 'gold',
         quantity_size_m: '',
         quantity_size_l: '',
         is_new: false,
@@ -688,13 +720,21 @@ export default {
         return;
       }
       const product_skus = product_sku.map(sku => {
-        const { sku_code, description, image_sku, color, quantity, price } =
-          sku;
+        const {
+          sku_code,
+          description,
+          image_sku,
+          color,
+          quantity,
+          price,
+          material
+        } = sku;
         return {
           sku_code,
           color: color.hex,
           price,
           description,
+          material,
           quantity: quantity ? Number(quantity) : 0,
           image_sku: image_sku.map(image => image.url)
         };
@@ -747,7 +787,7 @@ export default {
       this.category = '';
       this.price = '';
       this.image = '';
-      this.material = '';
+      this.material = 'gold';
       this.is_new = false;
       this.description = '';
       this.product_sku = [
