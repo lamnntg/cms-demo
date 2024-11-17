@@ -16,7 +16,8 @@ class LandingController extends ApiController
      * @return void
      */
     public function index() {
-        $data['banners'] = LandingPageConfig::select('id', 'key', 'value')->get();
+        $data['banners'] = LandingPageConfig::where('type', 'banner')->select('id', 'key', 'value')->get();
+        $data['texts'] = LandingPageConfig::where('type', 'text')->select('id', 'key', 'value')->get();
         $data['events'] = Event::all();
         $data['clubs'] = Club::all();
         $data['articles'] = Article::all();
