@@ -42,6 +42,11 @@ class Product extends Model
         return $this->hasMany(ProductSku::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public static function next()
     {
         return static::max('id') + 1;
