@@ -117,6 +117,7 @@ class ProductController extends ApiController
             'product_skus.*.image_sku' => 'required|array',
             'product_skus.*.description' => 'nullable|string',
             'product_skus.*.material' => 'nullable|string',
+            'product_skus.*.size' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {

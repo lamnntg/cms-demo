@@ -47,7 +47,8 @@ class ProductService implements ProductServiceInterface
                     'image_sku' => $sku['image_sku'],
                     'description' => $sku['description'],
                     'color' => $sku['color'],
-                    'material' => $sku['material'],
+                    'material' => $sku['material'] ?? null,
+                    'size' => $sku['size'] ?? null,
                 ]);
             }
 
@@ -119,6 +120,7 @@ class ProductService implements ProductServiceInterface
                     'description' => $sku['description'],
                     'color' => $sku['color'],
                     'material' => $sku['material'],
+                    'size' => $sku['size'] ?? null,
                 ]);
             }
 
