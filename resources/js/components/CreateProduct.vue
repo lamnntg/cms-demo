@@ -178,6 +178,19 @@
               </div>
               <div>
                 <label class="form-control-label font-weight-bold"
+                  >Size ( <span class="text-danger">*</span> ):
+                </label>
+                <div>
+                  <input
+                    v-model="sku[`size`]"
+                    class="form-control"
+                    type="text"
+                    defaultValue=""
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="form-control-label font-weight-bold"
                   >Chất liệu ( <span class="text-danger">*</span> ):
                 </label>
                 <div>
@@ -416,6 +429,7 @@ export default {
           image_sku: [],
           price: '',
           material: '',
+          size: '',
           quantity_size_s: '',
           quantity_size_m: '',
           quantity_size_l: '',
@@ -452,6 +466,7 @@ export default {
           color,
           price,
           description,
+          size,
           quantity,
           material,
           quantity_size_s,
@@ -476,6 +491,7 @@ export default {
           }),
           price,
           material,
+          size,
           quantity,
           quantity_size_s,
           quantity_size_m,
@@ -513,6 +529,7 @@ export default {
         !description ||
         thumbnail.loading ||
         inValidSku;
+      console.warn('isInValidSubmit', isInValidSubmit);
       return isInValidSubmit;
     }
   },
@@ -712,6 +729,7 @@ export default {
         this.$toast.warning('Hãy điền đầy đủ thông tin trước khi tạo');
         return;
       }
+      console.warn('product_sku', product_sku);
       const product_skus = product_sku.map(sku => {
         const {
           sku_code,
@@ -720,7 +738,8 @@ export default {
           color,
           quantity,
           price,
-          material
+          material,
+          size
         } = sku;
         return {
           sku_code,
@@ -728,6 +747,7 @@ export default {
           price,
           description,
           material,
+          size,
           quantity: quantity ? Number(quantity) : 0,
           image_sku: image_sku.map(image => image.url)
         };
@@ -793,6 +813,7 @@ export default {
           image_sku: [],
           description: '',
           price: '',
+          size: '',
           quantity_size_s: '',
           quantity_size_m: '',
           quantity_size_l: '',
