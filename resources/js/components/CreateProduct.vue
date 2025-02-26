@@ -42,9 +42,21 @@
             style="height: 40px"
           >
             <option value="" selected>Chọn thể loại sản phẩm</option>
-            <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+            <option
+              v-for="category in categories"
+              :key="category.id"
+              :value="category.id"
+            >
+              {{ category.name }}
+            </option>
           </select>
         </div>
+      </div>
+      <div class="d-flex align-items-center my-3" style="gap: 8px">
+        <input type="checkbox" id="checkbox" v-model="is_new" />
+        <label class="form-control-label font-weight-bold mb-0" for="checkbox"
+          >Sản phẩm mới
+        </label>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label class="form-control-label mb-0 font-weight-bold mr-3"
@@ -94,23 +106,22 @@
         </label>
 
         <div v-for="sku in product_sku" :key="sku.id" class="ml-2 sku">
-          <div style="text-align: end">
-            <button
-              type="button"
-              class="btn btn-danger btn-icon-split"
-              @click="removeProductSku(sku.id)"
-              :disabled="product_sku.length < 2"
-            >
-              <span class="icon text-white-50">
-                <i class="fas fa-trash"></i>
-              </span>
-              <!-- <span class="text">Xóa loại sản phẩm</span> -->
-            </button>
-          </div>
-
           <div class="d-flex align-items-center box-container">
             <!-- Sku attributes -->
             <div class="mr-4">
+              <div class="mb-3" style="margin-top: -4px">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-icon-split"
+                  @click="removeProductSku(sku.id)"
+                  :disabled="product_sku.length < 2"
+                >
+                  <span class="icon text-white-50">
+                    <i class="fas fa-trash"></i>
+                  </span>
+                  <!-- <span class="text">Xóa loại sản phẩm</span> -->
+                </button>
+              </div>
               <div class="d-flex" style="gap: 1rem">
                 <div>
                   <label>Sku Code ( <span class="text-danger">*</span> )</label>
@@ -164,39 +175,66 @@
                   </popper>
                 </div>
               </div>
-
+              <div>
+                <label class="form-control-label font-weight-bold"
+                  >Chất liệu ( <span class="text-danger">*</span> ):
+                  {{ sku[`material`] }}
+                </label>
+                <select
+                  v-model="sku[`material`]"
+                  class="custom-select"
+                  name="category"
+                  required
+                  style="height: 40px"
+                >
+                  <option value="" selected>Chọn chất liệu</option>
+                  <option
+                    v-for="option in MATERIAL_OPTIONS"
+                    :key="option.value"
+                    :value="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+              </div>
               <!-- Size -->
               <div class="mt-2">
-                Kích thước / Số lượng ( <span class="text-danger">*</span> )
+                Số lượng ( <span class="text-danger">*</span> )
               </div>
-              <div
-                v-for="size in ['s', 'm', 'l', 'xl', '2xl']"
-                :key="size"
-                class="d-flex align-items-center mt-2"
-              >
-                <div class="mr-3">
-                  <select
-                    class="custom-select"
-                    name="category"
-                    required
-                    style="height: 40px; width: 189px"
-                    disabled
-                  >
-                    <option :value="size">{{ size.toUpperCase() }}</option>
-                  </select>
-                </div>
-                <div>
-                  <input
-                    v-model="sku[`quantity_size_${size}`]"
-                    class="form-control"
-                    type="number"
-                  />
-                </div>
+              <div>
+                <input
+                  v-model="sku[`quantity`]"
+                  class="form-control"
+                  type="number"
+                />
+              </div>
+              <div class="mt-2">
+                Mô tả ( <span class="text-danger">*</span> )
+              </div>
+              <div>
+                <textarea
+                  v-model="sku[`description`]"
+                  class="form-control"
+                  aria-label="With textarea"
+                  rows="3"
+                ></textarea>
               </div>
             </div>
+
             <!-- Image -->
             <div class="mr-4 w-75 h-100 box-image">
-              <div>Hình ảnh ( <span class="text-danger">*</span> )</div>
+              <div
+                class="d-flex justify-content-between align-items-center px-2"
+              >
+                <div>Hình ảnh ( <span class="text-danger">*</span> )</div>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-icon-split"
+                  @click.stop="clickFile(sku.id)"
+                >
+                  <span class="text">Chọn hình ảnh</span>
+                </button>
+              </div>
               <div class="box-image">
                 <input
                   :ref="'file' + sku.id"
@@ -206,13 +244,7 @@
                   accept="image/png, image/gif, image/jpeg"
                   @change="e => onChangeFile(e, sku.id)"
                 />
-                <div
-                  :class="['images relative', active ? 'drag-active' : '']"
-                  @dragover="e => dragover(e, sku.id)"
-                  @dragleave="dragleave(sku.id)"
-                  @drop="e => drop(e, sku.id)"
-                  @click.stop="clickFile(sku.id)"
-                >
+                <div :class="['images relative', active ? 'drag-active' : '']">
                   <div v-if="sku.loading" class="loading">
                     <div class="spinner-border"></div>
                   </div>
@@ -221,21 +253,38 @@
                     class="d-flex flex-wrap"
                     style="gap: 1rem"
                   >
-                    <div
-                      v-for="image in sku.image_sku"
-                      :key="image.url"
-                      class="detail"
-                      @click.stop=""
-                    >
-                      <div class="d-flex align-items-center p-2 thumbnail">
-                        <img class="file-image" :src="image.url" alt="" />
-                      </div>
-                      <div
-                        class="btn-remove-file"
-                        @click.stop="removeImage(sku.id, image.url)"
+                    <div style="overflow-x: auto">
+                      <Container
+                        @drop="e => onDrop(e, sku.id)"
+                        orientation="horizontal"
+                        behaviour="contain"
                       >
-                        Xóa ảnh
-                      </div>
+                        <Draggable
+                          v-for="image in sku.image_sku"
+                          :key="image.url"
+                          @click.stop=""
+                        >
+                          <div class="detail" @click.stop="">
+                            <div
+                              class="d-flex align-items-center p-2 thumbnail"
+                              @click.stop=""
+                            >
+                              <img
+                                class="file-image"
+                                :src="image.url"
+                                alt=""
+                                @click.stop=""
+                              />
+                            </div>
+                            <div
+                              class="btn-remove-file"
+                              @click.stop="removeImage(sku.id, image.url)"
+                            >
+                              Xóa ảnh
+                            </div>
+                          </div>
+                        </Draggable>
+                      </Container>
                     </div>
                   </div>
                   <div v-else class="py-5" style="text-align: center">
@@ -289,7 +338,7 @@
           v-model="description"
           class="form-control"
           aria-label="With textarea"
-          rows="20"
+          rows="10"
           id="editor"
           name="description"
           placeholder="Áo blazer dạng croptop phong cách cá tính và trẻ trung, vải jeans bền, có 2 túi cơi phía trước, thiết kế dài ngang eo trên hông. Vải lót lụa satin mềm mại, thấm hút mồ hôi tốt."
@@ -326,6 +375,9 @@ import {
   uploadImages
 } from './../api/product.api';
 import { v4 as uuidv4 } from 'uuid';
+import { Container, Draggable } from 'vue-smooth-dnd';
+import { applyDrag, generateItems } from '../utils/helper';
+import { MATERIAL_OPTIONS } from '../common/constant';
 
 export default {
   name: 'CreateProduct',
@@ -344,7 +396,9 @@ export default {
     }
   },
   components: {
-    popper: Popper
+    popper: Popper,
+    Container,
+    Draggable
   },
   data: () => {
     return {
@@ -354,6 +408,7 @@ export default {
       category: '',
       price: '',
       image: '',
+      is_new: false,
       material: '',
       description: '',
       product_sku: [
@@ -363,8 +418,11 @@ export default {
           color: {
             hex: '#000000'
           },
+          quantity: '',
+          description: '',
           image_sku: [],
           price: '',
+          material: 'gold',
           quantity_size_s: '',
           quantity_size_m: '',
           quantity_size_l: '',
@@ -378,14 +436,18 @@ export default {
         url: '',
         loading: true
       },
-      isSubmiting: false
+      isSubmiting: false,
+      items: generateItems(50, i => ({ id: i, data: 'Draggable ' + i })),
+      MATERIAL_OPTIONS
     };
   },
   created() {
     if (this.isEdit) {
+      console.log('s', this.product);
       this.name = this.product.name;
       this.category = this.product.category_id;
       this.material = this.product.material;
+      this.is_new = this.product.is_new;
       this.description = this.product.description;
       this.price = this.product.price;
       this.thumbnail.url = this.product.images[0];
@@ -396,6 +458,9 @@ export default {
           sku_code,
           color,
           price,
+          description,
+          quantity,
+          material,
           quantity_size_s,
           quantity_size_m,
           quantity_size_l,
@@ -409,12 +474,16 @@ export default {
           color: {
             hex: color
           },
+          description,
+          description,
           image_sku: image_sku.map(img => {
             return {
               url: img
             };
           }),
           price,
+          material,
+          quantity,
           quantity_size_s,
           quantity_size_m,
           quantity_size_l,
@@ -424,6 +493,8 @@ export default {
           active: false
         };
       });
+    } else {
+      this.product_sku[0].sku_code = this.generateRandomString().toUpperCase();
     }
   },
   computed: {
@@ -453,6 +524,18 @@ export default {
     }
   },
   methods: {
+    onDrop(dropResult, id) {
+      const item = this.product_sku.find(e => e.id === id);
+      const index = this.product_sku.findIndex(e => e.id === id);
+      if (!item) {
+        return;
+      }
+      this.product_sku[index].image_sku = applyDrag(
+        this.product_sku[index].image_sku,
+        dropResult
+      );
+    },
+
     handleShowBoxColor() {
       this.showBoxColor = !this.showBoxColor;
     },
@@ -580,7 +663,11 @@ export default {
     addProductSku() {
       this.product_sku.push({
         id: uuidv4(),
-        sku_code: '',
+        sku_code: (
+          this.name.slice(0, 1) +
+          '-' +
+          this.generateRandomString()
+        ).toUpperCase(),
         color: {
           hex: '#194d33',
           hex8: '#194D33A8',
@@ -592,8 +679,10 @@ export default {
         image_sku: [],
         price: '',
         quantity_size_s: '',
+        material: 'gold',
         quantity_size_m: '',
         quantity_size_l: '',
+        is_new: false,
         quantity_size_xl: '',
         quantity_size_2xl: '',
         loading: false
@@ -623,7 +712,8 @@ export default {
         material,
         description,
         product_sku,
-        thumbnail
+        thumbnail,
+        is_new
       } = this;
       if (this.disabledSubmit) {
         this.$toast.warning('Hãy điền đầy đủ thông tin trước khi tạo');
@@ -632,24 +722,20 @@ export default {
       const product_skus = product_sku.map(sku => {
         const {
           sku_code,
-          quantity_size_m,
-          quantity_size_2xl,
-          quantity_size_s,
-          quantity_size_l,
-          quantity_size_xl,
+          description,
           image_sku,
           color,
-          price
+          quantity,
+          price,
+          material
         } = sku;
         return {
           sku_code,
           color: color.hex,
           price,
-          quantity_size_s: quantity_size_s || 0,
-          quantity_size_m: quantity_size_m || 0,
-          quantity_size_l: quantity_size_l || 0,
-          quantity_size_xl: quantity_size_xl || 0,
-          quantity_size_2xl: quantity_size_2xl || 0,
+          description,
+          material,
+          quantity: quantity ? Number(quantity) : 0,
           image_sku: image_sku.map(image => image.url)
         };
       });
@@ -657,9 +743,10 @@ export default {
         name,
         images: thumbnail.url,
         price,
-        category,
+        category_id: category,
         material,
         description,
+        is_new: is_new ? 1 : 0,
         product_skus
       };
       const vm = this;
@@ -700,7 +787,8 @@ export default {
       this.category = '';
       this.price = '';
       this.image = '';
-      this.material = '';
+      this.material = 'gold';
+      this.is_new = false;
       this.description = '';
       this.product_sku = [
         {
@@ -710,6 +798,7 @@ export default {
             hex: '#000000'
           },
           image_sku: [],
+          description: '',
           price: '',
           quantity_size_s: '',
           quantity_size_m: '',
@@ -728,6 +817,17 @@ export default {
     },
     onBack() {
       window.location.assign('/admin/product');
+    },
+    generateRandomString() {
+      const characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+      for (let i = 0; i < 4; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * characters.length)
+        );
+      }
+      return result;
     }
   }
 };
@@ -794,7 +894,6 @@ export default {
   border-radius: 0.375rem;
 
   .images {
-    height: 285px;
     text-align: center;
     border: 2px dashed #e7e7e8;
     border-radius: 0.375rem;
@@ -872,7 +971,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  z-index: 10;
   .spinner-border {
     border: 0.25em solid #4e73df !important;
     border-right-color: transparent !important;

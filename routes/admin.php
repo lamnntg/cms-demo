@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/landing')->group(function () {
         Route::get('/', [LandingController::class, 'index'])->name('landing');
         Route::post('/change-banner', [LandingController::class, 'changeBanner'])->name('landing.update-banner');
+        Route::post('/change-text', [LandingController::class, 'changeText'])->name('landing.update-text');
     });
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

@@ -25,7 +25,7 @@ export const updateProduct = (data, id) => {
   });
 };
 
-export const deleteProduct = (id) => {
+export const deleteProduct = id => {
   return api.delete(`/product/delete/${id}`, {
     headers: {
       Authorization: 'XxebrehFRKpyorD'

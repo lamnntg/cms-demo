@@ -64,23 +64,22 @@ class ProductController extends ApiController
             'name' => 'required|string',
             'images' => 'required|string',
             'price' => 'required|numeric',
-            'category' => 'required',
+            'category_id' => 'required|numeric',
+            'is_new' => 'required|numeric',
             'material' => 'required|string',
             'description' => 'required|string',
             'product_skus' => 'required|array',
             'product_skus.*.sku_code' => 'required|string',
             'product_skus.*.color' => 'required|string',
             'product_skus.*.price' => 'required|integer',
-            'product_skus.*.quantity_size_s' => 'required|integer',
-            'product_skus.*.quantity_size_m' => 'required|integer',
-            'product_skus.*.quantity_size_l' => 'required|integer',
-            'product_skus.*.quantity_size_xl' => 'required|integer',
-            'product_skus.*.quantity_size_2xl' => 'required|integer',
+            'product_skus.*.quantity' => 'required|integer',
             'product_skus.*.image_sku' => 'required|array',
+            'product_skus.*.description' => 'nullable|string',
+            'product_skus.*.material' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
-            return $this->response($validator->errors());
+            return $this->response($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
         list($result, $product) = $this->productService->update($id, $data);
 
@@ -106,23 +105,22 @@ class ProductController extends ApiController
             'name' => 'required|string',
             'images' => 'required|string',
             'price' => 'required|numeric',
-            'category' => 'required',
+            'category_id' => 'required|numeric',
+            'is_new' => 'required|numeric',
             'material' => 'required|string',
             'description' => 'required|string',
             'product_skus' => 'required|array',
             'product_skus.*.sku_code' => 'required|string',
             'product_skus.*.color' => 'required|string',
             'product_skus.*.price' => 'required|integer',
-            'product_skus.*.quantity_size_s' => 'required|integer',
-            'product_skus.*.quantity_size_m' => 'required|integer',
-            'product_skus.*.quantity_size_l' => 'required|integer',
-            'product_skus.*.quantity_size_xl' => 'required|integer',
-            'product_skus.*.quantity_size_2xl' => 'required|integer',
+            'product_skus.*.quantity' => 'required|integer',
             'product_skus.*.image_sku' => 'required|array',
+            'product_skus.*.description' => 'nullable|string',
+            'product_skus.*.material' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
-            return $this->response($validator->errors());
+            return $this->response($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
         list($result, $product) = $this->productService->store($data);
 

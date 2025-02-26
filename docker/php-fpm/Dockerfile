@@ -29,7 +29,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN apt-get install npm -y \
     && npm cache clean -f \
     && npm install -g n \
-    && n 12.18.4 \
+    && n 16.20.0 \
     && mkdir /.npm \
     && chown $UID:$GID /.npm -R
 

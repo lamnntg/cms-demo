@@ -13,12 +13,29 @@ class ProductController extends ApiController
 {
     public function index(Request $request) {
         $page = $request->get('page') ?? null;
+        $query = $request->get('query') ?? null;
         $productName = $request->get('product_name') ?? null;
+        $category = $request->get('category') ?? null;
+        $isNew = $request->get('is_new') ?? null;
 
-        $productQuery = Product::with(['productSkus']);
+        $productQuery = Product::with(['productSkus', 'category']);
 
         if ($productName) {
             $productQuery = $productQuery->where('name', 'like', "%{$productName}%");
+        }
+
+        if ($isNew) {
+            $productQuery = $productQuery->where('is_new', $isNew);
+        }
+
+        if ($category) {
+            $productQuery = $productQuery->whereHas("category", function ($query) use ($category) {
+                $query->where('slug', $category);
+            });
+        }
+
+        if ($query) {
+            $productQuery = $productQuery->whereRaw($query);
         }
 
         return $this->response($productQuery->paginate(
