@@ -14,15 +14,19 @@ class ProductController extends ApiController
     public function index(Request $request)
     {
         $page = $request->get('page') ?? null;
-        $perPage = $request->get('per_page') ?? 4;
         $query = $request->get('query') ?? null;
         $productName = $request->get('product_name') ?? null;
         $category = $request->get('category') ?? null;
+        $isNew = $request->get('is_new') ?? null;
 
         $productQuery = Product::with(['productSkus', 'category']);
 
         if ($productName) {
             $productQuery = $productQuery->where('name', 'like', "%{$productName}%");
+        }
+
+        if ($isNew) {
+            $productQuery = $productQuery->where('is_new', $isNew);
         }
 
         if ($category) {

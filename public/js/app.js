@@ -2193,6 +2193,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_popperjs_dist_vue_popper_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_popperjs_dist_vue_popper_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _api_product_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../api/product.api */ "./resources/js/api/product.api.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/index.js");
+/* harmony import */ var vue_smooth_dnd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-smooth-dnd */ "./node_modules/vue-smooth-dnd/dist/vue-smooth-dnd.esm.js");
+/* harmony import */ var _utils_helper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/helper */ "./resources/js/utils/helper.js");
+/* harmony import */ var _common_constant__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/constant */ "./resources/js/common/constant.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -2200,6 +2203,11 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
 
 
 
@@ -2224,7 +2232,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   components: {
-    popper: vue_popperjs__WEBPACK_IMPORTED_MODULE_0___default.a
+    popper: vue_popperjs__WEBPACK_IMPORTED_MODULE_0___default.a,
+    Container: vue_smooth_dnd__WEBPACK_IMPORTED_MODULE_4__["Container"],
+    Draggable: vue_smooth_dnd__WEBPACK_IMPORTED_MODULE_4__["Draggable"]
   },
   data: function data() {
     return {
@@ -2234,6 +2244,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       category: '',
       price: '',
       image: '',
+      is_new: false,
       material: '',
       description: '',
       product_sku: [{
@@ -2242,8 +2253,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         color: {
           hex: '#000000'
         },
+        quantity: '',
+        description: '',
         image_sku: [],
         price: '',
+        material: 'gold',
         quantity_size_s: '',
         quantity_size_m: '',
         quantity_size_l: '',
@@ -2256,50 +2270,58 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         url: '',
         loading: true
       },
-      isSubmiting: false
+      isSubmiting: false,
+      items: Object(_utils_helper__WEBPACK_IMPORTED_MODULE_5__["generateItems"])(50, function (i) {
+        return {
+          id: i,
+          data: 'Draggable ' + i
+        };
+      }),
+      MATERIAL_OPTIONS: _common_constant__WEBPACK_IMPORTED_MODULE_6__["MATERIAL_OPTIONS"]
     };
   },
   created: function created() {
     if (this.isEdit) {
+      console.log('s', this.product);
       this.name = this.product.name;
       this.category = this.product.category_id;
       this.material = this.product.material;
+      this.is_new = this.product.is_new;
       this.description = this.product.description;
       this.price = this.product.price;
       this.thumbnail.url = this.product.images[0];
       this.thumbnail.loading = false;
       this.product_sku = this.product.product_skus.map(function (sku) {
+        var _ref;
+
         var id = sku.id,
             sku_code = sku.sku_code,
             color = sku.color,
             price = sku.price,
+            description = sku.description,
+            quantity = sku.quantity,
+            material = sku.material,
             quantity_size_s = sku.quantity_size_s,
             quantity_size_m = sku.quantity_size_m,
             quantity_size_l = sku.quantity_size_l,
             quantity_size_xl = sku.quantity_size_xl,
             quantity_size_2xl = sku.quantity_size_2xl,
             image_sku = sku.image_sku;
-        return {
+        return _ref = {
           id: id,
           sku_code: sku_code,
           color: {
             hex: color
           },
-          image_sku: image_sku.map(function (img) {
-            return {
-              url: img
-            };
-          }),
-          price: price,
-          quantity_size_s: quantity_size_s,
-          quantity_size_m: quantity_size_m,
-          quantity_size_l: quantity_size_l,
-          quantity_size_xl: quantity_size_xl,
-          quantity_size_2xl: quantity_size_2xl,
-          loading: false,
-          active: false
-        };
+          description: description
+        }, _defineProperty(_ref, "description", description), _defineProperty(_ref, "image_sku", image_sku.map(function (img) {
+          return {
+            url: img
+          };
+        })), _defineProperty(_ref, "price", price), _defineProperty(_ref, "material", material), _defineProperty(_ref, "quantity", quantity), _defineProperty(_ref, "quantity_size_s", quantity_size_s), _defineProperty(_ref, "quantity_size_m", quantity_size_m), _defineProperty(_ref, "quantity_size_l", quantity_size_l), _defineProperty(_ref, "quantity_size_xl", quantity_size_xl), _defineProperty(_ref, "quantity_size_2xl", quantity_size_2xl), _defineProperty(_ref, "loading", false), _defineProperty(_ref, "active", false), _ref;
       });
+    } else {
+      this.product_sku[0].sku_code = this.generateRandomString().toUpperCase();
     }
   },
   computed: {
@@ -2319,6 +2341,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    onDrop: function onDrop(dropResult, id) {
+      var item = this.product_sku.find(function (e) {
+        return e.id === id;
+      });
+      var index = this.product_sku.findIndex(function (e) {
+        return e.id === id;
+      });
+
+      if (!item) {
+        return;
+      }
+
+      this.product_sku[index].image_sku = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_5__["applyDrag"])(this.product_sku[index].image_sku, dropResult);
+    },
     handleShowBoxColor: function handleShowBoxColor() {
       this.showBoxColor = !this.showBoxColor;
     },
@@ -2521,7 +2557,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     addProductSku: function addProductSku() {
       this.product_sku.push({
         id: Object(uuid__WEBPACK_IMPORTED_MODULE_3__["v4"])(),
-        sku_code: '',
+        sku_code: (this.name.slice(0, 1) + '-' + this.generateRandomString()).toUpperCase(),
         color: {
           hex: '#194d33',
           hex8: '#194D33A8',
@@ -2548,8 +2584,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         image_sku: [],
         price: '',
         quantity_size_s: '',
+        material: 'gold',
         quantity_size_m: '',
         quantity_size_l: '',
+        is_new: false,
         quantity_size_xl: '',
         quantity_size_2xl: '',
         loading: false
@@ -2583,7 +2621,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           material = this.material,
           description = this.description,
           product_sku = this.product_sku,
-          thumbnail = this.thumbnail;
+          thumbnail = this.thumbnail,
+          is_new = this.is_new;
 
       if (this.disabledSubmit) {
         this.$toast.warning('Hãy điền đầy đủ thông tin trước khi tạo');
@@ -2592,23 +2631,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var product_skus = product_sku.map(function (sku) {
         var sku_code = sku.sku_code,
-            quantity_size_m = sku.quantity_size_m,
-            quantity_size_2xl = sku.quantity_size_2xl,
-            quantity_size_s = sku.quantity_size_s,
-            quantity_size_l = sku.quantity_size_l,
-            quantity_size_xl = sku.quantity_size_xl,
+            description = sku.description,
             image_sku = sku.image_sku,
             color = sku.color,
-            price = sku.price;
+            quantity = sku.quantity,
+            price = sku.price,
+            material = sku.material;
         return {
           sku_code: sku_code,
           color: color.hex,
           price: price,
-          quantity_size_s: quantity_size_s || 0,
-          quantity_size_m: quantity_size_m || 0,
-          quantity_size_l: quantity_size_l || 0,
-          quantity_size_xl: quantity_size_xl || 0,
-          quantity_size_2xl: quantity_size_2xl || 0,
+          description: description,
+          material: material,
+          quantity: quantity ? Number(quantity) : 0,
           image_sku: image_sku.map(function (image) {
             return image.url;
           })
@@ -2618,9 +2653,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: name,
         images: thumbnail.url,
         price: price,
-        category: category,
+        category_id: category,
         material: material,
         description: description,
+        is_new: is_new ? 1 : 0,
         product_skus: product_skus
       };
       var vm = this;
@@ -2656,7 +2692,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.category = '';
       this.price = '';
       this.image = '';
-      this.material = '';
+      this.material = 'gold';
+      this.is_new = false;
       this.description = '';
       this.product_sku = [{
         id: Object(uuid__WEBPACK_IMPORTED_MODULE_3__["v4"])(),
@@ -2665,6 +2702,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           hex: '#000000'
         },
         image_sku: [],
+        description: '',
         price: '',
         quantity_size_s: '',
         quantity_size_m: '',
@@ -2682,6 +2720,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     onBack: function onBack() {
       window.location.assign('/admin/product');
+    },
+    generateRandomString: function generateRandomString() {
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var result = '';
+
+      for (var i = 0; i < 4; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+
+      return result;
     }
   }
 });
@@ -2937,8 +2985,52 @@ var render = function render() {
       domProps: {
         value: category.id
       }
-    }, [_vm._v(_vm._s(category.name))]);
+    }, [_vm._v("\n            " + _vm._s(category.name) + "\n          ")]);
   })], 2)])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex align-items-center my-3",
+    staticStyle: {
+      gap: "8px"
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.is_new,
+      expression: "is_new"
+    }],
+    attrs: {
+      type: "checkbox",
+      id: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.is_new) ? _vm._i(_vm.is_new, null) > -1 : _vm.is_new
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.is_new,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+
+        if (Array.isArray($$a)) {
+          var $$v = null,
+              $$i = _vm._i($$a, $$v);
+
+          if ($$el.checked) {
+            $$i < 0 && (_vm.is_new = $$a.concat([$$v]));
+          } else {
+            $$i > -1 && (_vm.is_new = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.is_new = $$c;
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label font-weight-bold mb-0",
+    attrs: {
+      "for": "checkbox"
+    }
+  }, [_vm._v("Sản phẩm mới\n      ")])]), _vm._v(" "), _c("div", {
     staticClass: "mb-3 d-flex align-items-center"
   }, [_vm._m(3), _vm._v(" "), _c("div", [_c("input", {
     ref: "thumbnail",
@@ -2991,8 +3083,13 @@ var render = function render() {
       key: sku.id,
       staticClass: "ml-2 sku"
     }, [_c("div", {
+      staticClass: "d-flex align-items-center box-container"
+    }, [_c("div", {
+      staticClass: "mr-4"
+    }, [_c("div", {
+      staticClass: "mb-3",
       staticStyle: {
-        "text-align": "end"
+        "margin-top": "-4px"
       }
     }, [_c("button", {
       staticClass: "btn btn-danger btn-icon-split",
@@ -3006,10 +3103,6 @@ var render = function render() {
         }
       }
     }, [_vm._m(5, true)])]), _vm._v(" "), _c("div", {
-      staticClass: "d-flex align-items-center box-container"
-    }, [_c("div", {
-      staticClass: "mr-4"
-    }, [_c("div", {
       staticClass: "d-flex",
       staticStyle: {
         gap: "1rem"
@@ -3103,52 +3196,110 @@ var render = function render() {
       on: {
         click: _vm.handleShowBoxColor
       }
-    })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(sku.color.hex))])])])])], 1)]), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _vm._l(["s", "m", "l", "xl", "2xl"], function (size) {
-      return _c("div", {
-        key: size,
-        staticClass: "d-flex align-items-center mt-2"
-      }, [_c("div", {
-        staticClass: "mr-3"
-      }, [_c("select", {
-        staticClass: "custom-select",
-        staticStyle: {
-          height: "40px",
-          width: "189px"
-        },
-        attrs: {
-          name: "category",
-          required: "",
-          disabled: ""
-        }
-      }, [_c("option", {
-        domProps: {
-          value: size
-        }
-      }, [_vm._v(_vm._s(size.toUpperCase()))])])]), _vm._v(" "), _c("div", [_c("input", {
-        directives: [{
-          name: "model",
-          rawName: "v-model",
-          value: sku["quantity_size_".concat(size)],
-          expression: "sku[`quantity_size_${size}`]"
-        }],
-        staticClass: "form-control",
-        attrs: {
-          type: "number"
-        },
-        domProps: {
-          value: sku["quantity_size_".concat(size)]
-        },
-        on: {
-          input: function input($event) {
-            if ($event.target.composing) return;
+    })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(sku.color.hex))])])])])], 1)]), _vm._v(" "), _c("div", [_c("label", {
+      staticClass: "form-control-label font-weight-bold"
+    }, [_vm._v("Chất liệu ( "), _c("span", {
+      staticClass: "text-danger"
+    }, [_vm._v("*")]), _vm._v(" ):\n                " + _vm._s(sku["material"]) + "\n              ")]), _vm._v(" "), _c("select", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: sku["material"],
+        expression: "sku[`material`]"
+      }],
+      staticClass: "custom-select",
+      staticStyle: {
+        height: "40px"
+      },
+      attrs: {
+        name: "category",
+        required: ""
+      },
+      on: {
+        change: function change($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
 
-            _vm.$set(sku, "quantity_size_".concat(size), $event.target.value);
-          }
+          _vm.$set(sku, "material", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
         }
-      })])]);
-    })], 2), _vm._v(" "), _c("div", {
+      }
+    }, [_c("option", {
+      attrs: {
+        value: "",
+        selected: ""
+      }
+    }, [_vm._v("Chọn chất liệu")]), _vm._v(" "), _vm._l(_vm.MATERIAL_OPTIONS, function (option) {
+      return _c("option", {
+        key: option.value,
+        domProps: {
+          value: option.value
+        }
+      }, [_vm._v("\n                  " + _vm._s(option.label) + "\n                ")]);
+    })], 2)]), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c("div", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: sku["quantity"],
+        expression: "sku[`quantity`]"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "number"
+      },
+      domProps: {
+        value: sku["quantity"]
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(sku, "quantity", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c("div", [_c("textarea", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: sku["description"],
+        expression: "sku[`description`]"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        "aria-label": "With textarea",
+        rows: "3"
+      },
+      domProps: {
+        value: sku["description"]
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(sku, "description", $event.target.value);
+        }
+      }
+    })])]), _vm._v(" "), _c("div", {
       staticClass: "mr-4 w-75 h-100 box-image"
-    }, [_vm._m(9, true), _vm._v(" "), _c("div", {
+    }, [_c("div", {
+      staticClass: "d-flex justify-content-between align-items-center px-2"
+    }, [_vm._m(10, true), _vm._v(" "), _c("button", {
+      staticClass: "btn btn-primary btn-icon-split",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          $event.stopPropagation();
+          return _vm.clickFile(sku.id);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "text"
+    }, [_vm._v("Chọn hình ảnh")])])]), _vm._v(" "), _c("div", {
       staticClass: "box-image"
     }, [_c("input", {
       ref: "file" + sku.id,
@@ -3165,22 +3316,7 @@ var render = function render() {
         }
       }
     }), _vm._v(" "), _c("div", {
-      "class": ["images relative", _vm.active ? "drag-active" : ""],
-      on: {
-        dragover: function dragover(e) {
-          return _vm.dragover(e, sku.id);
-        },
-        dragleave: function dragleave($event) {
-          return _vm.dragleave(sku.id);
-        },
-        drop: function drop(e) {
-          return _vm.drop(e, sku.id);
-        },
-        click: function click($event) {
-          $event.stopPropagation();
-          return _vm.clickFile(sku.id);
-        }
-      }
+      "class": ["images relative", _vm.active ? "drag-active" : ""]
     }, [sku.loading ? _c("div", {
       staticClass: "loading"
     }, [_c("div", {
@@ -3190,9 +3326,29 @@ var render = function render() {
       staticStyle: {
         gap: "1rem"
       }
+    }, [_c("div", {
+      staticStyle: {
+        "overflow-x": "auto"
+      }
+    }, [_c("Container", {
+      attrs: {
+        orientation: "horizontal",
+        behaviour: "contain"
+      },
+      on: {
+        drop: function drop(e) {
+          return _vm.onDrop(e, sku.id);
+        }
+      }
     }, _vm._l(sku.image_sku, function (image) {
-      return _c("div", {
+      return _c("Draggable", {
         key: image.url,
+        on: {
+          click: function click($event) {
+            $event.stopPropagation();
+          }
+        }
+      }, [_c("div", {
         staticClass: "detail",
         on: {
           click: function click($event) {
@@ -3200,12 +3356,22 @@ var render = function render() {
           }
         }
       }, [_c("div", {
-        staticClass: "d-flex align-items-center p-2 thumbnail"
+        staticClass: "d-flex align-items-center p-2 thumbnail",
+        on: {
+          click: function click($event) {
+            $event.stopPropagation();
+          }
+        }
       }, [_c("img", {
         staticClass: "file-image",
         attrs: {
           src: image.url,
           alt: ""
+        },
+        on: {
+          click: function click($event) {
+            $event.stopPropagation();
+          }
         }
       })]), _vm._v(" "), _c("div", {
         staticClass: "btn-remove-file",
@@ -3215,8 +3381,8 @@ var render = function render() {
             return _vm.removeImage(sku.id, image.url);
           }
         }
-      }, [_vm._v("\n                      Xóa ảnh\n                    ")])]);
-    }), 0) : _c("div", {
+      }, [_vm._v("\n                            Xóa ảnh\n                          ")])])]);
+    }), 1)], 1)]) : _c("div", {
       staticClass: "py-5",
       staticStyle: {
         "text-align": "center"
@@ -3243,11 +3409,11 @@ var render = function render() {
     on: {
       click: _vm.addProductSku
     }
-  }, [_vm._m(10), _vm._v(" "), _c("span", {
+  }, [_vm._m(11), _vm._v(" "), _c("span", {
     staticClass: "text"
   }, [_vm._v("Thêm loại sản phẩm")])])]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
-  }, [_vm._m(11), _vm._v(" "), _c("textarea", {
+  }, [_vm._m(12), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3272,7 +3438,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
-  }, [_vm._m(12), _vm._v(" "), _c("textarea", {
+  }, [_vm._m(13), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3282,7 +3448,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       "aria-label": "With textarea",
-      rows: "20",
+      rows: "10",
       id: "editor",
       name: "description",
       placeholder: "Áo blazer dạng croptop phong cách cá tính và trẻ trung, vải jeans bền, có 2 túi cơi phía trước, thiết kế dài ngang eo trên hông. Vải lót lụa satin mềm mại, thấm hút mồ hôi tốt."
@@ -3399,7 +3565,16 @@ var staticRenderFns = [function () {
 
   return _c("div", {
     staticClass: "mt-2"
-  }, [_vm._v("\n              Kích thước / Số lượng ( "), _c("span", {
+  }, [_vm._v("\n              Số lượng ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" )\n            ")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "mt-2"
+  }, [_vm._v("\n              Mô tả ( "), _c("span", {
     staticClass: "text-danger"
   }, [_vm._v("*")]), _vm._v(" )\n            ")]);
 }, function () {
@@ -3492,10 +3667,10 @@ var render = function render() {
       width: "100%",
       cellspacing: "0"
     }
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product) {
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.products, function (product, index) {
     return _c("tr", {
       key: product.id
-    }, [_c("td", [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c("td", [_vm._v("\n                " + _vm._s(_vm.getCategory(product.category_id)) + "\n              ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.price.toLocaleString()))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.material))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.description))]), _vm._v(" "), _c("td", [_c("ul", {
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c("td", [_vm._v("\n                " + _vm._s(_vm.getCategory(product.category_id)) + "\n              ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.price.toLocaleString()))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.material))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.description))]), _vm._v(" "), _c("td", [_c("ul", {
       staticClass: "list-inline m-0 d-flex justify-content-center"
     }, [_c("li", {
       staticClass: "list-inline-item"
@@ -3615,17 +3790,13 @@ var render = function render() {
       staticClass: "text-lg"
     }, [_vm._v("Giá tiền:")]), _vm._v(" "), _c("span", {
       staticClass: "text-danger"
-    }, [_vm._v(_vm._s(sku.price.toLocaleString()) + "đ")])])]), _vm._v(" "), _c("div", {
-      staticClass: "flex-1"
-    }, [_c("p", {
-      staticClass: "mb-0 text-black text-lg font-weight-semibold"
-    }, [_vm._v("\n                  Kích thước\n                ")]), _vm._v(" "), _c("div", [_c("table", {
-      staticClass: "table-size"
-    }, [_vm._m(2, true), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v(_vm._s(sku.quantity_size_s))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_m))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_l))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_xl))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(sku.quantity_size_2xl))])])])]), _vm._v(" "), _c("div", {
-      staticClass: "text-black text-lg"
-    }, [_vm._v("\n                    Tổng số lượng phân loại:\n                    "), _c("span", {
-      staticClass: "font-weight-bold"
-    }, [_vm._v(_vm._s(sku.quantity))]), _vm._v("\n                    sản phẩm\n                  ")])])])]), _vm._v(" "), _c("div", {
+    }, [_vm._v(_vm._s(sku.price.toLocaleString()) + "đ")])]), _vm._v(" "), _c("div", {
+      staticClass: "grid"
+    }, [_c("span", {
+      staticClass: "text-lg"
+    }, [_vm._v("Số lượng:")]), _vm._v(" "), _c("span", {
+      staticClass: "text-danger"
+    }, [_vm._v(_vm._s(sku.quantity))])])])]), _vm._v(" "), _c("div", {
       staticClass: "d-flex mt-4",
       staticStyle: {
         gap: "10px"
@@ -3691,14 +3862,9 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Tên sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Loại sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Giá tiền (VND)")]), _vm._v(" "), _c("th", [_vm._v("Chất liệu")]), _vm._v(" "), _c("th", [_vm._v("Mô tả")]), _vm._v(" "), _c("th", {
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("STT")]), _vm._v(" "), _c("th", [_vm._v("Tên sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Loại sản phẩm")]), _vm._v(" "), _c("th", [_vm._v("Giá tiền (VND)")]), _vm._v(" "), _c("th", [_vm._v("Chất liệu")]), _vm._v(" "), _c("th", [_vm._v("Mô tả")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
   }, [_vm._v("Hành động")])])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("thead", [_c("th", [_vm._v("S")]), _vm._v(" "), _c("th", [_vm._v("M")]), _vm._v(" "), _c("th", [_vm._v("L")]), _vm._v(" "), _c("th", [_vm._v("XL")]), _vm._v(" "), _c("th", [_vm._v("2XL")])]);
 }];
 render._withStripped = true;
 
@@ -3717,7 +3883,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".form-product[data-v-763eab10] {\n  height: 95vh;\n  overflow: auto;\n}\n.modal-product[data-v-763eab10] {\n  max-width: 90%;\n}\n.color[data-v-763eab10] {\n  width: 40px;\n  height: 40px;\n  border-radius: 4px;\n}\n.box-color[data-v-763eab10] {\n  position: absolute;\n  top: 100%;\n  left: 0;\n}\n.fade-enter-active[data-v-763eab10],\n.fade-leave-active[data-v-763eab10] {\n  transition: opacity 0.5s;\n}\n.fade-enter[data-v-763eab10],\n.fade-leave-to[data-v-763eab10] {\n  opacity: 0;\n}\n.field-color[data-v-763eab10] {\n  position: relative;\n  cursor: pointer;\n  display: flex;\n  flex-direction: column;\n}\n.field-color span[data-v-763eab10] {\n  display: flex;\n  flex: 1;\n  align-items: center;\n}\n.icon-remove[data-v-763eab10] {\n  margin-left: 1rem;\n  font-size: 22px;\n  cursor: pointer;\n  color: #e63946;\n}\n.box-image[data-v-763eab10] {\n  background: #fff;\n  border-radius: 8px;\n  padding: 1rem;\n  border-radius: 0.375rem;\n}\n.box-image .images[data-v-763eab10] {\n  height: 285px;\n  text-align: center;\n  border: 2px dashed #e7e7e8;\n  border-radius: 0.375rem;\n  padding: 1rem;\n  cursor: pointer;\n}\n.drag-active[data-v-763eab10] {\n  border: 2px dashed #4e73df !important;\n}\n.detail[data-v-763eab10] {\n  display: flex;\n  flex-direction: column;\n  width: 10rem;\n  box-shadow: 0 0.375rem 1rem 0 rgba(58, 53, 65, 0.12);\n  border-radius: 0.3125rem;\n}\n.detail .thumbnail[data-v-763eab10] {\n  border-bottom: 1px solid #e7e7e8;\n}\n.detail .thumbnail .file-image[data-v-763eab10] {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  margin: auto;\n}\n.detail .file-name[data-v-763eab10] {\n  color: #b4b2b7;\n  text-align: start;\n}\n.detail .file-size[data-v-763eab10] {\n  color: #b4b2b7;\n  text-align: start;\n  font-style: italic;\n  font-size: 12px;\n  border-bottom: 1px solid #e7e7e8;\n  font-weight: bold;\n}\n.detail .btn-remove-file[data-v-763eab10] {\n  padding: 8px;\n  cursor: pointer;\n  color: #89868d;\n}\n.detail .btn-remove-file[data-v-763eab10]:hover {\n  background: rgba(58, 53, 65, 0.06);\n}\n.border-bottom[data-v-763eab10] {\n  width: 100%;\n  height: 1px;\n  background: #e7e7e8;\n  margin: 1rem 0;\n}\n.thumbnail-product[data-v-763eab10] {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.relative[data-v-763eab10] {\n  position: relative;\n}\n.loading[data-v-763eab10] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.loading .spinner-border[data-v-763eab10] {\n  border: 0.25em solid #4e73df !important;\n  border-right-color: transparent !important;\n}\n.name-truncate[data-v-763eab10] {\n  width: 160px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.sku[data-v-763eab10] {\n  background: #f0f0f0;\n  padding: 1rem;\n  border-radius: 8px;\n  margin-bottom: 1rem;\n}\n.custom-select[data-v-763eab10]:disabled {\n  font-weight: bold;\n  color: #000 !important;\n  background: white !important;\n}\n@media screen and (max-width: 1200px) {\n.box-container[data-v-763eab10] {\n    flex-direction: column;\n    align-items: start !important;\n    gap: 1rem;\n}\n.box-container .box-image[data-v-763eab10] {\n    width: 100% !important;\n    margin-right: 0 !important;\n}\n}", ""]);
+exports.push([module.i, ".form-product[data-v-763eab10] {\n  height: 95vh;\n  overflow: auto;\n}\n.modal-product[data-v-763eab10] {\n  max-width: 90%;\n}\n.color[data-v-763eab10] {\n  width: 40px;\n  height: 40px;\n  border-radius: 4px;\n}\n.box-color[data-v-763eab10] {\n  position: absolute;\n  top: 100%;\n  left: 0;\n}\n.fade-enter-active[data-v-763eab10],\n.fade-leave-active[data-v-763eab10] {\n  transition: opacity 0.5s;\n}\n.fade-enter[data-v-763eab10],\n.fade-leave-to[data-v-763eab10] {\n  opacity: 0;\n}\n.field-color[data-v-763eab10] {\n  position: relative;\n  cursor: pointer;\n  display: flex;\n  flex-direction: column;\n}\n.field-color span[data-v-763eab10] {\n  display: flex;\n  flex: 1;\n  align-items: center;\n}\n.icon-remove[data-v-763eab10] {\n  margin-left: 1rem;\n  font-size: 22px;\n  cursor: pointer;\n  color: #e63946;\n}\n.box-image[data-v-763eab10] {\n  background: #fff;\n  border-radius: 8px;\n  padding: 1rem;\n  border-radius: 0.375rem;\n}\n.box-image .images[data-v-763eab10] {\n  text-align: center;\n  border: 2px dashed #e7e7e8;\n  border-radius: 0.375rem;\n  padding: 1rem;\n  cursor: pointer;\n}\n.drag-active[data-v-763eab10] {\n  border: 2px dashed #4e73df !important;\n}\n.detail[data-v-763eab10] {\n  display: flex;\n  flex-direction: column;\n  width: 10rem;\n  box-shadow: 0 0.375rem 1rem 0 rgba(58, 53, 65, 0.12);\n  border-radius: 0.3125rem;\n}\n.detail .thumbnail[data-v-763eab10] {\n  border-bottom: 1px solid #e7e7e8;\n}\n.detail .thumbnail .file-image[data-v-763eab10] {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  margin: auto;\n}\n.detail .file-name[data-v-763eab10] {\n  color: #b4b2b7;\n  text-align: start;\n}\n.detail .file-size[data-v-763eab10] {\n  color: #b4b2b7;\n  text-align: start;\n  font-style: italic;\n  font-size: 12px;\n  border-bottom: 1px solid #e7e7e8;\n  font-weight: bold;\n}\n.detail .btn-remove-file[data-v-763eab10] {\n  padding: 8px;\n  cursor: pointer;\n  color: #89868d;\n}\n.detail .btn-remove-file[data-v-763eab10]:hover {\n  background: rgba(58, 53, 65, 0.06);\n}\n.border-bottom[data-v-763eab10] {\n  width: 100%;\n  height: 1px;\n  background: #e7e7e8;\n  margin: 1rem 0;\n}\n.thumbnail-product[data-v-763eab10] {\n  width: 120px;\n  height: 120px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.relative[data-v-763eab10] {\n  position: relative;\n}\n.loading[data-v-763eab10] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 10;\n}\n.loading .spinner-border[data-v-763eab10] {\n  border: 0.25em solid #4e73df !important;\n  border-right-color: transparent !important;\n}\n.name-truncate[data-v-763eab10] {\n  width: 160px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.sku[data-v-763eab10] {\n  background: #f0f0f0;\n  padding: 1rem;\n  border-radius: 8px;\n  margin-bottom: 1rem;\n}\n.custom-select[data-v-763eab10]:disabled {\n  font-weight: bold;\n  color: #000 !important;\n  background: white !important;\n}\n@media screen and (max-width: 1200px) {\n.box-container[data-v-763eab10] {\n    flex-direction: column;\n    align-items: start !important;\n    gap: 1rem;\n}\n.box-container .box-image[data-v-763eab10] {\n    width: 100% !important;\n    margin-right: 0 !important;\n}\n}", ""]);
 
 // exports
 
@@ -6891,6 +7057,18 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/smooth-dnd/dist/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/smooth-dnd/dist/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?t(exports):undefined}(this,function(e){"use strict";var l,t,r="smooth-dnd-container-instance",f="smooth-dnd-draggable-wrapper",o="animated",p="__smooth_dnd_draggable_translation_value",u="__smooth_dnd_draggable_visibility_value",v="smooth-dnd-ghost",g="smooth-dnd-container",d="smooth-dnd-extra-size-for-insertion",h="smooth-dnd-stretcher-element",y="smooth-dnd-stretcher-instance",s="smooth-dnd-disable-touch-action",c="smooth-dnd-no-user-select",i="smooth-dnd-prevent-auto-scroll-class",b="smooth-dnd-drop-preview-default-class",w="smooth-dnd-drop-preview-inner-class",x="smooth-dnd-drop-preview-constant-class",E="smooth-dnd-drop-preview-flex-container-class",n=Object.freeze({containerInstance:r,defaultGroupName:"@@smooth-dnd-default-group@@",wrapperClass:f,defaultGrabHandleClass:"smooth-dnd-default-grap-handle",animationClass:o,translationValue:p,visibilityValue:u,ghostClass:v,containerClass:g,extraSizeForInsertion:d,stretcherElementClass:h,stretcherElementInstance:y,isDraggableDetached:"smoth-dnd-is-draggable-detached",disbaleTouchActions:s,noUserSelectClass:c,preventAutoScrollClass:i,dropPlaceholderDefaultClass:b,dropPlaceholderInnerClass:w,dropPlaceholderWrapperClass:x,dropPlaceholderFlexContainerClass:E}),C={groupName:void 0,behaviour:"move",orientation:"vertical",getChildPayload:void 0,animationDuration:250,autoScrollEnabled:!0,shouldAcceptDrop:void 0,shouldAnimateDrop:void 0};function a(e){return(a="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function m(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function D(e){return function(e){if(Array.isArray(e)){for(var t=0,n=new Array(e.length);t<e.length;t++)n[t]=e[t];return n}}(e)||function(e){if(Symbol.iterator in Object(e)||"[object Arguments]"===Object.prototype.toString.call(e))return Array.from(e)}(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance")}()}(t=l||(l={})).x="x",t.y="y",t.xy="xy";function S(e,t,n){return"x"===n?{left:Math.max(e.left,t.left),top:e.top,right:Math.min(e.right,t.right),bottom:e.bottom}:{left:e.left,top:Math.max(e.top,t.top),right:e.right,bottom:Math.min(e.bottom,t.bottom)}}function O(e){var t=window.getComputedStyle(e),n=t.overflow;if("auto"===n||"scroll"===n)return l.xy;var o=t["overflow-x"],r="auto"===o||"scroll"===o,i=t["overflow-y"],a="auto"===i||"scroll"===i;return r&&a?l.xy:r?l.x:a?l.y:null}function R(e,t){var n=window.getComputedStyle(e),o=n.overflow,r=n["overflow-".concat(t)];return"auto"===o||"scroll"===o||("auto"===r||"scroll"===r)}var A=function(e,t){return{left:Math.max(e.left,t.left),top:Math.max(e.top,t.top),right:Math.min(e.right,t.right),bottom:Math.min(e.bottom,t.bottom)}},I=function(e){var t=e.getBoundingClientRect(),n={left:t.left,right:t.right,top:t.top,bottom:t.bottom};if(P(e,"x")&&!B(e,"x")){var o=n.right-n.left;n.right=n.right+e.scrollWidth-o}if(P(e,"y")&&!B(e,"y")){var r=n.bottom-n.top;n.bottom=n.bottom+e.scrollHeight-r}return n},B=function(e,t){var n=window.getComputedStyle(e),o=n.overflow,r=n["overflow-".concat(t)];return"auto"===o||"scroll"===o||"hidden"===o||("auto"===r||"scroll"===r||"hidden"===r)},P=function(e,t){return"x"===t?e.scrollWidth>e.clientWidth:e.scrollHeight>e.clientHeight},T=function(e,t){var n=e,o=t||I(e);for(n=e.parentElement;n;)P(n,"x")&&B(n,"x")&&(o=S(o,n.getBoundingClientRect(),"x")),P(n,"y")&&B(n,"y")&&(o=S(o,n.getBoundingClientRect(),"y")),n=n.parentElement;return o},z=function(e,n){for(var o=e;o;){if(o[r]){var t=function(){var t=o[r];if(n.some(function(e){return e===t}))return{v:t}}();if("object"===a(t))return t.v}o=o.parentElement}return null},N=function(e,t){for(var n=e;n;){if(n.matches(t))return n;n=n.parentElement}return null},L=function(e,t){return-1<e.className.split(" ").map(function(e){return e}).indexOf(t)},M=function(e,t){if(e){var n=e.className.split(" ").filter(function(e){return e});-1===n.indexOf(t)&&(n.unshift(t),e.className=n.join(" "))}},j=function(e,t){if(e){var n=e.className.split(" ").filter(function(e){return e&&e!==t});e.className=n.join(" ")}},_=function(e,t){return e.removeChild(e.children[t])},F=function(e,t,n){n>=e.children.length?e.appendChild(t):e.insertBefore(t,e.children[n])},V=function(){window.getSelection?window.getSelection().empty?window.getSelection().empty():window.getSelection().removeAllRanges&&window.getSelection().removeAllRanges():window.document.selection&&window.document.selection.empty()},X=function(e){if(e){var t=window.getComputedStyle(e);if(t)return t.cursor}return null};function H(e){return!(e.bottom<=e.top||e.right<=e.left)}function Y(e){var s=e.element,c=e.draggables;return function(e,t){var n=e,o=n.removedIndex,r=n.addedIndex,i=n.droppedElement,a=null;if(null!==o&&(a=_(s,o),c.splice(o,1)),null!==r){var l=window.document.createElement("div");l.className="".concat(f),l.appendChild(a&&a.firstElementChild?a.firstElementChild:i),F(s,l,r),r>=c.length?c.push(l):c.splice(r,0,l)}t&&t(e)}}var k=Object.freeze({domDropHandler:Y,reactDropHandler:function(){return{handler:function(){return function(e,t){t&&t(e)}}}}}),G={size:"offsetWidth",distanceToParent:"offsetLeft",translate:"transform",begin:"left",end:"right",dragPosition:"x",scrollSize:"scrollWidth",offsetSize:"offsetWidth",scrollValue:"scrollLeft",scale:"scaleX",setSize:"width",setters:{translate:function(e){return"translate3d(".concat(e,"px, 0, 0)")}}},W={size:"offsetHeight",distanceToParent:"offsetTop",translate:"transform",begin:"top",end:"bottom",dragPosition:"y",scrollSize:"scrollHeight",offsetSize:"offsetHeight",scrollValue:"scrollTop",scale:"scaleY",setSize:"height",setters:{translate:function(e){return"translate3d(0,".concat(e,"px, 0)")}}};function q(n,s,e){n[d]=0;var o=function(o){return{get:function(e,t){return e[o[t]||t]},set:function(e,t,n){e[o[t]]=o.setters[t]?o.setters[t](n):n}}}("horizontal"===s?G:W),c={translation:0};function t(){r(n),function(e){var t=e.getBoundingClientRect();c.scaleX=e.offsetWidth?(t.right-t.left)/e.offsetWidth:1,c.scaleY=e.offsetHeight?(t.bottom-t.top)/e.offsetHeight:1}(n)}function r(e){c.rect=I(e);var t=T(e,c.rect);H(t)&&(c.lastVisibleRect=c.visibleRect),c.visibleRect=t}function i(e){var t=e;if(t.tagName){var n=t.getBoundingClientRect();return"vertical"===s?n.bottom-n.top:n.right-n.left}return o.get(e,"size")*o.get(c,"scale")}function a(e){return o.get(e,"dragPosition")}return window.addEventListener("resize",function(){r(n)}),setTimeout(function(){t()},10),{getSize:i,getContainerRectangles:function(){return{rect:c.rect,visibleRect:c.visibleRect,lastVisibleRect:c.lastVisibleRect}},getBeginEndOfDOMRect:function(e){return{begin:o.get(e,"begin"),end:o.get(e,"end")}},getBeginEndOfContainer:function(){return{begin:o.get(c.rect,"begin")+c.translation,end:o.get(c.rect,"end")+c.translation}},getBeginEndOfContainerVisibleRect:function(){return{begin:o.get(c.visibleRect,"begin")+c.translation,end:o.get(c.visibleRect,"end")+c.translation}},getBeginEnd:function(e){var t=function(e){return(o.get(e,"distanceToParent")+(e[p]||0))*o.get(c,"scale")}(e)+(o.get(c.rect,"begin")+c.translation)-o.get(n,"scrollValue");return{begin:t,end:t+i(e)*o.get(c,"scale")}},getAxisValue:a,setTranslation:function(e,t){t?o.set(e.style,"translate",t):e.style.removeProperty("transform"),e[p]=t},getTranslation:function(e){return e[p]},setVisibility:function(e,t){void 0!==e[u]&&e[u]===t||(t?e.style.removeProperty("visibility"):e.style.visibility="hidden",e[u]=t)},isVisible:function(e){return void 0===e[u]||e[u]},isInVisibleRect:function(e,t){var n=c.visibleRect,o=n.left,r=n.top,i=n.right,a=n.bottom;a-r<2&&(a=r+30);var l=c.rect;return"vertical"===s?e>l.left&&e<l.right&&r<t&&t<a:o<e&&e<i&&t>l.top&&t<l.bottom},setSize:function(e,t){o.set(e,"setSize",t)},getTopLeftOfElementBegin:function(e){var t=0;return{top:"horizontal"===s?(t=e,c.rect.top):(t=c.rect.left,e),left:t}},getScrollSize:function(e){return o.get(e,"scrollSize")},getScrollValue:function(e){return o.get(e,"scrollValue")},setScrollValue:function(e,t){return o.set(e,"scrollValue",t)},invalidate:t,invalidateRects:function(){r(n)},getPosition:function(e){return a(e)},setBegin:function(e,t){o.set(e,"begin",t)}}}function U(e,t,n){var o,r,i,a=n.left,l=n.right,s=n.top,c=n.bottom,u=e.x,d=e.y;if(u<a||l<u||d<s||c<d)return null;i="x"===t?(o=a,r=l,u):(o=s,r=c,d);var f=r-o,g=400<f?100:f/4;return r-i<g?{direction:"end",speedFactor:(g-(r-i))/g}:i-o<g?{direction:"begin",speedFactor:(g-(i-o))/g}:null}function J(l){var s=1<arguments.length&&void 0!==arguments[1]?arguments[1]:"y",c=null,u=null,d=null,f=null;return{animate:function(e,t){d=e,f=t,function a(){null===c&&(c=requestAnimationFrame(function(e){null===u&&(u=e);var t=e-u;u=e;var n,o,r,i=t/1e3*f;o=s,r=i="begin"===d?0-i:i,(n=l)&&(n!==window?"x"===o?n.scrollLeft+=r:n.scrollTop+=r:"x"===o?n.scrollBy(r,0):n.scrollBy(0,r)),c=null,a()}))}()},stop:function(){null!==c&&(cancelAnimationFrame(c),c=null),u=null}}}function K(e){return function(){return T(e,e.getBoundingClientRect())}}var Q,Z,$,ee=function(e){var u=1<arguments.length&&void 0!==arguments[1]?arguments[1]:1500,r=e.reduce(function(e,t){var n=function(e){for(var t=[],n=e.element;n;){var o=O(n);if(o&&!L(n,i)){var r={};switch(o){case l.xy:r.x={animator:J(n,"x")},r.y={animator:J(n,"y")};break;case l.x:r.x={animator:J(n,"x")};break;case l.y:r.y={animator:J(n,"y")}}t.push({axisAnimations:r,getRect:K(n),scrollerElement:n})}n=n.parentElement}return t}(t).filter(function(t){return!e.find(function(e){return e.scrollerElement===t.scrollerElement})});return[].concat(D(e),D(n))},[]);return function(e){var t=e.draggableInfo;if(e.reset)r.forEach(function(e){e.axisAnimations.x&&e.axisAnimations.x.animator.stop(),e.axisAnimations.y&&e.axisAnimations.y.animator.stop()});else if(t){!function(e,o){e.forEach(function(e){var t=e.axisAnimations,n=(0,e.getRect)();t.x&&(t.x.scrollParams=U(o,"x",n),e.cachedRect=n),t.y&&(t.y.scrollParams=U(o,"y",n),e.cachedRect=n)})}(r,t.mousePosition),r.forEach(function(e){var t=e.axisAnimations,n=t.x,o=t.y;if(n)if(n.scrollParams){var r=n.scrollParams,i=r.direction,a=r.speedFactor;n.animator.animate(i,a*u)}else n.animator.stop();if(o)if(o.scrollParams){var l=o.scrollParams,s=l.direction,c=l.speedFactor;o.animator.animate(s,c*u)}else o.animator.stop()});var n=r.filter(function(e){return e.cachedRect});if(n.length&&1<n.length){var o=function(e,t){for(var n=document.elementFromPoint(t.x,t.y);n;){var o=e.find(function(e){return e.scrollerElement===n});if(o)return o;n=n.parentElement}return null}(n,t.mousePosition);o&&n.forEach(function(e){e!==o&&(e.axisAnimations.x&&e.axisAnimations.x.animator.stop(),e.axisAnimations.y&&e.axisAnimations.y.animator.stop())})}}}};"undefined"!=typeof window&&((Q=Element)&&Q.prototype&&!Q.prototype.matches&&(Q.prototype.matches=Q.prototype.matchesSelector||Q.prototype.mozMatchesSelector||Q.prototype.msMatchesSelector||Q.prototype.oMatchesSelector||Q.prototype.webkitMatchesSelector||function(e){for(var t=(this.document||this.ownerDocument).querySelectorAll(e),n=t.length;0<=--n&&t.item(n)!==this;);return-1<n}),(Z=Node||Element)&&Z.prototype&&null==Z.prototype.firstElementChild&&Object.defineProperty(Z.prototype,"firstElementChild",{get:function(){for(var e,t=this.childNodes,n=0;e=t[n++];)if(1===e.nodeType)return e;return null}}),Array.prototype.some||(Array.prototype.some=function(e){if(null==this)throw new TypeError("Array.prototype.some called on null or undefined");if("function"!=typeof e)throw new TypeError;for(var t=Object(this),n=t.length>>>0,o=2<=arguments.length?arguments[1]:void 0,r=0;r<n;r++)if(r in t&&e.call(o,t[r],r,t))return!0;return!1}));var te={overflow:"hidden",display:"block"},ne={height:"100%",display:"table-cell","vertical-align":"top"},oe=(m($={},".".concat(g),{position:"relative","min-height":"30px","min-width":"30px"}),m($,".".concat(g,".horizontal"),{display:"table"}),m($,".".concat(g,".horizontal > .").concat(h),{display:"inline-block"}),m($,".".concat(g,".horizontal > .").concat(f),ne),m($,".".concat(g,".vertical > .").concat(f),te),m($,".".concat(f),{"box-sizing":"border-box"}),m($,".".concat(f,".horizontal"),ne),m($,".".concat(f,".vertical"),te),m($,".".concat(f,".animated"),{transition:"transform ease"}),m($,".".concat(v),{"box-sizing":"border-box"}),m($,".".concat(v,".animated"),{transition:"all ease-in-out"}),m($,".".concat(v," *"),{"pointer-events":"none"}),m($,".".concat(s," *"),{"touch-action":"none","-ms-touch-action":"none"}),m($,".".concat(c),{"-webkit-touch-callout":"none","-webkit-user-select":"none","-khtml-user-select":"none","-moz-user-select":"none","-ms-user-select":"none","user-select":"none"}),m($,".".concat(w),{flex:"1"}),m($,".".concat(g,".horizontal > .").concat(x),{height:"100%",overflow:"hidden",display:"table-cell","vertical-align":"top"}),m($,".".concat(g,".vertical > .").concat(x),{overflow:"hidden",display:"block",width:"100%"}),m($,".".concat(E),{width:"100%",height:"100%",display:"flex","justify-content":"stretch","align-items":"stretch"}),m($,".".concat(b),{"background-color":"rgba(150, 150, 150, 0.1)",border:"1px solid #ccc"}),$);function re(o){return Object.keys(o).reduce(function(e,t){var n=o[t];return"object"===a(n)?"".concat(e).concat(t,"{").concat(re(n),"}"):"".concat(e).concat(t,":").concat(n,";")},"")}function ie(e){if(e&&"undefined"!=typeof window){var t=window.document.head||window.document.getElementsByTagName("head")[0],n=window.document.createElement("style"),o=re({"body *":{cursor:"".concat(e," !important")}});return n.type="text/css",n.styleSheet?n.styleSheet.cssText=o:n.appendChild(window.document.createTextNode(o)),t.appendChild(n),n}return null}var ae,le,se=["mousedown","touchstart"],ce=["mousemove","touchmove"],ue=["mouseup","touchend"],de=null,fe=null,ge=null,me=null,pe=[],ve=!1,he=!1,ye=!1,be=!1,we=null,xe=null,Ee=null,Ce=null,De=(ae=null,le=!1,{start:function(){le||(le=!0,function e(){ae=requestAnimationFrame(function(){de.forEach(function(e){return e.layout.invalidateRects()}),setTimeout(function(){null!==ae&&e()},50)})}())},stop:function(){null!==ae&&(cancelAnimationFrame(ae),ae=null),le=!1}}),Se="undefined"!=typeof window&&!!(window.navigator.userAgent.match(/Android/i)||window.navigator.userAgent.match(/webOS/i)||window.navigator.userAgent.match(/iPhone/i)||window.navigator.userAgent.match(/iPad/i)||window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/BlackBerry/i)||window.navigator.userAgent.match(/Windows Phone/i));function Oe(){"undefined"!=typeof window&&se.forEach(function(e){window.document.addEventListener(e,Ve,{passive:!1})})}function Re(){return me&&me.ghostParent?me.ghostParent:fe&&fe.parentElement||window.document.body}var Ae,Ie,Be,Pe,Te,ze,Ne=(Pe=null,Te=1,ze=5,function(e,t,n){Ae=Je(e),Be=n,(Ie="number"==typeof t?t:Se?200:0)&&(Pe=setTimeout(Fe,Ie)),ce.forEach(function(e){return window.document.addEventListener(e,Le)},{passive:!1}),ue.forEach(function(e){return window.document.addEventListener(e,Me)},{passive:!1}),window.document.addEventListener("drag",je,{passive:!1})});function Le(e){var t=Je(e),n=t.clientX,o=t.clientY;if(Ie)(Math.abs(Ae.clientX-n)>ze||Math.abs(Ae.clientY-o)>ze)&&_e();else if(Math.abs(Ae.clientX-n)>Te||Math.abs(Ae.clientY-o)>Te)return Fe()}function Me(){_e()}function je(){_e()}function _e(){clearTimeout(Pe),ce.forEach(function(e){return window.document.removeEventListener(e,Le)},{passive:!1}),ue.forEach(function(e){return window.document.removeEventListener(e,Me)},{passive:!1}),window.document.removeEventListener("drag",je,{passive:!1})}function Fe(){clearTimeout(Pe),_e(),Be()}function Ve(e){var t=Je(e);if(!ve&&(void 0===t.button||0===t.button)&&(fe=N(t.target,"."+f))){var n=N(fe,"."+g),o=pe.filter(function(e){return e.element===n})[0],r=o.getOptions().dragHandleSelector,i=o.getOptions().nonDragAreaSelector,a=!0;if(r&&!N(t.target,r)&&(a=!1),i&&N(t.target,i)&&(a=!1),a){o.layout.invalidate(),M(window.document.body,s),M(window.document.body,c);window.document.addEventListener("mouseup",function e(){j(window.document.body,s),j(window.document.body,c),window.document.removeEventListener("mouseup",e)})}a&&Ne(t,o.getOptions().dragBeginDelay,function(){V(),et(t,X(e.target)),ce.forEach(function(e){window.document.addEventListener(e,Xe,{passive:!1})}),ue.forEach(function(e){window.document.addEventListener(e,Ue,{passive:!1})})})}}function Xe(e){e.preventDefault();var t=Je(e);if(me){var n=me.container.getOptions();"contain"===n.behaviour?function(e){var t,n,o,r,i=e.clientX,a=e.clientY,l=1<arguments.length&&void 0!==arguments[1]?arguments[1]:"vertical",s=me.container.layout.getBeginEndOfContainerVisibleRect();r="vertical"===l?(t=a,n="y",o="top",me.size.offsetHeight):(t=i,n="x",o="left",me.size.offsetWidth);var c=s.begin,u=s.end-r,d=Math.max(c,Math.min(u,t+ge.positionDelta[o]));ge.topLeft[n]=d,me.position[n]=Math.max(s.begin,Math.min(s.end,t+ge.centerDelta[n])),me.mousePosition[n]=Math.max(s.begin,Math.min(s.end,t)),me.position[n]<s.begin+r/2&&(me.position[n]=s.begin+2),me.position[n]>s.end-r/2&&(me.position[n]=s.end-2)}(t,n.orientation):Ee?"y"===Ee?(ge.topLeft.y=t.clientY+ge.positionDelta.top,me.position.y=t.clientY+ge.centerDelta.y,me.mousePosition.y=t.clientY):"x"===Ee&&(ge.topLeft.x=t.clientX+ge.positionDelta.left,me.position.x=t.clientX+ge.centerDelta.x,me.mousePosition.x=t.clientX):(ge.topLeft.x=t.clientX+ge.positionDelta.left,ge.topLeft.y=t.clientY+ge.positionDelta.top,me.position.x=t.clientX+ge.centerDelta.x,me.position.y=t.clientY+ge.centerDelta.y,me.mousePosition.x=t.clientX,me.mousePosition.y=t.clientY),nt(),(be=!we(me))&&We()}else et(t,X(e.target))}var He,Ye,ke,Ge,We=(He=qe,ke=!(Ye=20),Ge=null,function(){for(var e=arguments.length,t=new Array(e),n=0;n<e;n++)t[n]=arguments[n];Ge&&clearTimeout(Ge),ke&&!Ge?He.call.apply(He,[null].concat(t)):Ge=setTimeout(function(){Ge=null,He.call.apply(He,[null].concat(t))},Ye)});function qe(){be&&(be=!1,Ke(me,de))}function Ue(){ce.forEach(function(e){window.document.removeEventListener(e,Xe,{passive:!1})}),ue.forEach(function(e){window.document.removeEventListener(e,Ue,{passive:!1})}),xe({reset:!0}),Ce&&(function(e){e&&"undefined"!=typeof window&&(window.document.head||window.document.getElementsByTagName("head")[0]).removeChild(e)}(Ce),Ce=null),me&&(De.stop(),qe(),ye=!0,function(e){function i(){j(ge.ghost,"animated"),ge.ghost.style.transitionDuration=null,Re().removeChild(ge.ghost),e()}function t(e,t,n){var o=e.top,r=e.left;M(ge.ghost,"animated"),n&&M(ge.ghost.firstElementChild,n),ge.topLeft.x=r,ge.topLeft.y=o,nt(t),setTimeout(function(){i()},t+20)}function n(e,t){M(ge.ghost,"animated"),nt(e,.9,!0),setTimeout(function(){t()},e+20)}if(me.targetElement){var o=pe.filter(function(e){return e.element===me.targetElement})[0];if(!(p=o.getOptions()).shouldAnimateDrop||p.shouldAnimateDrop(me.container.getOptions(),me.payload))t(o.getDragResult().shadowBeginEnd.rect,Math.max(150,o.getOptions().animationDuration/2),o.getOptions().dropClass);else i()}else{var r=pe.filter(function(e){return e===me.container})[0];if(r){var a=r.getOptions(),l=a.behaviour,s=a.removeOnDropOut;if("move"!==l&&"contain"!==l||!he&&s||!r.getDragResult())n(r.getOptions().animationDuration,i);else{var c=r.layout.getContainerRectangles();if(!H(c.visibleRect)&&H(c.lastVisibleRect))t({top:c.lastVisibleRect.top,left:c.lastVisibleRect.left},r.getOptions().animationDuration,r.getOptions().dropClass);else{var u=r.getDragResult(),d=u.removedIndex,f=u.elementSize,g=r.layout;r.getTranslateCalculator({dragResult:{removedIndex:d,addedIndex:d,elementSize:f,pos:void 0,shadowBeginEnd:void 0}});var m=0<d?g.getBeginEnd(r.draggables[d-1]).end:g.getBeginEndOfContainer().begin;t(g.getTopLeftOfElementBegin(m),r.getOptions().animationDuration,r.getOptions().dropClass)}}}else n(C.animationDuration,i)}var p}(function(){$e(ve=!1);for(var e=de||[],t=e.shift();void 0!==t;)t.handleDrop(me),t=e.shift();we=Ee=me=ge=fe=de=null,ye=!1}))}function Je(e){return e.touches?e.touches[0]:e}function Ke(n,e){var o=!1;e.forEach(function(e){var t=e.handleDrag(n);o=!!t.containerBoxChanged||!1,t.containerBoxChanged=!1}),o&&(o=!1,requestAnimationFrame(function(){pe.forEach(function(e){e.layout.invalidateRects(),e.onTranslated()})}))}function Qe(e){var t=e,n=null;return function(e){return!(null!==n||!ve||ye)&&(n=requestAnimationFrame(function(){ve&&!ye&&(Ke(e,t),xe({draggableInfo:e})),n=null}),!0)}}function Ze(e,t){return e.getOptions().autoScrollEnabled?ee(t,e.getScrollMaxSpeed()):function(e){return null}}function $e(o){pe.forEach(function(e){var t=o?e.getOptions().onDragStart:e.getOptions().onDragEnd;if(t){var n={isSource:e===me.container,payload:me.payload};e.isDragRelevant(me.container,me.payload)?n.willAcceptDrop=!0:n.willAcceptDrop=!1,t(n)}})}function et(e,t){if(null!==fe){ve=!0;var n=pe.filter(function(e){return fe.parentElement===e.element})[0];n.setDraggables(),Ee=n.getOptions().lockAxis?n.getOptions().lockAxis.toLowerCase():null,me=function(t){var e=pe.filter(function(e){return t.parentElement===e.element})[0],n=e.draggables.indexOf(t),o=e.getOptions().getGhostParent,r=t.getBoundingClientRect();return{container:e,element:t,size:{offsetHeight:r.bottom-r.top,offsetWidth:r.right-r.left},elementIndex:n,payload:e.getOptions().getChildPayload?e.getOptions().getChildPayload(n):void 0,targetElement:null,position:{x:0,y:0},groupName:e.getOptions().groupName,ghostParent:o?o():null,invalidateShadow:null,mousePosition:null,relevantContainers:null}}(fe),ge=function(e,t,n,o){var r=t.x,i=t.y,a=e.getBoundingClientRect(),l=a.left,s=a.top,c=a.right,u=a.bottom,d=A(n.layout.getContainerRectangles().visibleRect,a),f=d.left+(d.right-d.left)/2,g=d.top+(d.bottom-d.top)/2,m=e.cloneNode(!0);return m.style.zIndex="1000",m.style.boxSizing="border-box",m.style.position="fixed",m.style.top="0px",m.style.left="0px",m.style.transform=null,m.style.removeProperty("transform"),n.shouldUseTransformForGhost()?m.style.transform="translate3d(".concat(l,"px, ").concat(s,"px, 0)"):(m.style.top="".concat(s,"px"),m.style.left="".concat(l,"px")),m.style.width=c-l+"px",m.style.height=u-s+"px",m.style.overflow="visible",m.style.transition=null,m.style.removeProperty("transition"),m.style.pointerEvents="none",m.style.userSelect="none",n.getOptions().dragClass?setTimeout(function(){M(m.firstElementChild,n.getOptions().dragClass);var e=window.getComputedStyle(m.firstElementChild).cursor;Ce=ie(e)}):Ce=ie(o),M(m,n.getOptions().orientation||"vertical"),M(m,v),{ghost:m,centerDelta:{x:f-r,y:g-i},positionDelta:{left:l-r,top:s-i},topLeft:{x:l,y:s}}}(fe,{x:e.clientX,y:e.clientY},me.container,t),me.position={x:e.clientX+ge.centerDelta.x,y:e.clientY+ge.centerDelta.y},me.mousePosition={x:e.clientX,y:e.clientY},de=pe.filter(function(e){return e.isDragRelevant(n,me.payload)}),me.relevantContainers=de,we=Qe(de),xe&&xe({reset:!0,draggableInfo:void 0}),xe=Ze(n,de),de.forEach(function(e){return e.prepareDrag(e,de)}),$e(!0),we(me),Re().appendChild(ge.ghost),De.start()}}var tt=null;function nt(){var e=0<arguments.length&&void 0!==arguments[0]?arguments[0]:0,t=1<arguments.length&&void 0!==arguments[1]?arguments[1]:1,n=2<arguments.length&&void 0!==arguments[2]&&arguments[2],o=ge,r=o.ghost,i=o.topLeft,a=i.x,l=i.y,s=!me.container||me.container.shouldUseTransformForGhost(),c=s?"translate3d(".concat(a,"px,").concat(l,"px, 0)"):null;if(1!==t&&(c=c?"".concat(c," scale(").concat(t,")"):"scale(".concat(t,")")),0<e)return ge.ghost.style.transitionDuration=e+"ms",void requestAnimationFrame(function(){c&&(r.style.transform=c),s||(r.style.left=a+"px",r.style.top=l+"px"),tt=null,n&&(r.style.opacity="0")});null===tt&&(tt=requestAnimationFrame(function(){c&&(r.style.transform=c),s||(r.style.left=a+"px",r.style.top=l+"px"),tt=null,n&&(r.style.opacity="0")}))}function ot(){if(ve&&!he&&!ye){be=!(he=!0);var t=Object.assign({},me,{targetElement:null,position:{x:Number.MAX_SAFE_INTEGER,y:Number.MAX_SAFE_INTEGER},mousePosition:{x:Number.MAX_SAFE_INTEGER,y:Number.MAX_SAFE_INTEGER}});de.forEach(function(e){e.handleDrag(t)}),me.targetElement=null,me.cancelDrop=!0,Ue(),he=!1}}"undefined"!=typeof window&&function(){if("undefined"!=typeof window){var e=window.document.head||window.document.getElementsByTagName("head")[0],t=window.document.createElement("style");t.id="smooth-dnd-style-definitions";var n=re(oe);t.type="text/css",t.styleSheet?t.styleSheet.cssText=n:t.appendChild(window.document.createTextNode(n)),e.appendChild(t)}}();var rt=(Oe(),{register:function(e){!function(e){pe.push(e),ve&&me&&e.isDragRelevant(me.container,me.payload)&&(de.push(e),e.prepareDrag(e,de),xe&&xe({reset:!0,draggableInfo:void 0}),xe=Ze(e,de),we=Qe(de),e.handleDrag(me))}(e)},unregister:function(e){!function(e){if(pe.splice(pe.indexOf(e),1),ve&&me){me.container===e&&e.fireRemoveElement(),me.targetElement===e.element&&(me.targetElement=null);var t=de.indexOf(e);-1<t&&(de.splice(t,1),xe&&xe({reset:!0,draggableInfo:void 0}),xe=Ze(e,de),we=Qe(de))}}(e)},isDragging:function(){return ve},cancelDrag:ot});function it(e,t){var n=2<arguments.length&&void 0!==arguments[2]?arguments[2]:C.animationDuration;t?(M(e,o),e.style.transitionDuration=n+"ms"):(j(e,o),e.style.removeProperty("transition-duration"))}function at(n){var o=[];return Array.prototype.forEach.call(n.children,function(e){if(e.nodeType===Node.ELEMENT_NODE){var t=e;L(e,f)||(t=function(e){if(It.wrapChild){var t=window.document.createElement("div");return t.className="".concat(f),e.parentElement.insertBefore(t,e),t.appendChild(e),t}return e}(e)),t[p]=0,o.push(t)}else n.removeChild(e)}),o}function lt(e){var g=e.layout;return function(e,t){var n=2<arguments.length&&void 0!==arguments[2]&&arguments[2];return function e(t,n,o,r){var i=4<arguments.length&&void 0!==arguments[4]&&arguments[4];if(r<o)return o;if(o===r){var a=g.getBeginEnd(t[o]),l=a.begin,s=a.end;return i?n<(s+l)/2?o:o+1:o}var c=Math.floor((r+o)/2),u=g.getBeginEnd(t[c]),d=u.begin,f=u.end;return n<d?e(t,n,o,c-1,i):f<n?e(t,n,c+1,r,i):i?n<(f+d)/2?c:c+1:c}(e,t,0,e.length-1,n)}}function st(e){var t=e.element,n=e.draggables,o=e.layout,a=e.getOptions,l=function(e){var t=e.element,n=e.draggables,o=e.layout;return function(){n.forEach(function(e){it(e,!1),o.setTranslation(e,0),o.setVisibility(e,!0)}),t[y]&&(t[y].parentNode.removeChild(t[y]),t[y]=null)}}({element:t,draggables:n,layout:o,getOptions:a}),s=(It.dropHandler||Y)({element:t,draggables:n,layout:o,getOptions:a});return function(e,t){var n=t.addedIndex,o=t.removedIndex,r=2<arguments.length&&void 0!==arguments[2]&&arguments[2];if(l(),!e.cancelDrop&&(e.targetElement||a().removeOnDropOut||r)){var i={removedIndex:o,addedIndex:null!==n?null!==o&&o<n?n-1:n:null,payload:e.payload};s(i,a().onDrop)}}}function ct(e){var o=e.element,r=e.getOptions,i=null;return function(e){var t=e.draggableInfo,n=i;return null==i&&t.container.element===o&&"copy"!==r().behaviour&&(n=i=t.elementIndex),{removedIndex:n}}}function ut(e){var n=e.draggables,o=e.layout;return function(e){var t=e.dragResult;null!==t.removedIndex&&o.setVisibility(n[t.removedIndex],!1)}}function dt(e){var r=e.element,i=e.layout;return function(e){var t=e.draggableInfo,n=document.elementFromPoint(t.position.x,t.position.y);if(n){var o=z(n,t.relevantContainers);if(o&&o.element===r)return{pos:i.getPosition(t.position)}}return{pos:null}}}function ft(e){var n=e.layout,o=null;return function(e){var t=e.draggableInfo;return null===e.dragResult.pos?o=null:{elementSize:o=o||n.getSize(t.size)}}}function gt(e){var o=e.element;return function(e){var t=e.draggableInfo,n=e.dragResult;!function(e,t){var n=!(2<arguments.length&&void 0!==arguments[2])||arguments[2];t&&n?e.targetElement=t:e.targetElement===t&&(e.targetElement=null)}(t,o,!!n.pos)}}function mt(){return function(e){return null!==e.dragResult.pos?{addedIndex:0}:{addedIndex:null}}}function pt(e){var r=e.layout,i=null;return function(e){var t=e.dragResult.addedIndex;if(t===i)return null;i=t;var n=r.getBeginEndOfContainer(),o=n.begin;n.end;return{shadowBeginEnd:{rect:r.getTopLeftOfElementBegin(o)}}}}function vt(e){var g=e.layout,m=e.element,p=e.getOptions,v=null;return function(e){var t=e.dragResult,n=t.elementSize,o=t.shadowBeginEnd,r=t.addedIndex,i=t.dropPlaceholderContainer,a=p();if(a.dropPlaceholder){var l="boolean"==typeof a.dropPlaceholder?{}:a.dropPlaceholder,s=l.animationDuration,c=l.className,u=l.showOnTop;if(null===r)return i&&null!==v&&m.removeChild(i),v=null,{dropPlaceholderContainer:void 0};if(!i){var d=document.createElement("div"),f=document.createElement("div");f.className=E,d.className="".concat(w," ").concat(c||b),(i=document.createElement("div")).className="".concat(x),i.style.position="absolute",void 0!==s&&(i.style.transition="all ".concat(s,"ms ease")),i.appendChild(f),f.appendChild(d),g.setSize(i.style,n+"px"),i.style.pointerEvents="none",u?m.appendChild(i):m.insertBefore(i,m.firstElementChild)}return v!==r&&o.dropArea&&g.setBegin(i.style,o.dropArea.begin-g.getBeginEndOfContainer().begin+"px"),v=r,{dropPlaceholderContainer:i}}return null}}function ht(e){var o=Et(e);return function(e){var t=e.draggableInfo,n=e.dragResult;return t.invalidateShadow?o({draggableInfo:t,dragResult:n}):null}}function yt(e){var o=function(e){var i=e.draggables,a=lt({layout:e.layout});return function(e){var t=e.dragResult,n=t.shadowBeginEnd,o=t.pos;if(n)return n.begin+n.beginAdjustment<=o&&n.end>=o?null:o<n.begin+n.beginAdjustment?a(i,o):o>n.end?a(i,o)+1:i.length;var r=a(i,o,!0);return null!==r?r:i.length}}(e);return function(e){var t=e.dragResult,n=null;return null!==t.pos&&null===(n=o({dragResult:t}))&&(n=t.addedIndex),{addedIndex:n}}}function bt(){var r=null;return function(e){var t=e.dragResult,n=t.addedIndex,o=t.shadowBeginEnd;n!==r&&null!==r&&o&&(o.beginAdjustment=0),r=n}}function wt(e){var u=e.element,d=e.draggables,f=e.layout,g=e.getOptions,m=null;return function(e){var t=e.dragResult,n=t.addedIndex,o=t.removedIndex,r=t.elementSize;if(null===o)if(null!==n){if(!m){var i=f.getBeginEndOfContainer();i.end=i.begin+f.getSize(u);var a=f.getScrollSize(u)>f.getSize(u)?i.begin+f.getScrollSize(u)-f.getScrollValue(u):i.end,l=0<d.length?f.getBeginEnd(d[d.length-1]).end-d[d.length-1][p]:i.begin;if(a<l+r){(m=window.document.createElement("div")).className=h+" "+g().orientation;var s=0<d.length?r+l-a:r;return f.setSize(m.style,"".concat(s,"px")),u.appendChild(m),u[y]=m,{containerBoxChanged:!0}}}}else if(m){f.setTranslation(m,0);var c=m;return m=null,u.removeChild(c),{containerBoxChanged:!(u[y]=null)}}}}function xt(e){var s=e.draggables,c=e.layout,u=null,d=null;return function(e){var t=e.dragResult,n=t.addedIndex,o=t.removedIndex,r=t.elementSize;if(n!==u||o!==d){for(var i=0;i<s.length;i++)if(i!==o){var a=s[i],l=0;null!==o&&o<i&&(l-=r),null!==n&&n<=i&&(l+=r),c.setTranslation(a,l)}return{addedIndex:u=n,removedIndex:d=o}}}}function Et(e){var x=e.draggables,E=e.layout,C=null;return function(e){var t=e.draggableInfo,n=e.dragResult,o=n.addedIndex,r=n.removedIndex,i=n.elementSize,a=n.pos,l=n.shadowBeginEnd;if(null===a)return{shadowBeginEnd:C=null};if(null===o||!t.invalidateShadow&&o===C)return null;var s=o-1,c=Number.MIN_SAFE_INTEGER,u=0,d=0,f=null,g=null;if(s===r&&s--,-1<s){var m=E.getSize(x[s]);if(g=E.getBeginEnd(x[s]),i<m){var p=(m-i)/2;c=g.end-p}else c=g.end;u=g.end}else g={end:E.getBeginEndOfContainer().begin},u=E.getBeginEndOfContainer().begin;var v=Number.MAX_SAFE_INTEGER,h=o;if(h===r&&h++,h<x.length){var y=E.getSize(x[h]);if(f=E.getBeginEnd(x[h]),i<y){var b=(y-i)/2;v=f.begin+b}else v=f.begin;d=f.begin}else f={begin:E.getContainerRectangles().rect.end},d=E.getContainerRectangles().rect.end-E.getContainerRectangles().rect.begin;var w=g&&f?E.getTopLeftOfElementBegin(g.end):null;return C=o,{shadowBeginEnd:{dropArea:{begin:u,end:d},begin:c,end:v,rect:w,beginAdjustment:l?l.beginAdjustment:0}}}}function Ct(){var a=null;return function(e){var t=e.dragResult,n=t.pos,o=t.addedIndex,r=t.shadowBeginEnd;if(null!==n){if(null!=o&&null===a){if(n<r.begin){var i=n-r.begin-5;r.beginAdjustment=i}a=o}}else a=null}}function Dt(e){var t=e.getOptions,n=!1,o=t();return function(e){var t=!!e.dragResult.pos;t!==n&&((n=t)?o.onDragEnter&&o.onDragEnter():o.onDragLeave&&o.onDragLeave())}}function St(e){var t=e.getOptions,s=null,c=t();return function(e){var t=e.dragResult,n=t.addedIndex,o=t.removedIndex,r=e.draggableInfo,i=r.payload,a=r.element;if(c.onDropReady&&null!==n&&s!==n){var l=s=n;null!==o&&o<n&&l--,c.onDropReady({addedIndex:l,removedIndex:o,payload:i,element:a?a.firstElementChild:void 0})}}}function Ot(e){return"drop-zone"===e.getOptions().behaviour?Rt(e)(ct,ut,dt,ft,gt,mt,pt,Dt,St):Rt(e)(ct,ut,dt,ft,gt,ht,yt,bt,wt,xt,Et,vt,Ct,Dt,St)}function Rt(i){return function(){for(var e=arguments.length,t=new Array(e),n=0;n<e;n++)t[n]=arguments[n];var o=t.map(function(e){return e(i)}),r=null;return function(n){return r=o.reduce(function(e,t){return Object.assign(e,t({draggableInfo:n,dragResult:e}))},r||{addedIndex:null,removedIndex:null,elementSize:null,pos:null,shadowBeginEnd:null})}}}function At(d){return function(e){var n=Object.assign({},C,e),t=null,o=null,r=function(e,t){var n=at(e),o=t();return M(e,"".concat(g," ").concat(o.orientation)),{element:e,draggables:n,getOptions:t,layout:q(e,o.orientation,o.animationDuration)}}(d,u),i=Ot(r),a=st(r),l=function(t,n){var o=[];function e(){o&&(o.forEach(function(e){return e.removeEventListener("scroll",n)}),window.removeEventListener("scroll",n))}return function(){var e=t;for(;e;)(R(e,"x")||R(e,"y"))&&o.push(e),e=e.parentElement}(),{dispose:function(){e(),o=null},start:function(){o&&(o.forEach(function(e){return e.addEventListener("scroll",n)}),window.addEventListener("scroll",n))},stop:e}}(d,function(){r.layout.invalidateRects(),s()});function s(){null!==o&&(o.invalidateShadow=!0,t=i(o),o.invalidateShadow=!1)}function c(e,t){for(var n=at(t),o=0;o<n.length;o++)e[o]=n[o];for(var r=0;r<e.length-n.length;r++)e.pop()}function u(){return n}return{element:d,draggables:r.draggables,isDragRelevant:function(e){var r=e.element,i=e.getOptions;return function(e,t){var n=i();if(n.shouldAcceptDrop)return n.shouldAcceptDrop(e.getOptions(),t);var o=e.getOptions();return"copy"!==n.behaviour&&(N(r,"."+f)!==e.element&&(e.element===r||!(!o.groupName||o.groupName!==n.groupName)))}}(r),layout:r.layout,dispose:function(e){l.dispose(),function(t){It.wrapChild&&Array.prototype.forEach.call(t.children,function(e){e.nodeType===Node.ELEMENT_NODE&&L(e,f)&&(t.insertBefore(e.firstElementChild,e),t.removeChild(e))})}(e.element)},prepareDrag:function(e,t){var n=e.element,o=r.draggables;c(o,n),e.layout.invalidateRects(),o.forEach(function(e){return it(e,!0,u().animationDuration)}),l.start()},handleDrag:function(e){return t=i(o=e)},handleDrop:function(e){l.stop(),t&&t.dropPlaceholderContainer&&d.removeChild(t.dropPlaceholderContainer),o=null,i=Ot(r),a(e,t),t=null},fireRemoveElement:function(){a(o,Object.assign({},t,{addedIndex:null}),!0),t=null},getDragResult:function(){return t},getTranslateCalculator:function(e){return xt(r)(e)},onTranslated:function(){s()},setDraggables:function(){c(r.draggables,d)},getScrollMaxSpeed:function(){return It.maxScrollSpeed},shouldUseTransformForGhost:function(){return!0===It.useTransformForGhost},getOptions:u,setOptions:function(e){var t=!(1<arguments.length&&void 0!==arguments[1])||arguments[1];n=!1===t?Object.assign({},C,e):Object.assign({},C,n,e)}}}}var It=function(e,t){var n=At(e)(t);return e[r]=n,rt.register(n),{dispose:function(){rt.unregister(n),n.dispose(n)},setOptions:function(e,t){n.setOptions(e,t)}}};function Bt(e,t,n){Object.defineProperty(e,n,{set:function(e){t[n]=e},get:function(){return t[n]}})}It.wrapChild=!0,It.cancelDrag=function(){rt.cancelDrag()},It.isDragging=function(){return rt.isDragging()};function Pt(e,t){return console.warn('default export is deprecated. please use named export "smoothDnD"'),It(e,t)}Pt.cancelDrag=function(){It.cancelDrag()},Pt.isDragging=function(){return It.isDragging()},Bt(Pt,It,"useTransformForGhost"),Bt(Pt,It,"maxScrollSpeed"),Bt(Pt,It,"wrapChild"),Bt(Pt,It,"dropHandler"),e.smoothDnD=It,e.constants=n,e.dropHandlers=k,e.default=Pt,Object.defineProperty(e,"__esModule",{value:!0})});
+
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CreateProduct.vue?vue&type=style&index=0&id=763eab10&lang=scss&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CreateProduct.vue?vue&type=style&index=0&id=763eab10&lang=scss&scoped=true& ***!
@@ -8562,6 +8740,221 @@ if(false) {}
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(e,t){ true?module.exports=t(__webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")):undefined}(this,function(e){"use strict";function t(e,t,o){e&&t&&o&&(document.addEventListener?e.addEventListener(t,o,!1):e.attachEvent("on"+t,o))}function o(e,t,o){e&&t&&(document.removeEventListener?e.removeEventListener(t,o,!1):e.detachEvent("on"+t,o))}e=e&&e.hasOwnProperty("default")?e.default:e;var n={props:{tagName:{type:String,default:"span"},trigger:{type:String,default:"hover",validator:function(e){return["clickToOpen","click","clickToToggle","hover","focus"].indexOf(e)>-1}},delayOnMouseOver:{type:Number,default:10},delayOnMouseOut:{type:Number,default:10},disabled:{type:Boolean,default:!1},content:String,enterActiveClass:String,leaveActiveClass:String,boundariesSelector:String,reference:{},forceShow:{type:Boolean,default:!1},dataValue:{default:null},appendToBody:{type:Boolean,default:!1},visibleArrow:{type:Boolean,default:!0},transition:{type:String,default:""},stopPropagation:{type:Boolean,default:!1},preventDefault:{type:Boolean,default:!1},options:{type:Object,default:function(){return{}}},rootClass:{type:String,default:""}},data:function(){return{referenceElm:null,popperJS:null,showPopper:!1,currentPlacement:"",popperOptions:{placement:"bottom",computeStyle:{gpuAcceleration:!1}}}},watch:{showPopper:function(e){e?(this.$emit("show",this),this.popperJS&&this.popperJS.enableEventListeners(),this.updatePopper()):(this.popperJS&&this.popperJS.disableEventListeners(),this.$emit("hide",this))},forceShow:{handler:function(e){this[e?"doShow":"doClose"]()},immediate:!0},disabled:function(e){e&&(this.showPopper=!1)}},created:function(){this.appendedArrow=!1,this.appendedToBody=!1,this.popperOptions=Object.assign(this.popperOptions,this.options)},mounted:function(){switch(this.referenceElm=this.reference||this.$slots.reference[0].elm,this.popper=this.$slots.default[0].elm,this.trigger){case"clickToOpen":t(this.referenceElm,"click",this.doShow),t(document,"click",this.handleDocumentClick);break;case"click":case"clickToToggle":t(this.referenceElm,"click",this.doToggle),t(document,"click",this.handleDocumentClick);break;case"hover":t(this.referenceElm,"mouseover",this.onMouseOver),t(this.popper,"mouseover",this.onMouseOver),t(this.referenceElm,"mouseout",this.onMouseOut),t(this.popper,"mouseout",this.onMouseOut);break;case"focus":t(this.referenceElm,"focus",this.onMouseOver),t(this.popper,"focus",this.onMouseOver),t(this.referenceElm,"blur",this.onMouseOut),t(this.popper,"blur",this.onMouseOut)}},methods:{doToggle:function(e){this.stopPropagation&&e.stopPropagation(),this.preventDefault&&e.preventDefault(),this.forceShow||(this.showPopper=!this.showPopper)},doShow:function(){this.showPopper=!0},doClose:function(){this.showPopper=!1},doDestroy:function(){this.showPopper||(this.popperJS&&(this.popperJS.destroy(),this.popperJS=null),this.appendedToBody&&(this.appendedToBody=!1,document.body.removeChild(this.popper.parentElement)))},createPopper:function(){var t=this;this.$nextTick(function(){if(t.visibleArrow&&t.appendArrow(t.popper),t.appendToBody&&!t.appendedToBody&&(t.appendedToBody=!0,document.body.appendChild(t.popper.parentElement)),t.popperJS&&t.popperJS.destroy&&t.popperJS.destroy(),t.boundariesSelector){var o=document.querySelector(t.boundariesSelector);o&&(t.popperOptions.modifiers=Object.assign({},t.popperOptions.modifiers),t.popperOptions.modifiers.preventOverflow=Object.assign({},t.popperOptions.modifiers.preventOverflow),t.popperOptions.modifiers.preventOverflow.boundariesElement=o)}t.popperOptions.onCreate=function(){t.$emit("created",t),t.$nextTick(t.updatePopper)},t.popperJS=new e(t.referenceElm,t.popper,t.popperOptions)})},destroyPopper:function(){o(this.referenceElm,"click",this.doToggle),o(this.referenceElm,"mouseup",this.doClose),o(this.referenceElm,"mousedown",this.doShow),o(this.referenceElm,"focus",this.doShow),o(this.referenceElm,"blur",this.doClose),o(this.referenceElm,"mouseout",this.onMouseOut),o(this.referenceElm,"mouseover",this.onMouseOver),o(document,"click",this.handleDocumentClick),this.showPopper=!1,this.doDestroy()},appendArrow:function(e){if(!this.appendedArrow){this.appendedArrow=!0;var t=document.createElement("div");t.setAttribute("x-arrow",""),t.className="popper__arrow",e.appendChild(t)}},updatePopper:function(){this.popperJS?this.popperJS.scheduleUpdate():this.createPopper()},onMouseOver:function(){var e=this;clearTimeout(this._timer),this._timer=setTimeout(function(){e.showPopper=!0},this.delayOnMouseOver)},onMouseOut:function(){var e=this;clearTimeout(this._timer),this._timer=setTimeout(function(){e.showPopper=!1},this.delayOnMouseOut)},handleDocumentClick:function(e){this.$el&&this.referenceElm&&!this.elementContains(this.$el,e.target)&&!this.elementContains(this.referenceElm,e.target)&&this.popper&&!this.elementContains(this.popper,e.target)&&(this.$emit("documentClick",this),this.forceShow||(this.showPopper=!1))},elementContains:function(e,t){return"function"==typeof e.contains&&e.contains(t)}},destroyed:function(){this.destroyPopper()}};const r=n;n.__file="popper.js.vue";return function(e,t,o,n,r,s,i,p,c,a){"function"==typeof i&&(c=p,p=i,i=!1);const d="function"==typeof o?o.options:o;let l;if(e&&e.render&&(d.render=e.render,d.staticRenderFns=e.staticRenderFns,d._compiled=!0,r&&(d.functional=!0)),n&&(d._scopeId=n),s?(l=function(e){(e=e||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(e=__VUE_SSR_CONTEXT__),t&&t.call(this,c(e)),e&&e._registeredComponents&&e._registeredComponents.add(s)},d._ssrRegister=l):t&&(l=i?function(){t.call(this,a(this.$root.$options.shadowRoot))}:function(e){t.call(this,p(e))}),l)if(d.functional){const e=d.render;d.render=function(t,o){return l.call(o),e(t,o)}}else{const e=d.beforeCreate;d.beforeCreate=e?[].concat(e,l):[l]}return o}({render:function(){var e=this,t=e.$createElement,o=e._self._c||t;return o(e.tagName,{tag:"component"},[o("transition",{attrs:{name:e.transition,"enter-active-class":e.enterActiveClass,"leave-active-class":e.leaveActiveClass},on:{"after-leave":e.doDestroy}},[o("span",{directives:[{name:"show",rawName:"v-show",value:!e.disabled&&e.showPopper,expression:"!disabled && showPopper"}],ref:"popper",class:e.rootClass},[e._t("default",[e._v(e._s(e.content))])],2)]),e._v(" "),e._t("reference")],2)},staticRenderFns:[]},void 0,r,void 0,!1,void 0,void 0,void 0)});
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-smooth-dnd/dist/vue-smooth-dnd.esm.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/vue-smooth-dnd/dist/vue-smooth-dnd.esm.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Container", function() { return Container; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Draggable", function() { return Draggable; });
+/* harmony import */ var smooth_dnd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! smooth-dnd */ "./node_modules/smooth-dnd/dist/index.js");
+/* harmony import */ var smooth_dnd__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(smooth_dnd__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in smooth_dnd__WEBPACK_IMPORTED_MODULE_0__) if(["default","Container","Draggable"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return smooth_dnd__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/**
+ * Bundle of: vue-smooth-dnd
+ * Generated: 2019-10-26
+ * Version: 0.8.1
+ */
+
+
+
+
+var isArray = function (obj) {
+  return Object.prototype.toString.call(obj) === '[object Array]';
+};
+
+function getTagProps (ctx, tagClasses) {
+  var tag = ctx.$props.tag;
+  if (tag) {
+    if (typeof tag === 'string') {
+      var result = { value: tag };
+      if (tagClasses) {
+        result.props = { class: tagClasses };
+      }
+      return result;
+    } else if (typeof tag === 'object') {
+      var result$1 = { value: tag.value || 'div', props: tag.props || {} };
+
+      if (tagClasses) {
+        if (result$1.props.class) {
+          if (isArray(result$1.props.class)) {
+            result$1.props.class.push(tagClasses);
+          } else {
+            result$1.props.class = [tagClasses, result$1.props.class];
+          }
+        } else {
+          result$1.props.class = tagClasses;
+        }
+      }
+
+      return result$1;
+    }
+  }
+  return { value: 'div' };
+}
+
+function validateTagProp (tag) {
+  if (tag) {
+    if (typeof tag === 'string') { return true; }
+    if (typeof tag === 'object') {
+      if (
+        typeof tag.value === 'string' ||
+        typeof tag.value === 'function' ||
+        typeof tag.value === 'object'
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+  return true;
+}
+
+/* eslint-disable curly */
+
+smooth_dnd__WEBPACK_IMPORTED_MODULE_0__["smoothDnD"].dropHandler = smooth_dnd__WEBPACK_IMPORTED_MODULE_0__["dropHandlers"].reactDropHandler().handler;
+smooth_dnd__WEBPACK_IMPORTED_MODULE_0__["smoothDnD"].wrapChild = false;
+
+var eventEmitterMap = {
+  'drag-start': 'onDragStart',
+  'drag-end': 'onDragEnd',
+  'drop': 'onDrop',
+  'drag-enter': 'onDragEnter',
+  'drag-leave': 'onDragLeave',
+  'drop-ready': 'onDropReady'
+};
+
+function getContainerOptions (props, context) {
+  var options = Object.keys(props).reduce(function (result, key) {
+    var optionName = key;
+    var prop = props[optionName];
+
+    if (prop !== undefined) {
+      if (typeof prop === 'function') {
+        if (eventEmitterMap[optionName]) {
+          result[eventEmitterMap[optionName]] = function (params) {
+            context.$emit(optionName, params);
+          };
+        } else {
+          result[optionName] = function () {
+            var params = [], len = arguments.length;
+            while ( len-- ) params[ len ] = arguments[ len ];
+
+            return (prop).apply(void 0, params);
+          };
+        }
+      } else {
+        result[optionName] = prop;
+      }
+    }
+
+    return result;
+  }, {});
+
+  return options;
+}
+
+var mapOptions = function (context) {
+  var props = Object.assign({}, context.$props, context.$listeners);
+  return getContainerOptions(props, context);
+};
+
+var Container = {
+  name: 'Container',
+  mounted: function mounted () {
+    this.containerElement = this.$refs.container || this.$el;
+    this.container = Object(smooth_dnd__WEBPACK_IMPORTED_MODULE_0__["smoothDnD"])(this.containerElement, mapOptions(this));
+  },
+  updated: function updated () {
+    if (
+      this.$refs.container !== this.containerElement &&
+      this.$el !== this.containerElement
+    ) {
+      if (this.container) {
+        this.container.dispose();
+      }
+      this.containerElement = this.$refs.container || this.$el;
+      this.container = Object(smooth_dnd__WEBPACK_IMPORTED_MODULE_0__["smoothDnD"])(this.containerElement, mapOptions(this));
+      return;
+    }
+
+    this.container.setOptions(mapOptions(this));
+  },
+  destroyed: function destroyed () {
+    if (this.container) {
+      this.container.dispose();
+    }
+  },
+  props: {
+    behaviour: String,
+    groupName: String,
+    orientation: String,
+    dragHandleSelector: String,
+    nonDragAreaSelector: String,
+    dragBeginDelay: Number,
+    animationDuration: Number,
+    autoScrollEnabled: { type: Boolean, default: true },
+    lockAxis: String,
+    dragClass: String,
+    dropClass: String,
+    removeOnDropOut: { type: Boolean, default: false },
+    'drag-start': Function,
+    'drag-end': Function,
+    drop: Function,
+    getChildPayload: Function,
+    shouldAnimateDrop: Function,
+    shouldAcceptDrop: Function,
+    'drag-enter': Function,
+    'drag-leave': Function,
+    tag: {
+      validator: validateTagProp,
+      default: 'div',
+    },
+    getGhostParent: Function,
+    'drop-ready': Function,
+    dropPlaceholder: [Object, Boolean]
+  },
+  render: function (createElement) {
+    var tagProps = getTagProps(this);
+    return createElement(
+      tagProps.value,
+      Object.assign({}, { ref: 'container' }, tagProps.props),
+      this.$slots.default
+    );
+  }
+};
+
+var wrapChild = function (createElement, ctx) {
+  var tagProps = getTagProps(ctx, smooth_dnd__WEBPACK_IMPORTED_MODULE_0__["constants"].wrapperClass);
+  return createElement(
+    tagProps.value,
+    Object.assign({}, tagProps.props),
+    ctx.$slots.default
+  );
+};
+
+var Draggable = {
+  name: 'Draggable',
+  props: {
+    tag: {
+      validator: validateTagProp,
+      default: 'div'
+    }
+  },
+  render: function (createElement) {
+    return wrapChild(createElement, this);
+  }
+};
+
+
 
 
 /***/ }),
@@ -21977,7 +22370,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'https://manager.prismstudio.vn' + '/api/v1',
+  baseURL: "https://admin.mosvici.com" + '/api/v1',
   headers: {
     'Content-Type': 'application/json',
     timeout: 1000
@@ -22061,6 +22454,26 @@ Vue.component('sketch-picker', vue_color__WEBPACK_IMPORTED_MODULE_0__["Sketch"])
 var app = new Vue({
   el: '#app'
 });
+
+/***/ }),
+
+/***/ "./resources/js/common/constant.js":
+/*!*****************************************!*\
+  !*** ./resources/js/common/constant.js ***!
+  \*****************************************/
+/*! exports provided: MATERIAL_OPTIONS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MATERIAL_OPTIONS", function() { return MATERIAL_OPTIONS; });
+var MATERIAL_OPTIONS = [{
+  label: 'Vàng',
+  value: 'gold'
+}, {
+  value: 'sliver',
+  label: 'Bạc'
+}];
 
 /***/ }),
 
@@ -22235,6 +22648,61 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Product_vue_vue_type_template_id_7e94e6d4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/utils/helper.js":
+/*!**************************************!*\
+  !*** ./resources/js/utils/helper.js ***!
+  \**************************************/
+/*! exports provided: applyDrag, generateItems */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyDrag", function() { return applyDrag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateItems", function() { return generateItems; });
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var applyDrag = function applyDrag(arr, dragResult) {
+  var removedIndex = dragResult.removedIndex,
+      addedIndex = dragResult.addedIndex,
+      payload = dragResult.payload;
+  if (removedIndex === null && addedIndex === null) return arr;
+
+  var result = _toConsumableArray(arr);
+
+  var itemToAdd = payload;
+
+  if (removedIndex !== null) {
+    itemToAdd = result.splice(removedIndex, 1)[0];
+  }
+
+  if (addedIndex !== null) {
+    result.splice(addedIndex, 0, itemToAdd);
+  }
+
+  return result;
+};
+var generateItems = function generateItems(count, creator) {
+  var result = [];
+
+  for (var i = 0; i < count; i++) {
+    result.push(creator(i));
+  }
+
+  return result;
+};
 
 /***/ }),
 

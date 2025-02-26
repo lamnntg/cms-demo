@@ -13,10 +13,53 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $landingConfigs = LandingPageConfig::all();
+        $landingConfigs = LandingPageConfig::where('type', 'banner')->get();
+        $texts = LandingPageConfig::where('type', 'text')->get();
 
-        return view('landing', compact('landingConfigs'));
+        $title = '';
+        $description = '';
+        foreach ($texts as $text) {
+            if ($text->key == 'text_title') {
+                $title = $text;
+            }
+            if ($text->key == 'text_description') {
+                $description = $text;
+            }
+        }
+
+        return view('landing', compact('landingConfigs', 'title', 'description'));
     }
+
+    public function changeText(Request $request)
+    {
+
+        DB::beginTransaction();
+
+        try {
+            $params = $request->all();
+
+            if (!isset($params['text_title']) || !isset($params['text_description'])) {
+                return redirect()->back();
+            }
+            LandingPageConfig::where('key', 'text_title')->first()->update([
+                'value' => $params['text_title'],
+            ]);
+
+            LandingPageConfig::where('key', 'text_description')->first()->update([
+                'value' => $params['text_description'],
+            ]);
+
+            DB::commit();
+            // all good
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            // something went wrong
+        }
+
+        return redirect()->route('landing');
+    }
+
 
     public function changeBanner(Request $request)
     {

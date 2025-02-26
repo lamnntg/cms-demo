@@ -23,6 +23,7 @@ class ProductService implements ProductServiceInterface
             $productCreated = Product::create([
                 'category_id' => $product['category_id'] ?? 1,
                 'name' => $product['name'],
+                'is_new' => $product['is_new'],
                 'slug' => \Str::slug($product['name']) . '-' . $nextAutoIncrement,
                 'material' => $product['material'],
                 'description' => $product['description'],
@@ -37,14 +38,16 @@ class ProductService implements ProductServiceInterface
                     'product_id' => $productCreated->id,
                     'sku_code' => $sku['sku_code'],
                     'price' => $sku['price'],
-                    'quantity_size_s' => $sku['quantity_size_s'],
-                    'quantity_size_m' => $sku['quantity_size_m'],
-                    'quantity_size_l' => $sku['quantity_size_l'],
-                    'quantity_size_xl' => $sku['quantity_size_xl'],
-                    'quantity_size_2xl' => $sku['quantity_size_2xl'],
-                    'quantity' => $sku['quantity_size_s'] + $sku['quantity_size_m'] + $sku['quantity_size_l'] + $sku['quantity_size_xl'] + $sku['quantity_size_2xl'],
+                    'quantity_size_s' => 0,
+                    'quantity_size_m' => 0,
+                    'quantity_size_l' => 0,
+                    'quantity_size_xl' => 0,
+                    'quantity_size_2xl' => 0,
+                    'quantity' => $sku['quantity'],
                     'image_sku' => $sku['image_sku'],
+                    'description' => $sku['description'],
                     'color' => $sku['color'],
+                    'material' => $sku['material'],
                 ]);
             }
 
@@ -89,6 +92,7 @@ class ProductService implements ProductServiceInterface
             $product->update([
                 'category_id' => $data['category_id'] ?? 1,
                 'name' => $data['name'],
+                'is_new' => $product['is_new'],
                 'material' => $data['material'],
                 'description' => $data['description'],
                 'preservation' => $data['preservation'] ?? null,
@@ -105,14 +109,16 @@ class ProductService implements ProductServiceInterface
                     'product_id' => $product->id,
                     'sku_code' => $sku['sku_code'],
                     'price' => $sku['price'],
-                    'quantity_size_s' => $sku['quantity_size_s'],
-                    'quantity_size_m' => $sku['quantity_size_m'],
-                    'quantity_size_l' => $sku['quantity_size_l'],
-                    'quantity_size_xl' => $sku['quantity_size_xl'],
-                    'quantity_size_2xl' => $sku['quantity_size_2xl'],
-                    'quantity' => $sku['quantity_size_s'] + $sku['quantity_size_m'] + $sku['quantity_size_l'] + $sku['quantity_size_xl'] + $sku['quantity_size_2xl'],
+                    'quantity_size_s' => 0,
+                    'quantity_size_m' => 0,
+                    'quantity_size_l' => 0,
+                    'quantity_size_xl' => 0,
+                    'quantity_size_2xl' => 0,
+                    'quantity' => $sku['quantity'],
                     'image_sku' => $sku['image_sku'],
+                    'description' => $sku['description'],
                     'color' => $sku['color'],
+                    'material' => $sku['material'],
                 ]);
             }
 
