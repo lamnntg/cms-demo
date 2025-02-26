@@ -35,12 +35,12 @@ class DatabaseSeeder extends Seeder
             [
                 'key' => 'text_title',
                 'type' => 'text',
-                'value' => 'Mosvici'
+                'value' => 'phoebe'
             ],
             [
                 'key' => 'text_description',
                 'type' => 'text',
-                'value' => 'Mosvici'
+                'value' => 'phoebe'
             ],
         ];
 

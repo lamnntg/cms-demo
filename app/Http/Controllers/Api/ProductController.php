@@ -13,7 +13,8 @@ class ProductController extends ApiController
 {
     public function index(Request $request)
     {
-        $page = $request->get('page') ?? null;
+        $page = $request->get('page') ?? 1;
+        $perPage = $request->get('page') ?? 4;
         $query = $request->get('query') ?? null;
         $productName = $request->get('product_name') ?? null;
         $category = $request->get('category') ?? null;

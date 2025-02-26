@@ -2257,7 +2257,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         description: '',
         image_sku: [],
         price: '',
-        material: 'gold',
+        material: '',
         quantity_size_s: '',
         quantity_size_m: '',
         quantity_size_l: '',
@@ -2584,7 +2584,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         image_sku: [],
         price: '',
         quantity_size_s: '',
-        material: 'gold',
+        material: '',
         quantity_size_m: '',
         quantity_size_l: '',
         is_new: false,
@@ -2692,7 +2692,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.category = '';
       this.price = '';
       this.image = '';
-      this.material = 'gold';
+      this.material = '';
       this.is_new = false;
       this.description = '';
       this.product_sku = [{
@@ -3196,50 +3196,29 @@ var render = function render() {
       on: {
         click: _vm.handleShowBoxColor
       }
-    })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(sku.color.hex))])])])])], 1)]), _vm._v(" "), _c("div", [_c("label", {
-      staticClass: "form-control-label font-weight-bold"
-    }, [_vm._v("Chất liệu ( "), _c("span", {
-      staticClass: "text-danger"
-    }, [_vm._v("*")]), _vm._v(" ):\n                " + _vm._s(sku["material"]) + "\n              ")]), _vm._v(" "), _c("select", {
+    })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(sku.color.hex))])])])])], 1)]), _vm._v(" "), _c("div", [_vm._m(8, true), _vm._v(" "), _c("div", [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
         value: sku["material"],
         expression: "sku[`material`]"
       }],
-      staticClass: "custom-select",
-      staticStyle: {
-        height: "40px"
-      },
+      staticClass: "form-control",
       attrs: {
-        name: "category",
-        required: ""
+        type: "text",
+        defaultValue: ""
+      },
+      domProps: {
+        value: sku["material"]
       },
       on: {
-        change: function change($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
+        input: function input($event) {
+          if ($event.target.composing) return;
 
-          _vm.$set(sku, "material", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+          _vm.$set(sku, "material", $event.target.value);
         }
       }
-    }, [_c("option", {
-      attrs: {
-        value: "",
-        selected: ""
-      }
-    }, [_vm._v("Chọn chất liệu")]), _vm._v(" "), _vm._l(_vm.MATERIAL_OPTIONS, function (option) {
-      return _c("option", {
-        key: option.value,
-        domProps: {
-          value: option.value
-        }
-      }, [_vm._v("\n                  " + _vm._s(option.label) + "\n                ")]);
-    })], 2)]), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c("div", [_c("input", {
+    })])]), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c("div", [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -3248,7 +3227,8 @@ var render = function render() {
       }],
       staticClass: "form-control",
       attrs: {
-        type: "number"
+        type: "number",
+        defaultValue: "10"
       },
       domProps: {
         value: sku["quantity"]
@@ -3260,7 +3240,7 @@ var render = function render() {
           _vm.$set(sku, "quantity", $event.target.value);
         }
       }
-    })]), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c("div", [_c("textarea", {
+    })]), _vm._v(" "), _vm._m(10, true), _vm._v(" "), _c("div", [_c("textarea", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -3286,7 +3266,7 @@ var render = function render() {
       staticClass: "mr-4 w-75 h-100 box-image"
     }, [_c("div", {
       staticClass: "d-flex justify-content-between align-items-center px-2"
-    }, [_vm._m(10, true), _vm._v(" "), _c("button", {
+    }, [_vm._m(11, true), _vm._v(" "), _c("button", {
       staticClass: "btn btn-primary btn-icon-split",
       attrs: {
         type: "button"
@@ -3409,11 +3389,11 @@ var render = function render() {
     on: {
       click: _vm.addProductSku
     }
-  }, [_vm._m(11), _vm._v(" "), _c("span", {
+  }, [_vm._m(12), _vm._v(" "), _c("span", {
     staticClass: "text"
   }, [_vm._v("Thêm loại sản phẩm")])])]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
-  }, [_vm._m(12), _vm._v(" "), _c("textarea", {
+  }, [_vm._m(13), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3438,7 +3418,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
-  }, [_vm._m(13), _vm._v(" "), _c("textarea", {
+  }, [_vm._m(14), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3559,6 +3539,15 @@ var staticRenderFns = [function () {
   return _c("label", [_vm._v("Giá (VND) ( "), _c("span", {
     staticClass: "text-danger"
   }, [_vm._v("*")]), _vm._v(")")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    staticClass: "form-control-label font-weight-bold"
+  }, [_vm._v("Chất liệu ( "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]), _vm._v(" ):\n              ")]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
@@ -22370,7 +22359,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: "https://admin.mosvici.com" + '/api/v1',
+  baseURL: "http://localhost:8000" + '/api/v1',
   headers: {
     'Content-Type': 'application/json',
     timeout: 1000

@@ -144,6 +144,7 @@
                     type="number"
                   />
                 </div>
+
                 <div class="field-color">
                   <label>Màu sắc</label>
                   <popper
@@ -178,24 +179,15 @@
               <div>
                 <label class="form-control-label font-weight-bold"
                   >Chất liệu ( <span class="text-danger">*</span> ):
-                  {{ sku[`material`] }}
                 </label>
-                <select
-                  v-model="sku[`material`]"
-                  class="custom-select"
-                  name="category"
-                  required
-                  style="height: 40px"
-                >
-                  <option value="" selected>Chọn chất liệu</option>
-                  <option
-                    v-for="option in MATERIAL_OPTIONS"
-                    :key="option.value"
-                    :value="option.value"
-                  >
-                    {{ option.label }}
-                  </option>
-                </select>
+                <div>
+                  <input
+                    v-model="sku[`material`]"
+                    class="form-control"
+                    type="text"
+                    defaultValue=""
+                  />
+                </div>
               </div>
               <!-- Size -->
               <div class="mt-2">
@@ -206,6 +198,7 @@
                   v-model="sku[`quantity`]"
                   class="form-control"
                   type="number"
+                  defaultValue="10"
                 />
               </div>
               <div class="mt-2">
@@ -422,7 +415,7 @@ export default {
           description: '',
           image_sku: [],
           price: '',
-          material: 'gold',
+          material: '',
           quantity_size_s: '',
           quantity_size_m: '',
           quantity_size_l: '',
@@ -679,7 +672,7 @@ export default {
         image_sku: [],
         price: '',
         quantity_size_s: '',
-        material: 'gold',
+        material: '',
         quantity_size_m: '',
         quantity_size_l: '',
         is_new: false,
@@ -787,7 +780,7 @@ export default {
       this.category = '';
       this.price = '';
       this.image = '';
-      this.material = 'gold';
+      this.material = '';
       this.is_new = false;
       this.description = '';
       this.product_sku = [
