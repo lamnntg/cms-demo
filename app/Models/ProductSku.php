@@ -28,7 +28,8 @@ class ProductSku extends Model
         'quantity_size_xl',
         'quantity_size_2xl',
         'description',
-        'material'
+        'material',
+        'size'
     ];
 
     protected $dates = [

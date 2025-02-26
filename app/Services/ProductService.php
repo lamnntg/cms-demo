@@ -103,7 +103,6 @@ class ProductService implements ProductServiceInterface
 
             $skuIds = $product->productSkus->pluck('id')->toArray();
             ProductSku::whereIn('id', $skuIds)->forceDelete();
-
             // create with relationships
             foreach ($data['product_skus'] as $sku) {
                 ProductSku::create([
