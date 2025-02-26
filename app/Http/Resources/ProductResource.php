@@ -15,6 +15,7 @@ class ProductResource extends JsonResource
     public function toArray($request)
     {
         $data = $this->resource;
+        List($skus, $sizes) = $this->mappingSkus($data['productSkus']);
 
         return [
             'id' => $data['id'],
@@ -28,7 +29,8 @@ class ProductResource extends JsonResource
             'images' => $data['images'],
             'type' => $data['type'],
             'is_product_favorite' => $data['is_product_favorite'],
-            'product_skus' => $this->mappingSkus($data['productSkus'])
+            'product_skus' => $skus,
+            'sizes' => $sizes
         ];
     }
 
@@ -40,7 +42,9 @@ class ProductResource extends JsonResource
      */
     public function mappingSkus($productSkus) {
         $skus = [];
+        $stringSizes = "";
         foreach ($productSkus as $productSku) {
+            $stringSizes = $stringSizes . $productSku['size'];
             $skus[] = [
                 'id' => $productSku['id'],
                 'product_id' => $productSku['product_id'],
@@ -57,6 +61,6 @@ class ProductResource extends JsonResource
             ];
         }
 
-        return $skus;
+        return [$skus, array_unique(explode(",", $stringSizes))];
     }
 }
